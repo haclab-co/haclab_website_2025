@@ -6,7 +6,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import ParallaxSection from '../ui/ParallaxSection';
 import GlowingCard from '../ui/GlowingCard';
-import AwardsSchema from '../seo/AwardsSchema';
 
 const AwardsSection: React.FC = () => {
   const ref = useRef(null);
@@ -115,7 +114,6 @@ const AwardsSection: React.FC = () => {
       direction="up"
       speed={0.3}
     >
-      <AwardsSchema />
       <div className="container mx-auto px-4 md:px-6 relative z-10" ref={ref}>
         <motion.div
           className="text-center mb-16"
