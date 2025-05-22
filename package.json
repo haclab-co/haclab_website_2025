@@ -10,7 +10,8 @@
     "start": "next start",
     "lint": "next lint",
     "generate-sitemap": "node scripts/generate-sitemap.js",
-    "postbuild": "npm run generate-sitemap"
+    "postbuild": "npm run generate-sitemap",
+    "cloudflare-build": "npm install --legacy-peer-deps && NEXT_DISABLE_ESLINT=1 next build"
   },
   "dependencies": {
     "@react-three/drei": "^10.0.7",
