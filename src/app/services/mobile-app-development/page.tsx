@@ -6,6 +6,8 @@ import ServiceShowcase from '@/components/sections/ServiceShowcase';
 import CTASection from '@/components/sections/CTASection';
 import { FiSmartphone, FiLayers, FiZap, FiGlobe, FiShield, FiRefreshCw } from 'react-icons/fi';
 import type { Metadata } from 'next';
+import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
+import ServiceSchema from '@/components/seo/ServiceSchema';
 
 export const metadata: Metadata = {
   title: 'Mobile App Development Services - Haclab Company Limited',
@@ -550,6 +552,13 @@ async function deploymentPhase(app, testResults) {
 
   return (
     <>
+      <BreadcrumbSchema pageName="Mobile App Development Services" />
+      <ServiceSchema
+        name="Mobile App Development Services"
+        description="Custom mobile app development for iOS and Android. We build native and cross-platform mobile applications that engage users and drive business growth."
+        url="https://haclab.co/services/mobile-app-development"
+        serviceType="MobileAppDevelopment"
+      />
       <ServiceHeroSection
         title={heroTitle}
         description={heroDescription}

@@ -16,7 +16,7 @@ export default function ProductJsonLd({ app }: ProductJsonLdProps) {
     // Create the JSON-LD script element
     const script = document.createElement('script');
     script.type = 'application/ld+json';
-    
+
     // Generate pricing offers
     const offers = [];
     if (app.pricing) {
@@ -28,7 +28,7 @@ export default function ProductJsonLd({ app }: ProductJsonLdProps) {
         "availability": "https://schema.org/InStock",
         "url": `https://haclab.co/products/${app.id}#pricing`
       });
-      
+
       offers.push({
         "@type": "Offer",
         "name": "Professional Plan",
@@ -48,7 +48,7 @@ export default function ProductJsonLd({ app }: ProductJsonLdProps) {
         "url": `https://haclab.co/products/${app.id}#pricing`
       });
     }
-    
+
     // Create the structured data object
     const structuredData = {
       "@context": "https://schema.org",
@@ -74,7 +74,7 @@ export default function ProductJsonLd({ app }: ProductJsonLdProps) {
           "@type": "PostalAddress",
           "addressLocality": "Kampala",
           "addressRegion": "Central Region",
-          "addressCountry": "Uganda",
+          "addressCountry": "UG",
           "postalCode": "256"
         },
         "contactPoint": {
@@ -97,19 +97,19 @@ export default function ProductJsonLd({ app }: ProductJsonLdProps) {
       "availableOnDevice": ["Desktop", "Mobile", "Tablet"],
       "countriesSupported": ["Uganda", "Kenya", "Tanzania", "Rwanda", "Burundi", "South Sudan"]
     };
-    
+
     // Add the structured data to the script
     script.innerHTML = JSON.stringify(structuredData);
-    
+
     // Add the script to the document head
     document.head.appendChild(script);
-    
+
     // Clean up when component unmounts
     return () => {
       document.head.removeChild(script);
     };
   }, [app]);
-  
+
   // This component doesn't render anything visible
   return null;
 }

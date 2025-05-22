@@ -6,6 +6,8 @@ import ServiceShowcase from '@/components/sections/ServiceShowcase';
 import CTASection from '@/components/sections/CTASection';
 import { FiCode, FiDatabase, FiServer, FiLayers, FiShield, FiTrendingUp } from 'react-icons/fi';
 import type { Metadata } from 'next';
+import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
+import ServiceSchema from '@/components/seo/ServiceSchema';
 
 export const metadata: Metadata = {
   title: 'Software Development Services - Haclab Company Limited',
@@ -34,17 +36,17 @@ async function developCustomSoftware(client, requirements) {
   const businessAnalysis = await project.conductBusinessAnalysis();
   const technicalRequirements = await project.defineTechnicalRequirements();
   const architecture = await project.designArchitecture();
-  
+
   // Phase 2: Design & Development
   const ui = await project.designUserInterface();
   const database = await project.setupDatabase();
   const codebase = await project.developCore();
-  
+
   // Phase 3: Testing & Deployment
   await project.performTesting();
   await project.optimizePerformance();
   await project.deploy();
-  
+
   return project.deliverSolution();
 }`;
 
@@ -138,7 +140,7 @@ async function discoveryPhase(client) {
   const businessAnalysis = await analyzeBusiness(client);
   const stakeholderInterviews = await conductInterviews(client.stakeholders);
   const marketResearch = await researchMarket(client.industry);
-  
+
   return {
     businessRequirements: businessAnalysis.requirements,
     userPersonas: createPersonas(stakeholderInterviews),
@@ -157,11 +159,11 @@ function planningPhase(discoveryResults) {
     scale: determineScale(discoveryResults),
     security: assessSecurityNeeds(discoveryResults)
   });
-  
+
   const technologies = selectTechnologies(architecture);
   const timeline = createTimeline(architecture);
   const resources = allocateResources(timeline);
-  
+
   return {
     systemArchitecture: architecture,
     techStack: technologies,
@@ -182,10 +184,10 @@ async function developmentPhase(plan) {
   const repo = await setupRepository(plan.techStack);
   const cicd = await configureCICD(repo);
   const environments = await createEnvironments(['dev', 'staging', 'prod']);
-  
+
   // Iterative development
   const sprints = planSprints(plan.projectPlan);
-  
+
   for (const sprint of sprints) {
     await startSprint(sprint);
     await developFeatures(sprint.features);
@@ -193,7 +195,7 @@ async function developmentPhase(plan) {
     await sprintReview(sprint);
     await sprintRetrospective(sprint);
   }
-  
+
   return {
     codebase: repo.latestVersion,
     documentation: generateDocs(repo),
@@ -215,17 +217,17 @@ async function testingPhase(developmentOutput) {
     security: setupSecurityTests(developmentOutput.codebase),
     uat: setupUserAcceptanceTests(developmentOutput.codebase)
   };
-  
+
   // Execute tests
   const testResults = await runAllTests(testSuite);
   const issues = identifyIssues(testResults);
-  
+
   // Fix and verify
   if (issues.length > 0) {
     await fixIssues(issues);
     await verifyFixes(issues);
   }
-  
+
   return {
     testCoverage: calculateCoverage(testResults),
     qualityMetrics: generateQualityReport(testResults),
@@ -240,18 +242,18 @@ async function testingPhase(developmentOutput) {
 async function deploymentPhase(software, testResults) {
   // Pre-deployment checks
   const readinessCheck = verifyDeploymentReadiness(software, testResults);
-  
+
   if (readinessCheck.status === 'READY') {
     // Deployment process
     const deploymentPlan = createDeploymentPlan(software);
     await performBackup();
     await deployToProduction(software, deploymentPlan);
-    
+
     // Post-deployment
     const healthCheck = await monitorSystemHealth();
     const userTraining = await conductUserTraining();
     const documentation = finalizeDocumentation(software);
-    
+
     return {
       deploymentStatus: 'SUCCESS',
       productionUrl: software.productionUrl,
@@ -294,24 +296,31 @@ async function deploymentPhase(software, testResults) {
 
   return (
     <>
-      <ServiceHeroSection 
+      <BreadcrumbSchema pageName="Software Development Services" />
+      <ServiceSchema
+        name="Software Development Services"
+        description="Custom software development services tailored to your business needs. We build scalable, secure, and efficient software solutions."
+        url="https://haclab.co/services/software-development"
+        serviceType="SoftwareDevelopment"
+      />
+      <ServiceHeroSection
         title={heroTitle}
         description={heroDescription}
         icon={heroIcon}
         code={heroCode}
         codeTitle="software-development.js"
       />
-      <ServiceFeatures 
+      <ServiceFeatures
         title={featuresTitle}
         description={featuresDescription}
         features={features}
       />
-      <ServiceProcess 
+      <ServiceProcess
         title={processTitle}
         description={processDescription}
         steps={processSteps}
       />
-      <ServiceShowcase 
+      <ServiceShowcase
         title={showcaseTitle}
         description={showcaseDescription}
         items={showcaseItems}

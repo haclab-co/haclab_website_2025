@@ -11,7 +11,7 @@ export default function LocalBusinessSchema() {
     // Create the JSON-LD script element
     const script = document.createElement('script');
     script.type = 'application/ld+json';
-    
+
     // Create the structured data object
     const structuredData = {
       "@context": "https://schema.org",
@@ -29,7 +29,7 @@ export default function LocalBusinessSchema() {
         "streetAddress": "Kireka Kamuli Road",
         "addressLocality": "Kampala",
         "addressRegion": "Central Region",
-        "addressCountry": "Uganda",
+        "addressCountry": "UG",
         "postalCode": "256"
       },
       "geo": {
@@ -107,19 +107,19 @@ export default function LocalBusinessSchema() {
         ]
       }
     };
-    
+
     // Add the structured data to the script
     script.innerHTML = JSON.stringify(structuredData);
-    
+
     // Add the script to the document head
     document.head.appendChild(script);
-    
+
     // Clean up when component unmounts
     return () => {
       document.head.removeChild(script);
     };
   }, []);
-  
+
   // This component doesn't render anything visible
   return null;
 }

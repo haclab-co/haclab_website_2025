@@ -9,6 +9,8 @@ import GlowingButton from '@/components/ui/GlowingButton';
 import EnhancedTerminal from '@/components/ui/EnhancedTerminal';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
+import ProjectSchema from '@/components/seo/ProjectSchema';
 
 // Define projects data (this would typically come from a CMS or API)
 const projects = [
@@ -323,6 +325,19 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
 
   return (
     <>
+      {/* SEO Schema */}
+      <BreadcrumbSchema pageName={project.title} />
+      <ProjectSchema
+        title={project.title}
+        description={project.description}
+        url={`https://haclab.co/work/${project.id}`}
+        image={project.image}
+        technologies={project.technologies}
+        features={project.features}
+        codeSnippet={project.codeSnippet}
+        category={project.category}
+      />
+
       {/* Hero Section */}
       <section className="relative min-h-[50vh] flex items-center py-16 bg-dark-bg text-white overflow-hidden" ref={heroRef}>
         {/* Background elements */}

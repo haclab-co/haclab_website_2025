@@ -6,6 +6,8 @@ import ServiceShowcase from '@/components/sections/ServiceShowcase';
 import CTASection from '@/components/sections/CTASection';
 import { FiDatabase, FiServer, FiLayers, FiShield, FiZap, FiRefreshCw } from 'react-icons/fi';
 import type { Metadata } from 'next';
+import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
+import ServiceSchema from '@/components/seo/ServiceSchema';
 
 export const metadata: Metadata = {
   title: 'Database Design Services - Haclab Company Limited',
@@ -146,16 +148,16 @@ CREATE TABLE employees (
 
 -- Create a view for reporting
 CREATE VIEW employee_department_view AS
-SELECT 
+SELECT
   e.employee_id,
   e.first_name,
   e.last_name,
   e.email,
   d.department_name,
   e.salary
-FROM 
+FROM
   employees e
-JOIN 
+JOIN
   departments d ON e.department_id = d.department_id;`
     },
     {
@@ -221,7 +223,7 @@ CREATE POLICY customer_data_isolation ON customer_data
 CREATE EXTENSION pgcrypto;
 
 -- Encrypt sensitive data
-UPDATE users 
+UPDATE users
 SET credit_card = pgp_sym_encrypt(credit_card, 'encryption_key');`
     },
     {
@@ -258,22 +260,22 @@ LIMIT 10;`
 async function migrateData(sourceDb, targetDb) {
   // 1. Extract data from source
   const sourceData = await extractData(sourceDb);
-  
+
   // 2. Transform data to match new schema
   const transformedData = transformData(sourceData);
-  
+
   // 3. Validate transformed data
   const validationResults = validateData(transformedData);
   if (!validationResults.valid) {
     throw new Error(\`Data validation failed: \${validationResults.errors.join(', ')}\`);
   }
-  
+
   // 4. Load data into target database
   const migrationResults = await loadData(targetDb, transformedData);
-  
+
   // 5. Verify migration
   const verificationResults = await verifyMigration(sourceDb, targetDb);
-  
+
   return {
     status: verificationResults.success ? 'SUCCESS' : 'FAILED',
     recordsMigrated: migrationResults.count,
@@ -295,11 +297,11 @@ function requirementsAnalysis(client) {
   // Business process analysis
   const businessProcesses = identifyBusinessProcesses(client);
   const dataRequirements = extractDataRequirements(businessProcesses);
-  
+
   // Data volume and growth projections
   const dataVolume = estimateDataVolume(dataRequirements);
   const growthProjections = projectDataGrowth(dataVolume, 5); // 5-year projection
-  
+
   // Performance requirements
   const performanceRequirements = {
     throughput: defineTransactionsPerSecond(businessProcesses),
@@ -307,11 +309,11 @@ function requirementsAnalysis(client) {
     availability: defineAvailabilityRequirements(client.industry),
     concurrency: defineConcurrencyRequirements(businessProcesses)
   };
-  
+
   // Compliance and security requirements
   const complianceRequirements = identifyComplianceRequirements(client.industry);
   const securityRequirements = defineSecurityRequirements(dataRequirements, complianceRequirements);
-  
+
   return {
     dataRequirements,
     volumeProjections: growthProjections,
@@ -329,19 +331,19 @@ function conceptualDesign(requirements) {
   // Identify entities and relationships
   const entities = identifyEntities(requirements.dataRequirements);
   const relationships = identifyRelationships(entities, requirements.dataRequirements);
-  
+
   // Create entity-relationship diagram
   const erd = createEntityRelationshipDiagram(entities, relationships);
-  
+
   // Define high-level attributes
   for (const entity of entities) {
     entity.attributes = identifyAttributes(entity, requirements.dataRequirements);
     entity.primaryKey = identifyPrimaryKey(entity);
   }
-  
+
   // Validate conceptual model
   const validationResults = validateConceptualModel(erd, requirements);
-  
+
   return {
     entities,
     relationships,
@@ -357,19 +359,19 @@ function conceptualDesign(requirements) {
 function logicalDesign(conceptualModel, requirements) {
   // Choose database model based on requirements
   const databaseModel = selectDatabaseModel(requirements);
-  
+
   // Transform conceptual model to logical model
   let logicalModel;
-  
+
   if (databaseModel === 'relational') {
     // Normalize data
     const normalizedEntities = normalizeEntities(conceptualModel.entities);
-    
+
     // Define tables, columns, and constraints
     const tables = createTables(normalizedEntities);
     defineForeignKeys(tables, conceptualModel.relationships);
     defineConstraints(tables, requirements);
-    
+
     logicalModel = {
       tables,
       relationships: mapRelationshipsToForeignKeys(conceptualModel.relationships, tables)
@@ -379,13 +381,13 @@ function logicalDesign(conceptualModel, requirements) {
     const collections = designDocumentCollections(conceptualModel.entities, conceptualModel.relationships);
     defineDocumentStructure(collections);
     defineIndexes(collections, requirements);
-    
+
     logicalModel = { collections };
   }
-  
+
   // Validate logical model
   const validationResults = validateLogicalModel(logicalModel, requirements);
-  
+
   return {
     databaseModel,
     logicalModel,
@@ -400,31 +402,31 @@ function logicalDesign(conceptualModel, requirements) {
 function physicalDesign(logicalModel, requirements) {
   // Select database system
   const databaseSystem = selectDatabaseSystem(logicalModel.databaseModel, requirements);
-  
+
   // Storage design
   const storageDesign = {
     tablespaces: designTablespaces(logicalModel, requirements.volumeProjections),
     partitioning: designPartitioning(logicalModel, requirements),
     fileGroups: designFileGroups(databaseSystem, requirements)
   };
-  
+
   // Index design
   const indexes = designIndexes(logicalModel, requirements.performanceRequirements);
-  
+
   // Query optimization
   const queryPatterns = identifyQueryPatterns(requirements.dataRequirements);
   const optimizedQueries = optimizeQueries(queryPatterns, logicalModel, indexes);
-  
+
   // Security implementation
   const securityImplementation = implementSecurity(logicalModel, requirements.securityRequirements, databaseSystem);
-  
+
   // Generate physical schema
   const physicalSchema = generatePhysicalSchema(logicalModel, databaseSystem, {
     storageDesign,
     indexes,
     securityImplementation
   });
-  
+
   return {
     databaseSystem,
     physicalSchema,
@@ -441,41 +443,41 @@ function physicalDesign(logicalModel, requirements) {
 async function implementationPhase(physicalDesign, requirements) {
   // Setup database environment
   const dbEnvironment = await setupDatabaseEnvironment(physicalDesign.databaseSystem);
-  
+
   // Create database objects
   await executeSchema(dbEnvironment, physicalDesign.physicalSchema);
-  
+
   // Data migration (if applicable)
   if (requirements.existingData) {
     await migrateData(requirements.existingData, dbEnvironment);
   }
-  
+
   // Generate test data
   const testData = generateTestData(physicalDesign.physicalSchema, requirements);
   await loadTestData(dbEnvironment, testData);
-  
+
   // Performance testing
   const performanceTests = [
     testThroughput(dbEnvironment, requirements.performanceRequirements),
     testResponseTime(dbEnvironment, requirements.performanceRequirements),
     testConcurrency(dbEnvironment, requirements.performanceRequirements)
   ];
-  
+
   const performanceResults = await Promise.all(performanceTests);
-  
+
   // Functional testing
   const functionalTests = testDatabaseFunctionality(dbEnvironment, requirements.dataRequirements);
-  
+
   // Security testing
   const securityTests = testDatabaseSecurity(dbEnvironment, requirements.securityRequirements);
-  
+
   // Generate test report
   const testReport = generateTestReport({
     performance: performanceResults,
     functional: functionalTests,
     security: securityTests
   });
-  
+
   return {
     dbEnvironment,
     testReport,
@@ -514,24 +516,31 @@ async function implementationPhase(physicalDesign, requirements) {
 
   return (
     <>
-      <ServiceHeroSection 
+      <BreadcrumbSchema pageName="Database Design Services" />
+      <ServiceSchema
+        name="Database Design Services"
+        description="Professional database design and development services. We create efficient, scalable, and secure database solutions for your business needs."
+        url="https://haclab.co/services/database-design"
+        serviceType="DatabaseDesign"
+      />
+      <ServiceHeroSection
         title={heroTitle}
         description={heroDescription}
         icon={heroIcon}
         code={heroCode}
         codeTitle="database-schema.sql"
       />
-      <ServiceFeatures 
+      <ServiceFeatures
         title={featuresTitle}
         description={featuresDescription}
         features={features}
       />
-      <ServiceProcess 
+      <ServiceProcess
         title={processTitle}
         description={processDescription}
         steps={processSteps}
       />
-      <ServiceShowcase 
+      <ServiceShowcase
         title={showcaseTitle}
         description={showcaseDescription}
         items={showcaseItems}

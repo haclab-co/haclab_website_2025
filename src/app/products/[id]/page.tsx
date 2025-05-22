@@ -150,6 +150,9 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
   // Import the Enhanced Product Schema component for structured data
   const EnhancedProductSchema = React.lazy(() => import('@/components/seo/EnhancedProductSchema'));
 
+  // Import the Review Schema component for testimonials
+  const ReviewSchema = React.lazy(() => import('@/components/seo/ReviewSchema'));
+
   // Import the UgandaSpecificSection component
   const UgandaSpecificSection = React.lazy(() => import('@/components/sections/UgandaSpecificSection'));
 
@@ -1076,6 +1079,15 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
       {/* Testimonials Section - Only show if app has testimonials */}
       {app.testimonials && app.testimonials.length > 0 && (
         <section className="py-20 bg-dark-surface">
+          {/* Add Review Schema for testimonials */}
+          <React.Suspense fallback={null}>
+            <ReviewSchema
+              itemReviewed={app.name}
+              url={`https://haclab.co/products/${app.id}`}
+              reviews={app.testimonials}
+            />
+          </React.Suspense>
+
           <div className="container mx-auto px-4 md:px-6">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">
