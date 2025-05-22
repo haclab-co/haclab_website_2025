@@ -1,5 +1,7 @@
 'use client';
 
+export const runtime = 'edge';
+
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { FiArrowLeft, FiExternalLink, FiGitBranch, FiCode, FiCheckCircle } from 'react-icons/fi';
@@ -39,19 +41,19 @@ export default function VehicleFilter() {
     priceRange: [0, 100000],
     bodyType: ''
   });
-  
+
   const { data: vehicles, isLoading } = useQuery(
     ['vehicles', filters],
     () => fetchVehicles(filters)
   );
-  
+
   function handleFilterChange(key, value) {
     setFilters(prev => ({
       ...prev,
       [key]: value
     }));
   }
-  
+
   return (
     <div className="vehicle-filter">
       {/* Filter UI */}
@@ -62,7 +64,7 @@ export default function VehicleFilter() {
         {/* Price range slider */}
         {/* Body type checkboxes */}
       </div>
-      
+
       {/* Results */}
       <div className="vehicle-results">
         {isLoading ? (
@@ -108,25 +110,25 @@ class JobController extends Controller
             'scheduled_date' => 'required|date',
             'technician_id' => 'nullable|exists:users,id'
         ]);
-        
+
         // Create the job
         $job = Job::create($validated);
-        
+
         // Create initial job status
         $job->statuses()->create([
             'status' => 'pending',
             'notes' => 'Job created',
             'user_id' => auth()->id()
         ]);
-        
+
         // Notify assigned technician if any
         if ($job->technician_id) {
             $job->technician->notify(new JobAssigned($job));
         }
-        
+
         // Notify customer
         $job->customer->notify(new JobCreated($job));
-        
+
         return response()->json([
             'message' => 'Job created successfully',
             'job' => $job->load('vehicle', 'customer', 'technician')
@@ -244,16 +246,16 @@ import { getSimilarProducts } from '@/lib/recommendations';
 
 export async function getProductRecommendations(req, res) {
   const { productId, userId } = req.query;
-  
+
   try {
     // Get user's purchase history and browsing behavior
-    const userProfile = userId 
+    const userProfile = userId
       ? await getUserProfile(userId)
       : null;
-    
+
     // Get product details
     const product = await getProductById(productId);
-    
+
     // Generate recommendations based on product attributes
     // and user behavior if available
     const recommendations = await getSimilarProducts({
@@ -262,7 +264,7 @@ export async function getProductRecommendations(req, res) {
       limit: 8,
       excludeIds: [productId]
     });
-    
+
     return res.status(200).json({
       success: true,
       recommendations
@@ -281,19 +283,19 @@ export async function getProductRecommendations(req, res) {
 export default function ProjectPage({ params }: { params: { slug: string } }) {
   const { slug } = params;
   const project = projects.find(p => p.id === slug);
-  
+
   // If project not found, return 404
   if (!project) {
     notFound();
   }
-  
+
   const heroRef = useRef(null);
   const isHeroInView = useInView(heroRef, { once: true });
   const detailsRef = useRef(null);
   const isDetailsInView = useInView(detailsRef, { once: true, amount: 0.2 });
   const codeRef = useRef(null);
   const isCodeInView = useInView(codeRef, { once: true, amount: 0.2 });
-  
+
   // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -305,7 +307,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
       }
     }
   };
-  
+
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: (i) => ({
@@ -336,14 +338,14 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
           <Link href="/work" className="inline-flex items-center text-gray-300 hover:text-white mb-8 transition-colors">
             <FiArrowLeft className="mr-2" /> Back to Projects
           </Link>
-          
+
           <motion.div
             className="max-w-4xl"
             initial={{ opacity: 0, y: 20 }}
             animate={isHeroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.7, ease: "easeOut" }}
           >
-            <motion.div 
+            <motion.div
               className="inline-flex items-center justify-center p-2 bg-dark-surface rounded-full mb-6"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={isHeroInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
@@ -353,8 +355,8 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
                 {project.category.charAt(0).toUpperCase() + project.category.slice(1)} Project
               </span>
             </motion.div>
-            
-            <motion.h1 
+
+            <motion.h1
               className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-6"
               initial={{ opacity: 0, y: 20 }}
               animate={isHeroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
@@ -362,8 +364,8 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
             >
               {project.title}
             </motion.h1>
-            
-            <motion.p 
+
+            <motion.p
               className="text-xl text-gray-300 mb-8 max-w-3xl"
               initial={{ opacity: 0, y: 20 }}
               animate={isHeroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
@@ -371,7 +373,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
             >
               {project.description}
             </motion.p>
-            
+
             <motion.div
               className="flex flex-wrap gap-3 mb-8"
               initial={{ opacity: 0, y: 20 }}
@@ -387,14 +389,14 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
                 </span>
               ))}
             </motion.div>
-            
+
             {project.link && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={isHeroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 transition={{ delay: 0.6, duration: 0.7 }}
               >
-                <GlowingButton 
+                <GlowingButton
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -425,30 +427,30 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
                 <span>{project.title} Screenshot</span>
               </div>
             </motion.div>
-            
+
             <motion.div
               variants={containerVariants}
               initial="hidden"
               animate={isDetailsInView ? "visible" : "hidden"}
             >
-              <motion.h2 
+              <motion.h2
                 className="text-2xl font-display font-bold mb-6"
                 variants={itemVariants}
                 custom={0}
               >
                 Project Overview
               </motion.h2>
-              
+
               <motion.div className="mb-8" variants={itemVariants} custom={1}>
                 <h3 className="text-xl font-display font-semibold mb-3">The Challenge</h3>
                 <p className="text-gray-300">{project.challenge}</p>
               </motion.div>
-              
+
               <motion.div className="mb-8" variants={itemVariants} custom={2}>
                 <h3 className="text-xl font-display font-semibold mb-3">Our Solution</h3>
                 <p className="text-gray-300">{project.solution}</p>
               </motion.div>
-              
+
               <motion.div variants={itemVariants} custom={3}>
                 <h3 className="text-xl font-display font-semibold mb-3">Key Features</h3>
                 <ul className="space-y-2">
@@ -464,7 +466,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
           </div>
         </div>
       </section>
-      
+
       {/* Code Showcase Section */}
       <section className="py-20 bg-dark-bg text-white" ref={codeRef}>
         <div className="container mx-auto px-4 md:px-6">
@@ -481,7 +483,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
               A glimpse into the code that powers this solution, showcasing our technical expertise and approach.
             </p>
           </motion.div>
-          
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isCodeInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
