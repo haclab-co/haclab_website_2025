@@ -300,7 +300,7 @@ async function deploymentPhase(software, testResults) {
       <ServiceSchema
         name="Software Development Services"
         description="Custom software development services tailored to your business needs. We build scalable, secure, and efficient software solutions."
-        url="https://haclab.co/services/software-development"
+        url="https://haclab.net/services/software-development"
         serviceType="SoftwareDevelopment"
       />
       <ServiceHeroSection

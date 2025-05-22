@@ -96,7 +96,7 @@ async function getDynamicRoutes() {
 async function generateSitemap() {
   try {
     const routes = await getAllRoutes();
-    const baseUrl = 'https://haclab.co';
+    const baseUrl = 'https://haclab.net';
     
     const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"

@@ -8,6 +8,7 @@ import PageTransition from "@/components/ui/PageTransition";
 import OrganizationSchema from "@/components/seo/OrganizationSchema";
 import LocalBusinessSchema from "@/components/seo/LocalBusinessSchema";
 import WebsiteSchema from "@/components/seo/WebsiteSchema";
+import SitelinksSearchBoxSchema from "@/components/seo/SitelinksSearchBoxSchema";
 import GoogleAnalytics from "@/components/seo/GoogleAnalytics";
 import TawkToChat from "@/components/ui/TawkToChat";
 import { TAWKTO_CONFIG } from "@/config/tawkto";
@@ -54,18 +55,18 @@ export const metadata: Metadata = {
   },
   manifest: '/assets/images/favicon/site.webmanifest',
   alternates: {
-    canonical: 'https://haclab.co',
+    canonical: 'https://haclab.net',
   },
   openGraph: {
     type: 'website',
     locale: 'en_UG',
-    url: 'https://haclab.co',
+    url: 'https://haclab.net',
     title: 'Haclab Company Limited - Custom Software Development in Uganda',
     description: 'Leading software development company in Kampala, Uganda providing web development, mobile apps, and custom software solutions for businesses across Uganda and East Africa.',
     siteName: 'Haclab Company Limited',
     images: [
       {
-        url: 'https://haclab.co/assets/images/og-image.jpg',
+        url: 'https://haclab.net/assets/images/og-image.jpg',
         width: 1200,
         height: 630,
         alt: 'Haclab Company Limited - Software Development in Uganda',
@@ -76,7 +77,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Haclab Company Limited - Software Development in Uganda',
     description: 'Leading software development company in Kampala, Uganda providing web development, mobile apps, and custom software solutions.',
-    images: ['https://haclab.co/assets/images/og-image.jpg'],
+    images: ['https://haclab.net/assets/images/og-image.jpg'],
     creator: '@HaclabCo',
   },
   robots: {
@@ -93,7 +94,7 @@ export const metadata: Metadata = {
     google: 'verification_token',
   },
   category: 'technology',
-  metadataBase: new URL('https://haclab.co'),
+  metadataBase: new URL('https://haclab.net'),
 };
 
 export default function RootLayout({
@@ -111,6 +112,7 @@ export default function RootLayout({
           <OrganizationSchema />
           <LocalBusinessSchema />
           <WebsiteSchema />
+          <SitelinksSearchBoxSchema />
 
           {/* Google Analytics */}
           {ANALYTICS_CONFIG.enabled && (

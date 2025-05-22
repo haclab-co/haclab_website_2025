@@ -16,10 +16,10 @@ export default function LocalBusinessSchema() {
     const structuredData = {
       "@context": "https://schema.org",
       "@type": "LocalBusiness",
-      "@id": "https://haclab.co",
+      "@id": "https://haclab.net",
       "name": "Haclab Company Limited",
-      "image": "https://haclab.co/assets/images/logo.png",
-      "url": "https://haclab.co",
+      "image": "https://haclab.net/assets/images/logo.png",
+      "url": "https://haclab.net",
       "telephone": "+256-781-343882",
       "email": "info@haclab.net",
       "priceRange": "$$",

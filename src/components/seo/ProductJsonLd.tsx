@@ -26,7 +26,7 @@ export default function ProductJsonLd({ app }: ProductJsonLdProps) {
         "price": app.pricing.basic,
         "priceCurrency": "USD",
         "availability": "https://schema.org/InStock",
-        "url": `https://haclab.co/products/${app.id}#pricing`
+        "url": `https://haclab.net/products/${app.id}#pricing`
       });
 
       offers.push({
@@ -35,7 +35,7 @@ export default function ProductJsonLd({ app }: ProductJsonLdProps) {
         "price": app.pricing.professional,
         "priceCurrency": "USD",
         "availability": "https://schema.org/InStock",
-        "url": `https://haclab.co/products/${app.id}#pricing`
+        "url": `https://haclab.net/products/${app.id}#pricing`
       });
     } else {
       // Default pricing if not specified
@@ -45,7 +45,7 @@ export default function ProductJsonLd({ app }: ProductJsonLdProps) {
         "price": 49,
         "priceCurrency": "USD",
         "availability": "https://schema.org/InStock",
-        "url": `https://haclab.co/products/${app.id}#pricing`
+        "url": `https://haclab.net/products/${app.id}#pricing`
       });
     }
 
@@ -59,17 +59,17 @@ export default function ProductJsonLd({ app }: ProductJsonLdProps) {
       "offers": offers,
       "description": app.description,
       "softwareVersion": app.version,
-      "image": `https://haclab.co/images/app-icons/${app.id}.png`,
+      "image": `https://haclab.net/images/app-icons/${app.id}.png`,
       "screenshot": app.screenshots ? app.screenshots.map(screenshot => ({
         "@type": "ImageObject",
-        "url": `https://haclab.co${screenshot}`
+        "url": `https://haclab.net${screenshot}`
       })) : [],
       "featureList": app.features ? app.features.join(", ") : "",
       "author": {
         "@type": "Organization",
         "name": "Haclab Company Limited",
-        "url": "https://haclab.co",
-        "logo": "https://haclab.co/assets/images/logo.png",
+        "url": "https://haclab.net",
+        "logo": "https://haclab.net/assets/images/logo.png",
         "address": {
           "@type": "PostalAddress",
           "addressLocality": "Kampala",
@@ -88,7 +88,7 @@ export default function ProductJsonLd({ app }: ProductJsonLdProps) {
       "provider": {
         "@type": "Organization",
         "name": "Haclab Company Limited",
-        "url": "https://haclab.co"
+        "url": "https://haclab.net"
       },
       "audience": {
         "@type": "Audience",

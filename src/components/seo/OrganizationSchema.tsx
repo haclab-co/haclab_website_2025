@@ -18,8 +18,8 @@ export default function OrganizationSchema() {
       "@context": "https://schema.org",
       "@type": "Organization",
       "name": "Haclab Company Limited",
-      "url": "https://haclab.co",
-      "logo": "https://haclab.co/assets/images/logo.png",
+      "url": "https://haclab.net",
+      "logo": "https://haclab.net/assets/images/logo.png",
       "description": "Haclab Company Limited is a custom software development company based in Kampala, Uganda, providing modern IT solutions including web development, mobile app development, and more.",
       "foundingDate": "2018",
       "founders": [

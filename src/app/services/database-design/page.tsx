@@ -520,7 +520,7 @@ async function implementationPhase(physicalDesign, requirements) {
       <ServiceSchema
         name="Database Design Services"
         description="Professional database design and development services. We create efficient, scalable, and secure database solutions for your business needs."
-        url="https://haclab.co/services/database-design"
+        url="https://haclab.net/services/database-design"
         serviceType="DatabaseDesign"
       />
       <ServiceHeroSection

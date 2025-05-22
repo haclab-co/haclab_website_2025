@@ -849,7 +849,7 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
                       <div className="bg-gray-700 rounded-md h-6 mb-4 flex items-center px-4">
                         <div className="flex items-center w-full">
                           <div className="text-xs text-gray-400 font-code mr-2">https://</div>
-                          <div className="text-xs text-gray-300 font-code">{app.id}.haclab.co</div>
+                          <div className="text-xs text-gray-300 font-code">{app.id}.haclab.net</div>
                           <div className="flex-grow"></div>
                         </div>
                       </div>
@@ -1083,7 +1083,7 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
           <React.Suspense fallback={null}>
             <ReviewSchema
               itemReviewed={app.name}
-              url={`https://haclab.co/products/${app.id}`}
+              url={`https://haclab.net/products/${app.id}`}
               reviews={app.testimonials}
             />
           </React.Suspense>

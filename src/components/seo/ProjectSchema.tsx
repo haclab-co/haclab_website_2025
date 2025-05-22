@@ -33,7 +33,7 @@ export default function ProjectSchema({
     // Create the JSON-LD script element
     const script = document.createElement('script');
     script.type = 'application/ld+json';
-    
+
     // Create the structured data object
     const structuredData = {
       "@context": "https://schema.org",
@@ -41,18 +41,18 @@ export default function ProjectSchema({
       "name": title,
       "description": description,
       "url": url,
-      "image": image || "https://haclab.co/assets/images/logo.png",
+      "image": image || "https://haclab.net/assets/images/logo.png",
       "datePublished": datePublished,
       "author": {
         "@type": "Organization",
         "name": "Haclab Company Limited",
-        "url": "https://haclab.co"
+        "url": "https://haclab.net"
       },
       "keywords": [...technologies, ...features, "Uganda", "Kampala", "software development"].join(", "),
       "provider": {
         "@type": "Organization",
         "name": "Haclab Company Limited",
-        "url": "https://haclab.co"
+        "url": "https://haclab.net"
       }
     };
 
@@ -60,7 +60,7 @@ export default function ProjectSchema({
     if (codeSnippet) {
       structuredData["programmingLanguage"] = detectProgrammingLanguage(codeSnippet);
       structuredData["codeSampleType"] = "code snippet";
-      structuredData["codeRepository"] = "https://haclab.co/work";
+      structuredData["codeRepository"] = "https://haclab.net/work";
     }
 
     // Add category if available
@@ -72,19 +72,19 @@ export default function ProjectSchema({
     if (technologies && technologies.length > 0) {
       structuredData["featureList"] = technologies.join(", ");
     }
-    
+
     // Add the structured data to the script
     script.innerHTML = JSON.stringify(structuredData);
-    
+
     // Add the script to the document head
     document.head.appendChild(script);
-    
+
     // Clean up when component unmounts
     return () => {
       document.head.removeChild(script);
     };
   }, [title, description, url, image, datePublished, technologies, features, codeSnippet, category]);
-  
+
   // Helper function to detect programming language from code snippet
   function detectProgrammingLanguage(code: string): string {
     if (code.includes('import React') || code.includes('function') || code.includes('=>') || code.includes('const ')) {
@@ -101,7 +101,7 @@ export default function ProjectSchema({
       return 'Mixed';
     }
   }
-  
+
   // This component doesn't render anything visible
   return null;
 }

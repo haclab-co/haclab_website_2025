@@ -330,7 +330,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
       <ProjectSchema
         title={project.title}
         description={project.description}
-        url={`https://haclab.co/work/${project.id}`}
+        url={`https://haclab.net/work/${project.id}`}
         image={project.image}
         technologies={project.technologies}
         features={project.features}

@@ -63,7 +63,7 @@ export default function ProductSupportSection({ app, className = '' }: ProductSu
       icon: <FiFileText className="text-haclab-red" size={24} />,
       title: "Documentation",
       description: "Access comprehensive guides and documentation for self-service support",
-      contact: `docs.haclab.co/${app.id}`,
+      contact: `docs.haclab.net/${app.id}`,
       hours: "Available 24/7"
     },
     {
@@ -91,7 +91,7 @@ export default function ProductSupportSection({ app, className = '' }: ProductSu
           </p>
         </div>
 
-        <motion.div 
+        <motion.div
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
           variants={containerVariants}
           initial="hidden"

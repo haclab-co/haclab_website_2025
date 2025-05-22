@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Web Development Services in Uganda - Haclab Company Limited',
     description: 'Professional web development services for businesses in Kampala and across Uganda. Responsive websites, web applications, and e-commerce solutions.',
-    url: 'https://haclab.co/services/web-development',
+    url: 'https://haclab.net/services/web-development',
     type: 'website',
   },
 };
@@ -428,7 +428,7 @@ async function deploymentPhase(website, testResults) {
       <ServiceSchema
         name="Web Development Services"
         description="Professional web development services in Kampala, Uganda. We create responsive websites, web applications, e-commerce solutions, and content management systems optimized for Ugandan businesses."
-        url="https://haclab.co/services/web-development"
+        url="https://haclab.net/services/web-development"
         serviceType="WebDevelopment"
       />
       <ServiceHeroSection

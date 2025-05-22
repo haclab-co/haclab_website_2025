@@ -27,7 +27,7 @@ export default function EnhancedProductSchema({ app }: EnhancedProductSchemaProp
         "price": app.pricing.basic,
         "priceCurrency": "USD",
         "availability": "https://schema.org/InStock",
-        "url": `https://haclab.co/products/${app.id}#pricing`,
+        "url": `https://haclab.net/products/${app.id}#pricing`,
         "priceValidUntil": new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0],
         "areaServed": ["Uganda", "Kenya", "Tanzania", "Rwanda", "Burundi", "South Sudan"],
         "eligibleRegion": {
@@ -48,7 +48,7 @@ export default function EnhancedProductSchema({ app }: EnhancedProductSchemaProp
           "price": app.pricing.professional,
           "priceCurrency": "USD",
           "availability": "https://schema.org/InStock",
-          "url": `https://haclab.co/products/${app.id}#pricing`,
+          "url": `https://haclab.net/products/${app.id}#pricing`,
           "priceValidUntil": new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0],
           "areaServed": ["Uganda", "Kenya", "Tanzania", "Rwanda", "Burundi", "South Sudan"],
           "eligibleRegion": {
@@ -70,7 +70,7 @@ export default function EnhancedProductSchema({ app }: EnhancedProductSchemaProp
         "price": 49,
         "priceCurrency": "USD",
         "availability": "https://schema.org/InStock",
-        "url": `https://haclab.co/products/${app.id}#pricing`,
+        "url": `https://haclab.net/products/${app.id}#pricing`,
         "priceValidUntil": new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0]
       });
     }
@@ -126,10 +126,10 @@ export default function EnhancedProductSchema({ app }: EnhancedProductSchemaProp
       "offers": offers,
       "description": app.description,
       "softwareVersion": app.version || "1.0",
-      "image": `https://haclab.co/images/app-icons/${app.id}.png`,
+      "image": `https://haclab.net/images/app-icons/${app.id}.png`,
       "screenshot": app.screenshots ? app.screenshots.map(screenshot => ({
         "@type": "ImageObject",
-        "url": `https://haclab.co${screenshot}`,
+        "url": `https://haclab.net${screenshot}`,
         "caption": `${app.name} - ${app.type} for Uganda businesses`
       })) : [],
       "featureList": app.features ? app.features.join(", ") : "",
@@ -155,13 +155,13 @@ export default function EnhancedProductSchema({ app }: EnhancedProductSchemaProp
       "maintainer": {
         "@type": "Organization",
         "name": "Haclab Company Limited",
-        "url": "https://haclab.co"
+        "url": "https://haclab.net"
       },
       "author": {
         "@type": "Organization",
         "name": "Haclab Company Limited",
-        "url": "https://haclab.co",
-        "logo": "https://haclab.co/assets/images/logo.png",
+        "url": "https://haclab.net",
+        "logo": "https://haclab.net/assets/images/logo.png",
         "address": {
           "@type": "PostalAddress",
           "streetAddress": "Kireka Kamuli Road",
@@ -181,7 +181,7 @@ export default function EnhancedProductSchema({ app }: EnhancedProductSchemaProp
       "provider": {
         "@type": "Organization",
         "name": "Haclab Company Limited",
-        "url": "https://haclab.co"
+        "url": "https://haclab.net"
       },
       "audience": {
         "@type": "Audience",
@@ -189,9 +189,9 @@ export default function EnhancedProductSchema({ app }: EnhancedProductSchemaProp
       },
       "availableOnDevice": ["Desktop", "Mobile", "Tablet"],
       "countriesSupported": ["Uganda", "Kenya", "Tanzania", "Rwanda", "Burundi", "South Sudan"],
-      "installUrl": app.demoUrl || `https://haclab.co/products/${app.id}#demo`,
-      "downloadUrl": app.downloadUrl || `https://haclab.co/products/${app.id}#download`,
-      "releaseNotes": `https://haclab.co/products/${app.id}/release-notes`,
+      "installUrl": app.demoUrl || `https://haclab.net/products/${app.id}#demo`,
+      "downloadUrl": app.downloadUrl || `https://haclab.net/products/${app.id}#download`,
+      "releaseNotes": `https://haclab.net/products/${app.id}/release-notes`,
       "review": {
         "@type": "Review",
         "reviewRating": {

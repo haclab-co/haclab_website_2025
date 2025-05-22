@@ -556,7 +556,7 @@ async function deploymentPhase(app, testResults) {
       <ServiceSchema
         name="Mobile App Development Services"
         description="Custom mobile app development for iOS and Android. We build native and cross-platform mobile applications that engage users and drive business growth."
-        url="https://haclab.co/services/mobile-app-development"
+        url="https://haclab.net/services/mobile-app-development"
         serviceType="MobileAppDevelopment"
       />
       <ServiceHeroSection

@@ -19,9 +19,9 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
   // Generate app-specific keywords based on app type
   const getAppKeywords = (app: any) => {
     const commonKeywords = [
-      `${app.name} Uganda`, 
-      `${app.type} Uganda`, 
-      `${app.type} Kampala`, 
+      `${app.name} Uganda`,
+      `${app.type} Uganda`,
+      `${app.type} Kampala`,
       `${app.name} software Kampala`,
       `${app.type} Entebbe`,
       `${app.type} Jinja`,
@@ -79,12 +79,12 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
   // Generate a description that includes Uganda-specific content
   const getEnhancedDescription = (app: any) => {
     const baseDescription = app.longDescription || app.description || `${app.name} - ${app.type}`;
-    
+
     // Add Uganda-specific content if not already present
     if (!baseDescription.includes('Uganda')) {
       return `${baseDescription} Specifically designed for businesses in Uganda and East Africa, with local support in Kampala, Entebbe, Jinja, Mukono, and Wakiso.`;
     }
-    
+
     return baseDescription;
   };
 
@@ -95,11 +95,11 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
     openGraph: {
       title: `${app.name} - ${app.type} for Uganda Businesses | Haclab`,
       description: getEnhancedDescription(app),
-      url: `https://haclab.co/products/${app.id}`,
-      type: 'product',
+      url: `https://haclab.net/products/${app.id}`,
+      type: 'website',
       images: [
         {
-          url: `https://haclab.co/images/app-icons/${app.id}.png`,
+          url: `https://haclab.net/images/app-icons/${app.id}.png`,
           width: 512,
           height: 512,
           alt: `${app.name} - ${app.type} for businesses in Uganda`
@@ -112,11 +112,11 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
       card: 'summary_large_image',
       title: `${app.name} - ${app.type} for Uganda Businesses`,
       description: getEnhancedDescription(app),
-      images: [`https://haclab.co/images/app-icons/${app.id}.png`],
+      images: [`https://haclab.net/images/app-icons/${app.id}.png`],
       creator: '@HaclabCo',
     },
     alternates: {
-      canonical: `https://haclab.co/products/${app.id}`,
+      canonical: `https://haclab.net/products/${app.id}`,
     },
     robots: {
       index: true,

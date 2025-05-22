@@ -4,7 +4,7 @@ import path from 'path';
 import { apps } from '@/data/apps';
 import { projects } from '@/data/projects';
 
-const SITE_URL = 'https://haclab.co';
+const SITE_URL = 'https://haclab.net';
 
 /**
  * Generate sitemap.xml for the website
@@ -35,7 +35,7 @@ export async function generateSitemap() {
 
     // Add dynamic routes for products
     const productRoutes = apps.map((app) => `/products/${app.id}`);
-    
+
     // Add dynamic routes for projects
     const projectRoutes = projects.map((project) => `/work/${project.id}`);
 
@@ -53,7 +53,7 @@ ${allRoutes
   .map((route) => {
     // Skip any routes that contain brackets (dynamic routes not handled)
     if (route.includes('[') || route.includes(']')) return '';
-    
+
     return `  <url>
     <loc>${SITE_URL}${route}</loc>
     <lastmod>${new Date().toISOString()}</lastmod>
@@ -68,7 +68,7 @@ ${allRoutes
     // Write sitemap to public directory
     const publicDir = path.join(process.cwd(), 'public');
     fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), sitemap);
-    
+
     console.log('Sitemap generated successfully!');
     return sitemap;
   } catch (error) {

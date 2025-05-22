@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Software Development Services in Uganda - Haclab Company Limited',
     description: 'Professional software development services for businesses in Kampala and across Uganda. Web development, mobile apps, and custom software solutions.',
-    url: 'https://haclab.co/services',
+    url: 'https://haclab.net/services',
     type: 'website',
   },
 };
