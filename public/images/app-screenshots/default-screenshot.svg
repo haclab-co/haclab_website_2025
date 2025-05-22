@@ -1,0 +1,102 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1200" height="800" fill="#121212" />
+  
+  <!-- Header -->
+  <rect width="1200" height="70" fill="#ff0000" />
+  <text x="20" y="45" font-family="Arial" font-size="24" font-weight="bold" fill="white">App Dashboard</text>
+  <text x="1160" y="45" font-family="Arial" font-size="14" text-anchor="end" fill="white">v1.0.0</text>
+  
+  <!-- Sidebar -->
+  <rect x="0" y="70" width="200" height="730" fill="#1e1e1e" />
+  
+  <!-- Menu Items -->
+  <rect x="0" y="100" width="200" height="40" fill="#ff0000" fill-opacity="0.2" />
+  <rect x="0" y="100" width="4" height="40" fill="#ff0000" />
+  <text x="20" y="125" font-family="Arial" font-size="14" fill="white">Dashboard</text>
+  
+  <text x="20" y="175" font-family="Arial" font-size="14" fill="#aaaaaa">Analytics</text>
+  <text x="20" y="225" font-family="Arial" font-size="14" fill="#aaaaaa">Reports</text>
+  <text x="20" y="275" font-family="Arial" font-size="14" fill="#aaaaaa">Settings</text>
+  <text x="20" y="325" font-family="Arial" font-size="14" fill="#aaaaaa">Users</text>
+  
+  <!-- Main Content -->
+  <!-- Cards -->
+  <rect x="220" y="90" width="300" height="180" rx="5" fill="#252525" />
+  <text x="240" y="120" font-family="Arial" font-size="16" font-weight="bold" fill="white">Total Users</text>
+  <text x="240" y="160" font-family="Arial" font-size="28" font-weight="bold" fill="white">2,543</text>
+  <text x="240" y="190" font-family="Arial" font-size="14" fill="#aaaaaa">↑ 12% from last month</text>
+  
+  <rect x="540" y="90" width="300" height="180" rx="5" fill="#252525" />
+  <text x="560" y="120" font-family="Arial" font-size="16" font-weight="bold" fill="white">Revenue</text>
+  <text x="560" y="160" font-family="Arial" font-size="28" font-weight="bold" fill="white">$12,850</text>
+  <text x="560" y="190" font-family="Arial" font-size="14" fill="#aaaaaa">↑ 8% from last month</text>
+  
+  <rect x="860" y="90" width="300" height="180" rx="5" fill="#252525" />
+  <text x="880" y="120" font-family="Arial" font-size="16" font-weight="bold" fill="white">Conversion Rate</text>
+  <text x="880" y="160" font-family="Arial" font-size="28" font-weight="bold" fill="white">3.6%</text>
+  <text x="880" y="190" font-family="Arial" font-size="14" fill="#aaaaaa">↑ 2% from last month</text>
+  
+  <!-- Table -->
+  <rect x="220" y="290" width="940" height="400" rx="5" fill="#252525" />
+  <rect x="220" y="290" width="940" height="50" rx="5" fill="#333333" />
+  
+  <text x="250" y="320" font-family="Arial" font-size="14" font-weight="bold" fill="white">Name</text>
+  <text x="450" y="320" font-family="Arial" font-size="14" font-weight="bold" fill="white">Date</text>
+  <text x="650" y="320" font-family="Arial" font-size="14" font-weight="bold" fill="white">Amount</text>
+  <text x="850" y="320" font-family="Arial" font-size="14" font-weight="bold" fill="white">Status</text>
+  
+  <!-- Table Rows -->
+  <rect x="220" y="340" width="940" height="60" fill="#1e1e1e" />
+  <text x="250" y="375" font-family="Arial" font-size="14" fill="white">John Smith</text>
+  <text x="450" y="375" font-family="Arial" font-size="14" fill="white">2023-05-12</text>
+  <text x="650" y="375" font-family="Arial" font-size="14" fill="white">$120.00</text>
+  <rect x="850" y="360" width="80" height="30" rx="15" fill="#4caf50" fill-opacity="0.2" />
+  <text x="890" y="380" font-family="Arial" font-size="12" text-anchor="middle" fill="#4caf50">Active</text>
+  
+  <rect x="220" y="400" width="940" height="60" fill="#252525" />
+  <text x="250" y="435" font-family="Arial" font-size="14" fill="white">Sarah Johnson</text>
+  <text x="450" y="435" font-family="Arial" font-size="14" fill="white">2023-05-11</text>
+  <text x="650" y="435" font-family="Arial" font-size="14" fill="white">$85.50</text>
+  <rect x="850" y="420" width="80" height="30" rx="15" fill="#4caf50" fill-opacity="0.2" />
+  <text x="890" y="440" font-family="Arial" font-size="12" text-anchor="middle" fill="#4caf50">Active</text>
+  
+  <rect x="220" y="460" width="940" height="60" fill="#1e1e1e" />
+  <text x="250" y="495" font-family="Arial" font-size="14" fill="white">Michael Brown</text>
+  <text x="450" y="495" font-family="Arial" font-size="14" fill="white">2023-05-10</text>
+  <text x="650" y="495" font-family="Arial" font-size="14" fill="white">$220.75</text>
+  <rect x="850" y="480" width="80" height="30" rx="15" fill="#ff9800" fill-opacity="0.2" />
+  <text x="890" y="500" font-family="Arial" font-size="12" text-anchor="middle" fill="#ff9800">Pending</text>
+  
+  <rect x="220" y="520" width="940" height="60" fill="#252525" />
+  <text x="250" y="555" font-family="Arial" font-size="14" fill="white">Emily Davis</text>
+  <text x="450" y="555" font-family="Arial" font-size="14" fill="white">2023-05-09</text>
+  <text x="650" y="555" font-family="Arial" font-size="14" fill="white">$65.25</text>
+  <rect x="850" y="540" width="80" height="30" rx="15" fill="#4caf50" fill-opacity="0.2" />
+  <text x="890" y="560" font-family="Arial" font-size="12" text-anchor="middle" fill="#4caf50">Active</text>
+  
+  <!-- Code Overlay -->
+  <rect x="0" y="0" width="1200" height="800" fill="url(#code-gradient)" fill-opacity="0.2" />
+  
+  <!-- Code Text -->
+  <text x="20" y="720" font-family="monospace" font-size="12" fill="#00ff00" fill-opacity="0.7">
+    <tspan x="20" dy="0">import { Dashboard } from './components';</tspan>
+    <tspan x="20" dy="20">import { useData } from './hooks';</tspan>
+    <tspan x="20" dy="20"></tspan>
+    <tspan x="20" dy="20">function App() {</tspan>
+    <tspan x="20" dy="20">  const { data, loading } = useData();</tspan>
+    <tspan x="20" dy="20"></tspan>
+    <tspan x="20" dy="20">  return (</tspan>
+    <tspan x="20" dy="20">    &lt;Dashboard data={data} /&gt;</tspan>
+    <tspan x="20" dy="20">  );</tspan>
+    <tspan x="20" dy="20">}</tspan>
+  </text>
+  
+  <!-- Definitions -->
+  <defs>
+    <linearGradient id="code-gradient" x1="0" y1="0" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+    </linearGradient>
+  </defs>
+</svg>

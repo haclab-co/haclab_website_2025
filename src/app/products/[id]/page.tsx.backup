@@ -1,0 +1,408 @@
+'use client';
+
+import React, { useState, useRef, useEffect } from 'react';
+import { motion, useInView, AnimatePresence } from 'framer-motion';
+import {
+  FiCode, FiServer, FiDatabase, FiLayers, FiPackage,
+  FiCpu, FiGitBranch, FiTerminal, FiShoppingCart,
+  FiTruck, FiCalendar, FiUsers, FiCheck, FiDownload,
+  FiStar, FiMessageCircle, FiHelpCircle, FiArrowRight,
+  FiMonitor, FiSmartphone, FiTablet, FiCreditCard
+} from 'react-icons/fi';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { notFound } from 'next/navigation';
+import GlowingButton from '@/components/ui/GlowingButton';
+import EnhancedTerminal from '@/components/ui/EnhancedTerminal';
+import { apps, AppData } from '@/data/apps';
+
+// Icons mapping for different app types
+const getAppIcon = (id: string) => {
+  switch (id) {
+    case 'abacus': return <FiLayers size={32} className="text-white" />;
+    case 'homz':
+    case 'inncontrol': return <FiUsers size={32} className="text-white" />;
+    case 'kanify':
+    case 'zenwrench': return <FiTruck size={32} className="text-white" />;
+    case 'lenkit': return <FiDatabase size={32} className="text-white" />;
+    case 'smart': return <FiCalendar size={32} className="text-white" />;
+    case 'evia': return <FiShoppingCart size={32} className="text-white" />;
+    case 'kyeyo': return <FiUsers size={32} className="text-white" />;
+    case 'prosy': return <FiServer size={32} className="text-white" />;
+    case 'mission-control': return <FiCpu size={32} className="text-white" />;
+    default: return <FiPackage size={32} className="text-white" />;
+  }
+};
+
+// Generate code snippets based on app type
+const getCodeSnippet = (app: any) => {
+  switch (app.id) {
+    case 'abacus':
+      return `// Abacus Inventory Management
+import { InventoryManager } from '@haclab/abacus-core';
+import { BarcodeScanner } from '@haclab/abacus-hardware';
+
+// Initialize inventory manager
+const inventoryManager = new InventoryManager({
+  database: 'inventory.db',
+  autoSync: true,
+  backupInterval: 24 * 60 * 60 * 1000 // Daily backup
+});
+
+// Scan product barcode
+async function scanProduct() {
+  try {
+    const barcode = await BarcodeScanner.scan();
+    const product = await inventoryManager.getProductByBarcode(barcode);
+
+    if (product) {
+      await inventoryManager.updateStock({
+        productId: product.id,
+        quantity: product.quantity - 1,
+        location: 'main-warehouse',
+        reason: 'sale'
+      });
+      return { success: true, product };
+    }
+    return { success: false, message: 'Product not found' };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+}`;
+    case 'homz':
+    case 'inncontrol':
+      return `// Homz Hotel Management System
+import { ReservationManager } from '@haclab/homz-core';
+import { RoomService } from '@haclab/homz-services';
+
+// Initialize reservation system
+const reservationManager = new ReservationManager({
+  hotelId: 'grand-plaza',
+  currency: 'USD',
+  taxRate: 0.16
+});
+
+// Create a new reservation
+async function createReservation(guestData, roomDetails) {
+  try {
+    const reservation = await reservationManager.createReservation({
+      guest: guestData,
+      roomType: roomDetails.type,
+      checkIn: roomDetails.checkIn,
+      checkOut: roomDetails.checkOut,
+      adults: roomDetails.adults,
+      children: roomDetails.children,
+      specialRequests: roomDetails.requests
+    });
+
+    return { success: true, reservation };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+}`;
+    // Add more cases for other apps
+    default:
+      return `// ${app.name} - ${app.type}
+import { ${app.name}Manager } from '@haclab/${app.id}-core';
+
+// Initialize ${app.id} manager
+const manager = new ${app.name}Manager({
+  appId: '${app.id}-app',
+  version: '${app.version}',
+  apiKey: process.env.${app.id.toUpperCase()}_API_KEY
+});
+
+// Example function
+async function processData(data) {
+  try {
+    const result = await manager.process(data);
+    return { success: true, result };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+}`;
+  }
+};
+
+export default function ProductDetailPage({ params }: { params: { id: string } }) {
+  const { id } = params;
+  const app = apps.find(app => app.id === id);
+
+  // If app not found, return 404
+  if (!app) {
+    notFound();
+  }
+
+  const heroRef = useRef(null);
+  const isHeroInView = useInView(heroRef, { once: true });
+  const featuresRef = useRef(null);
+  const isFeaturesInView = useInView(featuresRef, { once: true, amount: 0.2 });
+  const techRef = useRef(null);
+  const isTechInView = useInView(techRef, { once: true, amount: 0.2 });
+  const pricingRef = useRef(null);
+  const isPricingInView = useInView(pricingRef, { once: true, amount: 0.2 });
+
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.3
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: (custom: number) => ({
+      opacity: 0,
+      y: 20 + custom * 10
+    }),
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5 }
+    }
+  };
+
+  // Generate a lighter shade of the color for the gradient
+  const lightenColor = (color: string, percent: number) => {
+    const num = parseInt(color.replace('#', ''), 16);
+    const amt = Math.round(2.55 * percent);
+    const R = (num >> 16) + amt;
+    const G = (num >> 8 & 0x00FF) + amt;
+    const B = (num & 0x0000FF) + amt;
+    return `#${(0x1000000 + (R < 255 ? R < 0 ? 0 : R : 255) * 0x10000 +
+      (G < 255 ? G < 0 ? 0 : G : 255) * 0x100 +
+      (B < 255 ? B < 0 ? 0 : B : 255)).toString(16).slice(1)}`;
+  };
+
+  const secondaryColor = lightenColor(app.color, 20);
+
+  // Pricing tiers
+  const getPricingTiers = (app: AppData) => {
+    // If app has specific pricing, use it
+    if (app.pricing) {
+      return [
+        {
+          name: 'Basic',
+          price: `$${app.pricing.basic}`,
+          period: 'per month',
+          description: 'Perfect for small businesses just getting started',
+          features: [
+            'Up to 5 users',
+            'Basic reporting',
+            'Standard support',
+            '1GB storage',
+            'Core features'
+          ],
+          cta: 'Get Started',
+          highlighted: false
+        },
+        {
+          name: 'Professional',
+          price: `$${app.pricing.professional}`,
+          period: 'per month',
+          description: 'Ideal for growing businesses with more advanced needs',
+          features: [
+            'Up to 20 users',
+            'Advanced reporting',
+            'Priority support',
+            '10GB storage',
+            'All core features',
+            'API access',
+            'Custom branding'
+          ],
+          cta: 'Try Free for 14 Days',
+          highlighted: true
+        },
+        {
+          name: 'Enterprise',
+          price: app.pricing.enterprise,
+          period: 'contact for pricing',
+          description: 'For large organizations with specific requirements',
+          features: [
+            'Unlimited users',
+            'Custom reporting',
+            'Dedicated support',
+            'Unlimited storage',
+            'All features',
+            'Advanced security',
+            'Custom integrations',
+            'On-premise option'
+          ],
+          cta: 'Contact Sales',
+          highlighted: false
+        }
+      ];
+    }
+
+    // Default pricing tiers
+    return [
+      {
+        name: 'Basic',
+        price: '$49',
+        period: 'per month',
+        description: 'Perfect for small businesses just getting started',
+        features: [
+          'Up to 5 users',
+          'Basic reporting',
+          'Standard support',
+          '1GB storage',
+          'Core features'
+        ],
+        cta: 'Get Started',
+        highlighted: false
+      },
+      {
+        name: 'Professional',
+        price: '$99',
+        period: 'per month',
+        description: 'Ideal for growing businesses with more advanced needs',
+        features: [
+          'Up to 20 users',
+          'Advanced reporting',
+          'Priority support',
+          '10GB storage',
+          'All core features',
+          'API access',
+          'Custom branding'
+        ],
+        cta: 'Try Free for 14 Days',
+        highlighted: true
+      },
+      {
+        name: 'Enterprise',
+        price: 'Custom',
+        period: 'contact for pricing',
+        description: 'For large organizations with specific requirements',
+        features: [
+          'Unlimited users',
+          'Custom reporting',
+          'Dedicated support',
+          'Unlimited storage',
+          'All features',
+          'Advanced security',
+          'Custom integrations',
+          'On-premise option'
+        ],
+        cta: 'Contact Sales',
+        highlighted: false
+      }
+    ];
+  };
+
+  const pricingTiers = getPricingTiers(app);
+
+  return (
+    <main className="min-h-screen bg-dark-bg text-white">
+      {/* Hero Section */}
+      <section
+        className="relative py-20 overflow-hidden"
+        ref={heroRef}
+        style={{
+          background: `linear-gradient(135deg, ${app.color}, ${secondaryColor})`
+        }}
+      >
+        {/* Background pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <svg width="100%" height="100%" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
+                <path d="M 10 0 L 0 0 0 10" fill="none" stroke="white" strokeWidth="0.5" />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid)" />
+          </svg>
+        </div>
+
+        <div className="container mx-auto px-4 md:px-6 relative z-10">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-12">
+            <motion.div
+              className="max-w-2xl"
+              initial={{ opacity: 0, x: -50 }}
+              animate={isHeroInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
+              transition={{ duration: 0.7 }}
+            >
+              <div className="inline-block bg-white/20 backdrop-blur-sm text-white text-sm py-1 px-3 rounded-full font-code mb-4">
+                {app.type}
+              </div>
+
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-6 text-white">
+                {app.name}
+              </h1>
+
+              <p className="text-xl text-white/90 mb-8">
+                {app.longDescription || app.description}
+              </p>
+
+              <div className="flex flex-wrap gap-4">
+                <GlowingButton
+                  href={app.repository}
+                  variant="secondary"
+                  size="lg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FiDownload className="mr-2" /> Download
+                </GlowingButton>
+
+                <GlowingButton
+                  href="#features"
+                  variant="outline"
+                  size="lg"
+                >
+                  Learn More
+                </GlowingButton>
+              </div>
+
+              <div className="mt-8 flex items-center">
+                <div className="flex">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <FiStar key={star} className="text-yellow-400 fill-yellow-400" />
+                  ))}
+                </div>
+                <span className="ml-2 text-white/80">Trusted by 1000+ businesses</span>
+              </div>
+            </motion.div>
+
+            <motion.div
+              className="relative w-full max-w-md"
+              initial={{ opacity: 0, y: 50 }}
+              animate={isHeroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+            >
+              <div className="bg-dark-bg/80 backdrop-blur-lg p-1 rounded-lg border border-white/10 shadow-xl">
+                <div className="bg-dark-surface rounded-lg overflow-hidden">
+                  <div className="flex items-center bg-dark-bg/80 px-4 py-2">
+                    <div className="flex space-x-2">
+                      <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                      <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                      <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                    </div>
+                    <div className="ml-4 text-sm font-code text-white/70">
+                      {app.name} v{app.version}
+                    </div>
+                  </div>
+
+                  <div className="relative w-full h-64 md:h-80">
+                    <Image
+                      src={`/images/app-screenshots/${app.id}-main.png`}
+                      alt={`${app.name} screenshot`}
+                      fill
+                      style={{ objectFit: 'cover' }}
+                      className="rounded-b-lg"
+                      onError={(e) => {
+                        // Fallback to a generic image if the specific one doesn't exist
+                        (e.target as HTMLImageElement).src = '/images/app-screenshots/default-screenshot.png';
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>

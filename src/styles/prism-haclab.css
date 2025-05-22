@@ -1,0 +1,184 @@
+/**
+ * Custom Prism.js theme for Haclab
+ * Based on VS Code Dark+ theme with Haclab red accents
+ */
+
+/* Code blocks */
+pre[class*="language-"],
+code[class*="language-"] {
+  color: #D4D4D4;
+  font-family: 'Fira Code', 'JetBrains Mono', Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  direction: ltr;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  line-height: 1.5;
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks background */
+pre[class*="language-"] {
+  padding: 1em;
+  margin: 0.5em 0;
+  overflow: auto;
+  background: transparent;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: 0.1em 0.3em;
+  border-radius: 0.3em;
+  background: transparent;
+  color: #D4D4D4;
+}
+
+/* Tokens */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #6A9955;
+}
+
+.token.punctuation {
+  color: #D4D4D4;
+}
+
+.token.namespace {
+  opacity: 0.7;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol {
+  color: #569CD6;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin {
+  color: #CE9178;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  color: #D4D4D4;
+  background: transparent;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  color: #E41E26; /* Haclab red for keywords */
+}
+
+.token.function {
+  color: #DCDCAA;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+  color: #9CDCFE;
+}
+
+.token.important,
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+/* Line highlighting */
+.line-highlight {
+  background: rgba(228, 30, 38, 0.1); /* Haclab red with low opacity */
+  box-shadow: inset 5px 0 0 rgba(228, 30, 38, 0.5); /* Haclab red line indicator */
+}
+
+/* Line numbers */
+.line-numbers .line-numbers-rows {
+  position: absolute;
+  pointer-events: none;
+  top: 0;
+  font-size: 100%;
+  left: -3.8em;
+  width: 3em;
+  letter-spacing: -1px;
+  border-right: 1px solid rgba(228, 30, 38, 0.3); /* Haclab red border */
+  user-select: none;
+}
+
+.line-numbers-rows > span {
+  display: block;
+  counter-increment: linenumber;
+}
+
+.line-numbers-rows > span:before {
+  content: counter(linenumber);
+  color: #666;
+  display: block;
+  padding-right: 0.8em;
+  text-align: right;
+}
+
+/* Add this for proper line number display */
+pre.line-numbers {
+  position: relative;
+  padding-left: 3.8em;
+  counter-reset: linenumber;
+}
+
+pre.line-numbers > code {
+  position: relative;
+  white-space: inherit;
+}
+
+/* Match braces */
+.token.punctuation.brace-hover,
+.token.punctuation.brace-selected {
+  outline: solid 1px rgba(228, 30, 38, 0.5); /* Haclab red outline */
+}
+
+/* Active line */
+.line-highlight.line-highlight {
+  background: rgba(228, 30, 38, 0.1); /* Haclab red with low opacity */
+  box-shadow: inset 5px 0 0 rgba(228, 30, 38, 0.5); /* Haclab red line indicator */
+}
+
+/* Selection */
+code[class*="language-"]::-moz-selection,
+code[class*="language-"] ::-moz-selection,
+pre[class*="language-"]::-moz-selection,
+pre[class*="language-"] ::-moz-selection {
+  background: rgba(228, 30, 38, 0.25); /* Haclab red with low opacity */
+  color: inherit;
+}
+
+code[class*="language-"]::selection,
+code[class*="language-"] ::selection,
+pre[class*="language-"]::selection,
+pre[class*="language-"] ::selection {
+  background: rgba(228, 30, 38, 0.25); /* Haclab red with low opacity */
+  color: inherit;
+}

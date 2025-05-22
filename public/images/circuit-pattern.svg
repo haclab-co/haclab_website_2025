@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800px" height="800px" viewBox="0 0 800 800" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.1">
+    <g transform="translate(0.000000, 0.000000)" stroke="#E41E26" stroke-width="2">
+      <path d="M200,0 L200,800" stroke-linecap="square"></path>
+      <path d="M400,0 L400,800" stroke-linecap="square"></path>
+      <path d="M600,0 L600,800" stroke-linecap="square"></path>
+      <path d="M0,200 L800,200" stroke-linecap="square"></path>
+      <path d="M0,400 L800,400" stroke-linecap="square"></path>
+      <path d="M0,600 L800,600" stroke-linecap="square"></path>
+      
+      <!-- Circuit elements -->
+      <circle cx="200" cy="200" r="10"></circle>
+      <circle cx="400" cy="200" r="10"></circle>
+      <circle cx="600" cy="200" r="10"></circle>
+      <circle cx="200" cy="400" r="10"></circle>
+      <circle cx="400" cy="400" r="10"></circle>
+      <circle cx="600" cy="400" r="10"></circle>
+      <circle cx="200" cy="600" r="10"></circle>
+      <circle cx="400" cy="600" r="10"></circle>
+      <circle cx="600" cy="600" r="10"></circle>
+      
+      <!-- Connecting lines -->
+      <path d="M210,200 L390,200"></path>
+      <path d="M410,200 L590,200"></path>
+      <path d="M200,210 L200,390"></path>
+      <path d="M200,410 L200,590"></path>
+      <path d="M400,210 L400,390"></path>
+      <path d="M400,410 L400,590"></path>
+      <path d="M600,210 L600,390"></path>
+      <path d="M600,410 L600,590"></path>
+      <path d="M210,400 L390,400"></path>
+      <path d="M410,400 L590,400"></path>
+      <path d="M210,600 L390,600"></path>
+      <path d="M410,600 L590,600"></path>
+      
+      <!-- Diagonal connections -->
+      <path d="M210,210 L390,390"></path>
+      <path d="M410,410 L590,590"></path>
+      <path d="M210,590 L390,410"></path>
+      <path d="M410,210 L590,390"></path>
+      
+      <!-- Small circuit elements -->
+      <circle cx="300" cy="300" r="5"></circle>
+      <circle cx="500" cy="300" r="5"></circle>
+      <circle cx="300" cy="500" r="5"></circle>
+      <circle cx="500" cy="500" r="5"></circle>
+      
+      <!-- Small connecting lines -->
+      <path d="M300,305 L300,395"></path>
+      <path d="M500,305 L500,395"></path>
+      <path d="M305,300 L395,300"></path>
+      <path d="M505,300 L595,300"></path>
+      <path d="M305,500 L395,500"></path>
+      <path d="M505,500 L595,500"></path>
+      <path d="M300,505 L300,595"></path>
+      <path d="M500,505 L500,595"></path>
+    </g>
+  </g>
+</svg>

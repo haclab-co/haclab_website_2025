@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background for better visibility on dark backgrounds -->
+  <rect width="800" height="600" fill="#1a1a1a" opacity="0.3" rx="10" ry="10"/>
+
+  <!-- More accurate outline of Uganda -->
+  <path d="M400,120 C430,125 460,130 480,150 C500,170 520,200 535,230
+           C550,260 560,290 565,320 C570,350 570,380 560,410
+           C550,440 530,470 505,490 C480,510 450,520 420,525
+           C390,530 360,525 335,515 C310,505 290,490 275,470
+           C260,450 250,425 245,400 C240,375 240,350 245,325
+           C250,300 260,275 275,255 C290,235 310,220 330,205
+           C350,190 375,175 400,120 Z"
+        fill="#2a2a2a" stroke="#E41E26" stroke-width="3"/>
+
+  <!-- Lake Victoria -->
+  <path d="M560,410 C540,430 520,445 495,455 C470,465 445,470 420,470
+           C395,470 370,465 350,455 C530,455 560,410 560,410 Z"
+        fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1"/>
+
+  <!-- Major cities with glowing effect for dark background -->
+  <!-- Kampala (capital) -->
+  <circle cx="420" cy="410" r="8" fill="#E41E26"/>
+  <circle cx="420" cy="410" r="12" fill="none" stroke="#E41E26" stroke-width="2" opacity="0.5">
+    <animate attributeName="r" values="12;18;12" dur="3s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.5;0.2;0.5" dur="3s" repeatCount="indefinite"/>
+  </circle>
+  <text x="435" y="415" font-family="Arial" font-size="16" fill="#ffffff" font-weight="bold">Kampala</text>
+
+  <!-- Entebbe -->
+  <circle cx="410" cy="430" r="6" fill="#E41E26"/>
+  <text x="425" y="435" font-family="Arial" font-size="14" fill="#ffffff">Entebbe</text>
+
+  <!-- Jinja -->
+  <circle cx="450" cy="390" r="6" fill="#E41E26"/>
+  <text x="465" y="395" font-family="Arial" font-size="14" fill="#ffffff">Jinja</text>
+
+  <!-- Mbarara -->
+  <circle cx="320" cy="450" r="6" fill="#E41E26"/>
+  <text x="335" y="455" font-family="Arial" font-size="14" fill="#ffffff">Mbarara</text>
+
+  <!-- Gulu -->
+  <circle cx="380" cy="200" r="6" fill="#E41E26"/>
+  <text x="395" y="205" font-family="Arial" font-size="14" fill="#ffffff">Gulu</text>
+
+  <!-- Service coverage areas -->
+  <circle cx="420" cy="410" r="80" fill="none" stroke="#E41E26" stroke-width="1.5" stroke-dasharray="5,5" opacity="0.8"/>
+  <circle cx="420" cy="410" r="150" fill="none" stroke="#E41E26" stroke-width="1" stroke-dasharray="3,3" opacity="0.6"/>
+
+  <!-- Neighboring countries (subtle labels) -->
+  <text x="280" y="150" font-family="Arial" font-size="12" fill="#aaaaaa" opacity="0.7">SOUTH SUDAN</text>
+  <text x="550" y="300" font-family="Arial" font-size="12" fill="#aaaaaa" opacity="0.7">KENYA</text>
+  <text x="300" y="500" font-family="Arial" font-size="12" fill="#aaaaaa" opacity="0.7">TANZANIA</text>
+  <text x="250" y="350" font-family="Arial" font-size="12" fill="#aaaaaa" opacity="0.7">DRC</text>
+  <text x="250" y="420" font-family="Arial" font-size="12" fill="#aaaaaa" opacity="0.7">RWANDA</text>
+
+  <!-- Title -->
+  <text x="400" y="80" font-family="Arial" font-size="24" font-weight="bold" fill="#ffffff" text-anchor="middle">Haclab Service Coverage in Uganda</text>
+
+  <!-- Legend -->
+  <rect x="580" y="450" width="180" height="120" fill="#2a2a2a" stroke="#444444" stroke-width="1" rx="5" ry="5"/>
+  <text x="590" y="475" font-family="Arial" font-size="14" font-weight="bold" fill="#ffffff">Haclab Service Areas</text>
+
+  <circle cx="600" cy="500" r="6" fill="#E41E26"/>
+  <text x="615" y="505" font-family="Arial" font-size="12" fill="#ffffff">Major City</text>
+
+  <line x1="590" y1="525" x2="610" y2="525" stroke="#E41E26" stroke-width="1.5" stroke-dasharray="5,5"/>
+  <text x="615" y="530" font-family="Arial" font-size="12" fill="#ffffff">Primary Coverage</text>
+
+  <line x1="590" y1="550" x2="610" y2="550" stroke="#E41E26" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="615" y="555" font-family="Arial" font-size="12" fill="#ffffff">Extended Support</text>
+</svg>

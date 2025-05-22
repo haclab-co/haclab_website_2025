@@ -1,0 +1,12 @@
+# Haclab Company Limited Robots.txt
+# https://haclab.co
+
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://haclab.co/sitemap.xml
+
+# Disallow admin or private areas if they exist
+Disallow: /admin/
+Disallow: /private/

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800px" height="800px" viewBox="0 0 800 800" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.1">
+    <g transform="translate(0.000000, 0.000000)" stroke="#E41E26" stroke-width="2">
+      <!-- Code brackets and symbols -->
+      <path d="M100,200 L150,150 L100,100" stroke-linecap="round" stroke-linejoin="round"></path>
+      <path d="M300,200 L250,150 L300,100" stroke-linecap="round" stroke-linejoin="round"></path>
+      <path d="M400,100 L400,200" stroke-linecap="round"></path>
+      <path d="M450,100 L500,150 L450,200" stroke-linecap="round" stroke-linejoin="round"></path>
+      <path d="M550,100 L600,150 L550,200" stroke-linecap="round" stroke-linejoin="round"></path>
+      <path d="M650,100 L700,150 L650,200" stroke-linecap="round" stroke-linejoin="round"></path>
+      
+      <path d="M100,400 L150,350 L100,300" stroke-linecap="round" stroke-linejoin="round"></path>
+      <path d="M300,400 L250,350 L300,300" stroke-linecap="round" stroke-linejoin="round"></path>
+      <path d="M400,300 L400,400" stroke-linecap="round"></path>
+      <path d="M450,300 L500,350 L450,400" stroke-linecap="round" stroke-linejoin="round"></path>
+      <path d="M550,300 L600,350 L550,400" stroke-linecap="round" stroke-linejoin="round"></path>
+      <path d="M650,300 L700,350 L650,400" stroke-linecap="round" stroke-linejoin="round"></path>
+      
+      <path d="M100,600 L150,550 L100,500" stroke-linecap="round" stroke-linejoin="round"></path>
+      <path d="M300,600 L250,550 L300,500" stroke-linecap="round" stroke-linejoin="round"></path>
+      <path d="M400,500 L400,600" stroke-linecap="round"></path>
+      <path d="M450,500 L500,550 L450,600" stroke-linecap="round" stroke-linejoin="round"></path>
+      <path d="M550,500 L600,550 L550,600" stroke-linecap="round" stroke-linejoin="round"></path>
+      <path d="M650,500 L700,550 L650,600" stroke-linecap="round" stroke-linejoin="round"></path>
+      
+      <!-- Code lines -->
+      <path d="M100,250 L300,250" stroke-linecap="round"></path>
+      <path d="M350,250 L700,250" stroke-linecap="round"></path>
+      
+      <path d="M100,450 L300,450" stroke-linecap="round"></path>
+      <path d="M350,450 L700,450" stroke-linecap="round"></path>
+      
+      <path d="M100,650 L300,650" stroke-linecap="round"></path>
+      <path d="M350,650 L700,650" stroke-linecap="round"></path>
+      
+      <!-- Dots for indentation -->
+      <circle cx="150" cy="275" r="3"></circle>
+      <circle cx="175" cy="275" r="3"></circle>
+      <circle cx="200" cy="275" r="3"></circle>
+      <circle cx="225" cy="275" r="3"></circle>
+      
+      <circle cx="150" cy="475" r="3"></circle>
+      <circle cx="175" cy="475" r="3"></circle>
+      <circle cx="200" cy="475" r="3"></circle>
+      <circle cx="225" cy="475" r="3"></circle>
+      
+      <circle cx="150" cy="675" r="3"></circle>
+      <circle cx="175" cy="675" r="3"></circle>
+      <circle cx="200" cy="675" r="3"></circle>
+      <circle cx="225" cy="675" r="3"></circle>
+      
+      <!-- Code blocks -->
+      <rect x="100" y="700" width="600" height="50" rx="5"></rect>
+      <rect x="150" y="725" width="500" height="1"></rect>
+      <rect x="150" y="735" width="300" height="1"></rect>
+    </g>
+  </g>
+</svg>
