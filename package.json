@@ -2,6 +2,9 @@
   "name": "haclab_website",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "scripts": {
     "dev": "TURBOPACK=true next dev",
     "dev:webpack": "next dev",
@@ -11,7 +14,7 @@
     "lint": "next lint",
     "generate-sitemap": "node scripts/generate-sitemap.js",
     "postbuild": "npm run generate-sitemap",
-    "cloudflare-build": "npm install --legacy-peer-deps && NEXT_DISABLE_ESLINT=1 next build"
+    "cloudflare-build": "npm install --legacy-peer-deps && NEXT_DISABLE_ESLINT=1 NODE_OPTIONS=--openssl-legacy-provider next build"
   },
   "dependencies": {
     "@react-three/drei": "^10.0.7",

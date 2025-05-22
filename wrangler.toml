@@ -1,5 +1,6 @@
 [build]
 command = "npm run cloudflare-build"
+node_version = "20.10.0"
 
 [site]
 bucket = ".next"
