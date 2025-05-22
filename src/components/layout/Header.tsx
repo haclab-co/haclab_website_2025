@@ -159,7 +159,7 @@ const Header: React.FC = () => {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            className="fixed inset-0 bg-dark-bg z-50 md:hidden"
+            className="fixed inset-0 bg-dark-bg/90 backdrop-blur-md z-50 md:hidden"
             variants={mobileMenuVariants}
             initial="hidden"
             animate="visible"
@@ -175,7 +175,7 @@ const Header: React.FC = () => {
                   onClick={() => setIsMobileMenuOpen(false)}
                 />
                 <motion.button
-                  className="text-white text-2xl"
+                  className="text-white text-2xl bg-dark-surface/50 backdrop-blur-sm p-2 rounded-full"
                   onClick={() => setIsMobileMenuOpen(false)}
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
@@ -184,7 +184,7 @@ const Header: React.FC = () => {
                 </motion.button>
               </div>
 
-              <nav className="flex flex-col space-y-4">
+              <nav className="flex flex-col space-y-4 bg-dark-surface/30 backdrop-blur-sm p-4 rounded-lg border border-white/5">
                 {navLinks.map((link, index) => (
                   <motion.div
                     key={link.path}
@@ -196,8 +196,8 @@ const Header: React.FC = () => {
                   >
                     <Link
                       href={link.path}
-                      className={`font-code text-lg flex items-center ${
-                        isActive(link.path) ? 'text-haclab-red' : 'text-white'
+                      className={`font-code text-lg flex items-center p-2 rounded-md hover:bg-dark-bg/50 transition-colors ${
+                        isActive(link.path) ? 'text-haclab-red bg-dark-bg/30' : 'text-white'
                       }`}
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
@@ -208,10 +208,11 @@ const Header: React.FC = () => {
                 ))}
               </nav>
 
-              <div className="mt-auto">
+              <div className="mt-auto pt-6">
                 <GlowingButton
                   href="/contact"
                   className="w-full"
+                  adaptToBackground={true}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Get Started
