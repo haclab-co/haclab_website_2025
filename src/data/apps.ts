@@ -345,37 +345,6 @@ const inventoryManager = new InventoryManager({
 <p>The system integrates seamlessly with payment gateways, mobile money platforms, and banking systems, requiring minimal training for your staff. Whether you're a microfinance organization, credit union, or community bank, Lenkit transforms financial management challenges into opportunities for operational excellence, reduced risk, and improved performance.</p>`
   },
   {
-    id: 'mission-control',
-    name: 'Mission Control',
-    type: 'Haclab Management Software',
-    version: '0.0.3',
-    color: '#ff0000',
-    iconPath: 'icons/mission-control',
-    repository: 'https://github.com/haclab-co/mission-control-releases',
-    description: 'Is your development team missing deadlines and losing track of priorities? Mission Control visualizes project progress in real-time, automates client updates, tracks billable hours accurately, and provides team performance analytics to prevent scope creep and ensure on-time, on-budget delivery.',
-    features: [
-      'Project management',
-      'Client relationship management',
-      'Task tracking',
-      'Time tracking',
-      'Team performance analytics',
-    ],
-    technologies: ['React', 'Node.js', 'GraphQL', 'PostgreSQL'],
-    demoUrl: 'https://github.com/haclab-co/mission-control-releases',
-
-    longDescription: `<p><strong>Stop missing deadlines and struggling with project visibility.</strong> Mission Control transforms chaotic development processes into a streamlined operation that delivers projects on time, on budget, and exceeds client expectations.</p>
-<br/>
-<p>Mission Control solves the most critical challenges for development teams through:</p><br/>
-<ul>
-  <li><strong>Real-time project visualization</strong> with live dashboards that show actual progress versus planned timelines</li>
-  <li><strong>Automated client updates</strong> that keep stakeholders informed without consuming developer time</li>
-  <li><strong>Accurate billable hours tracking</strong> that increases revenue capture by up to 20%</li>
-  <li><strong>Team performance analytics</strong> that optimize resource allocation and prevent burnout</li>
-</ul><br/>
-
-<p>The system integrates deeply with development tools like GitHub, GitLab, and CI/CD pipelines, requiring minimal training for your team. Whether you're a small agency or enterprise development department, Mission Control transforms project management challenges into opportunities for improved delivery consistency, enhanced client satisfaction, and increased profitability.</p>`
-  },
-  {
     id: 'prosy',
     name: 'Prosy',
     type: 'Property Management System',

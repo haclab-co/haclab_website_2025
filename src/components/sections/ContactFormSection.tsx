@@ -6,6 +6,13 @@ import { FiSend, FiCheck, FiAlertCircle } from 'react-icons/fi';
 import GlowingButton from '../ui/GlowingButton';
 import AnimatedCodeBlock from '../ui/AnimatedCodeBlock';
 
+interface FormErrors {
+  name?: string;
+  email?: string;
+  subject?: string;
+  message?: string;
+}
+
 const ContactFormSection: React.FC = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
@@ -19,34 +26,86 @@ const ContactFormSection: React.FC = () => {
   });
   
   const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [errorMessage, setErrorMessage] = useState<string>('');
   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormState(prev => ({ ...prev, [name]: value }));
+    // Clear error when user starts typing
+    if (errors[name as keyof FormErrors]) {
+      setErrors(prev => ({ ...prev, [name]: undefined }));
+    }
+  };
+
+  // Client-side validation
+  const validateForm = (): boolean => {
+    const newErrors: FormErrors = {};
+
+    if (!formState.name.trim() || formState.name.trim().length < 2) {
+      newErrors.name = 'Name must be at least 2 characters';
+    }
+
+    if (!formState.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formState.email)) {
+      newErrors.email = 'Please enter a valid email address';
+    }
+
+    if (!formState.subject) {
+      newErrors.subject = 'Please select a subject';
+    }
+
+    if (!formState.message.trim() || formState.message.trim().length < 10) {
+      newErrors.message = 'Message must be at least 10 characters';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
   
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setFormStatus('submitting');
     
-    // Simulate form submission
-    setTimeout(() => {
-      // In a real application, you would send the form data to your backend
-      console.log('Form submitted:', formState);
-      setFormStatus('success');
-      
-      // Reset form after 3 seconds
-      setTimeout(() => {
-        setFormStatus('idle');
-        setFormState({
-          name: '',
-          email: '',
-          phone: '',
-          subject: '',
-          message: ''
-        });
-      }, 3000);
-    }, 1500);
+    // Validate form
+    if (!validateForm()) {
+      return;
+    }
+
+    setFormStatus('submitting');
+    setErrorMessage('');
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formState),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        setFormStatus('success');
+        
+        // Reset form after 5 seconds
+        setTimeout(() => {
+          setFormStatus('idle');
+          setFormState({
+            name: '',
+            email: '',
+            phone: '',
+            subject: '',
+            message: ''
+          });
+        }, 5000);
+      } else {
+        setFormStatus('error');
+        setErrorMessage(data.message || 'Failed to send message. Please try again.');
+      }
+    } catch (error) {
+      setFormStatus('error');
+      setErrorMessage('Network error. Please check your connection and try again.');
+    }
   };
   
   const formCode = `// Contact Form Handler
@@ -88,8 +147,8 @@ async function handleContactForm(formData) {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.3
+        staggerChildren: 0.05,
+        delayChildren: 0.1
       }
     }
   };
@@ -99,7 +158,7 @@ async function handleContactForm(formData) {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.7, ease: "easeOut" }
+      transition: { duration: 0.3, ease: "easeOut" }
     }
   };
   
@@ -108,7 +167,7 @@ async function handleContactForm(formData) {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.7 }
+      transition: { duration: 0.3 }
     }
   };
   
@@ -118,8 +177,8 @@ async function handleContactForm(formData) {
       opacity: 1,
       x: 0,
       transition: {
-        delay: i * 0.1,
-        duration: 0.5
+        delay: i * 0.05,
+        duration: 0.25
       }
     })
   };
@@ -156,7 +215,7 @@ async function handleContactForm(formData) {
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
           >
-            <form onSubmit={handleSubmit} className="bg-dark-surface p-8 rounded-lg shadow-lg">
+            <form onSubmit={handleSubmit} className="bg-dark-surface p-8 rounded-lg shadow-lg" noValidate>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                 <motion.div custom={0} variants={inputVariants}>
                   <label htmlFor="name" className="block text-sm font-code text-gray-400 mb-2">
@@ -169,10 +228,18 @@ async function handleContactForm(formData) {
                     value={formState.name}
                     onChange={handleChange}
                     required
-                    className="w-full bg-dark-bg border border-dark-border rounded-md px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-haclab-red focus:border-transparent transition-all"
+                    autoComplete="name"
+                    aria-describedby={errors.name ? 'name-error' : undefined}
+                    aria-invalid={errors.name ? 'true' : 'false'}
+                    className={`w-full bg-dark-bg border rounded-md px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-haclab-red focus:border-transparent transition-all ${errors.name ? 'border-red-500' : 'border-dark-border'}`}
                     placeholder="Your name"
                     disabled={formStatus === 'submitting' || formStatus === 'success'}
                   />
+                  {errors.name && (
+                    <p id="name-error" className="text-red-400 text-xs mt-1 font-code" role="alert">
+                      {errors.name}
+                    </p>
+                  )}
                 </motion.div>
                 
                 <motion.div custom={1} variants={inputVariants}>
@@ -186,10 +253,18 @@ async function handleContactForm(formData) {
                     value={formState.email}
                     onChange={handleChange}
                     required
-                    className="w-full bg-dark-bg border border-dark-border rounded-md px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-haclab-red focus:border-transparent transition-all"
+                    autoComplete="email"
+                    aria-describedby={errors.email ? 'email-error' : undefined}
+                    aria-invalid={errors.email ? 'true' : 'false'}
+                    className={`w-full bg-dark-bg border rounded-md px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-haclab-red focus:border-transparent transition-all ${errors.email ? 'border-red-500' : 'border-dark-border'}`}
                     placeholder="your.email@example.com"
                     disabled={formStatus === 'submitting' || formStatus === 'success'}
                   />
+                  {errors.email && (
+                    <p id="email-error" className="text-red-400 text-xs mt-1 font-code" role="alert">
+                      {errors.email}
+                    </p>
+                  )}
                 </motion.div>
               </div>
               
@@ -204,6 +279,8 @@ async function handleContactForm(formData) {
                     name="phone"
                     value={formState.phone}
                     onChange={handleChange}
+                    autoComplete="tel"
+                    inputMode="tel"
                     className="w-full bg-dark-bg border border-dark-border rounded-md px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-haclab-red focus:border-transparent transition-all"
                     placeholder="Your phone number"
                     disabled={formStatus === 'submitting' || formStatus === 'success'}
@@ -220,7 +297,10 @@ async function handleContactForm(formData) {
                     value={formState.subject}
                     onChange={handleChange}
                     required
-                    className="w-full bg-dark-bg border border-dark-border rounded-md px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-haclab-red focus:border-transparent transition-all"
+                    autoComplete="off"
+                    aria-describedby={errors.subject ? 'subject-error' : undefined}
+                    aria-invalid={errors.subject ? 'true' : 'false'}
+                    className={`w-full bg-dark-bg border rounded-md px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-haclab-red focus:border-transparent transition-all ${errors.subject ? 'border-red-500' : 'border-dark-border'}`}
                     disabled={formStatus === 'submitting' || formStatus === 'success'}
                   >
                     <option value="" disabled>Select a subject</option>
@@ -230,6 +310,11 @@ async function handleContactForm(formData) {
                     <option value="Job Application">Job Application</option>
                     <option value="Other">Other</option>
                   </select>
+                  {errors.subject && (
+                    <p id="subject-error" className="text-red-400 text-xs mt-1 font-code" role="alert">
+                      {errors.subject}
+                    </p>
+                  )}
                 </motion.div>
               </div>
               
@@ -244,10 +329,17 @@ async function handleContactForm(formData) {
                   onChange={handleChange}
                   required
                   rows={5}
-                  className="w-full bg-dark-bg border border-dark-border rounded-md px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-haclab-red focus:border-transparent transition-all"
+                  aria-describedby={errors.message ? 'message-error' : undefined}
+                  aria-invalid={errors.message ? 'true' : 'false'}
+                  className={`w-full bg-dark-bg border rounded-md px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-haclab-red focus:border-transparent transition-all resize-none ${errors.message ? 'border-red-500' : 'border-dark-border'}`}
                   placeholder="Tell us about your project or inquiry..."
                   disabled={formStatus === 'submitting' || formStatus === 'success'}
                 ></textarea>
+                {errors.message && (
+                  <p id="message-error" className="text-red-400 text-xs mt-1 font-code" role="alert">
+                    {errors.message}
+                  </p>
+                )}
               </motion.div>
               
               <motion.div custom={5} variants={inputVariants}>
@@ -292,16 +384,23 @@ async function handleContactForm(formData) {
                 )}
                 
                 {formStatus === 'error' && (
-                  <GlowingButton
-                    variant="outline"
-                    size="lg"
-                    className="w-full"
-                    icon={<FiAlertCircle />}
-                    iconPosition="left"
-                    onClick={() => setFormStatus('idle')}
-                  >
-                    Error Sending Message. Try Again.
-                  </GlowingButton>
+                  <div className="space-y-3">
+                    <GlowingButton
+                      variant="outline"
+                      size="lg"
+                      className="w-full"
+                      icon={<FiAlertCircle />}
+                      iconPosition="left"
+                      onClick={() => setFormStatus('idle')}
+                    >
+                      Error Sending Message
+                    </GlowingButton>
+                    {errorMessage && (
+                      <p className="text-red-400 text-sm text-center font-code" role="alert">
+                        {errorMessage}
+                      </p>
+                    )}
+                  </div>
                 )}
               </motion.div>
             </form>

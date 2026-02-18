@@ -583,7 +583,12 @@ async function deployAndSupport(developmentOutput) {
 
         {/* Process steps navigation */}
         <div className="relative mb-12">
-          <div className="hidden md:block absolute top-12 left-0 w-full h-0.5 bg-haclab-red/30"></div>
+          {/* Horizontal line for desktop - connects circle centers */}
+          <div className="hidden lg:block absolute top-8 left-[calc(12.5%+2rem)] right-[calc(12.5%+2rem)] h-0.5 bg-haclab-red/30"></div>
+          {/* Horizontal line for tablet (2 columns) */}
+          <div className="hidden md:block lg:hidden absolute top-8 left-[calc(25%+2rem)] right-[calc(25%+2rem)] h-0.5 bg-haclab-red/30"></div>
+          {/* Vertical line for mobile */}
+          <div className="md:hidden absolute left-8 top-16 bottom-16 w-0.5 bg-haclab-red/30"></div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {steps.map((step, index) => (

@@ -15,7 +15,7 @@ interface AnimatedTerminalProps {
 
 const AnimatedTerminal: React.FC<AnimatedTerminalProps> = ({
   commands,
-  typingSpeed = 50,
+  typingSpeed = 30,
   prompt = "haclab@dev:~$",
   autoStart = true,
   loop = false,
@@ -71,7 +71,7 @@ const AnimatedTerminal: React.FC<AnimatedTerminalProps> = ({
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5 }
+      transition: { duration: 0.25 }
     }
   };
 
@@ -82,7 +82,7 @@ const AnimatedTerminal: React.FC<AnimatedTerminalProps> = ({
       initial="hidden"
       animate="visible"
       whileHover={{ scale: 1.02 }}
-      transition={{ duration: 0.3 }}
+      transition={{ duration: 0.15 }}
     >
       <div className="flex items-center bg-dark-surface px-4 py-2 border-b border-dark-border">
         <div className="flex space-x-1.5">

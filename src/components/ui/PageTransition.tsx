@@ -18,7 +18,7 @@ const PageTransition: React.FC<PageTransitionProps> = ({ children }) => {
     setIsLoading(true);
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 800); // Adjust timing as needed
+    }, 400); // Adjust timing as needed
     
     return () => clearTimeout(timer);
   }, [pathname]);
@@ -33,7 +33,7 @@ const PageTransition: React.FC<PageTransitionProps> = ({ children }) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.15 }}
           >
             <LoadingUI 
               variant="fullscreen" 
@@ -47,7 +47,7 @@ const PageTransition: React.FC<PageTransitionProps> = ({ children }) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.15 }}
           >
             {children}
           </motion.div>

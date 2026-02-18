@@ -5,23 +5,17 @@
   --haclab-red: #FF0000;
   --haclab-dark-red: #C41920;
   --haclab-light-red: #F04C53;
+  --haclab-glow: rgba(228, 30, 38, 0.5);
   --code-bg: #1E1E1E;
   --code-text: #D4D4D4;
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #121212;
+  --foreground: #ededed;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-haclab-red: var(--haclab-red);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #121212;
-    --foreground: #ededed;
-  }
 }
 
 html {

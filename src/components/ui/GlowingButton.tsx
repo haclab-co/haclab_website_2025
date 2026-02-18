@@ -17,6 +17,7 @@ export interface GlowingButtonProps {
   disabled?: boolean;
   target?: string;
   rel?: string;
+  type?: 'button' | 'submit' | 'reset';
   adaptToBackground?: boolean; // New prop to adapt button styling to different backgrounds
 }
 
@@ -33,6 +34,7 @@ const GlowingButton: React.FC<GlowingButtonProps> = ({
   disabled = false,
   target,
   rel,
+  type = 'button',
   adaptToBackground = false,
 }) => {
   // Base classes
@@ -127,6 +129,8 @@ const GlowingButton: React.FC<GlowingButtonProps> = ({
       className={buttonClasses}
       onClick={onClick}
       disabled={disabled}
+      type={type}
+      aria-disabled={disabled}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
     >

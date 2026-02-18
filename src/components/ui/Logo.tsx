@@ -15,6 +15,15 @@ interface LogoProps {
   onClick?: () => void;
 }
 
+// Logo image dimensions for different variants
+const LOGO_DIMENSIONS = {
+  default: { width: 120, height: 36 },
+  animated: { width: 100, height: 30 },
+  glitch: { width: 120, height: 36 },
+  terminal: { width: 80, height: 24 },
+  code: { width: 100, height: 30 },
+} as const;
+
 const Logo: React.FC<LogoProps> = ({
   variant = 'default',
   size = 'md',
@@ -30,6 +39,14 @@ const Logo: React.FC<LogoProps> = ({
     lg: 'h-10',
   };
 
+  // Get logo source based on color
+  const logoSrc = color === 'light' 
+    ? '/assets/images/logo/light-logo.webp' 
+    : '/assets/images/logo/logo-dark.webp';
+
+  // Get dimensions for current variant
+  const dimensions = LOGO_DIMENSIONS[variant] || LOGO_DIMENSIONS.default;
+
   // Base component to wrap with Link if href is provided
   const LogoContent = () => {
     // Default logo
@@ -37,10 +54,10 @@ const Logo: React.FC<LogoProps> = ({
       return (
         <div className={`flex items-center ${className}`}>
           <Image
-            src={color === 'light' ? '/assets/images/logo/light-logo.webp' : '/assets/images/logo/logo-dark.webp'}
+            src={logoSrc}
             alt="Haclab Logo"
-            width={color === 'light' ? 120 : 120}
-            height={color === 'light' ? 36 : 36}
+            width={dimensions.width}
+            height={dimensions.height}
             className={sizeClasses[size]}
           />
         </div>
@@ -56,20 +73,20 @@ const Logo: React.FC<LogoProps> = ({
             whileTap={{ scale: 0.9 }}
             className="mr-2"
           >
-            <FiCode className="text-haclab-red text-3xl" />
+            <FiCode className="text-haclab-red text-3xl" aria-hidden="true" />
           </motion.div>
           <motion.div
             initial={{ opacity: 1 }}
             whileHover={{
               scale: 1.05,
-              transition: { duration: 0.2 }
+              transition: { duration: 0.15 }
             }}
           >
             <Image
-              src={color === 'light' ? '/assets/images/logo/light-logo.webp' : '/assets/images/logo/logo-dark.webp'}
+              src={logoSrc}
               alt="Haclab Logo"
-              width={color === 'light' ? 100 : 100}
-              height={color === 'light' ? 30 : 30}
+              width={dimensions.width}
+              height={dimensions.height}
               className={sizeClasses[size]}
             />
           </motion.div>
@@ -83,10 +100,10 @@ const Logo: React.FC<LogoProps> = ({
         <div className={`relative ${className}`}>
           <div className="relative">
             <Image
-              src={color === 'light' ? '/assets/images/logo/light-logo.webp' : '/assets/images/logo/logo-dark.webp'}
+              src={logoSrc}
               alt="Haclab Logo"
-              width={color === 'light' ? 120 : 120}
-              height={color === 'light' ? 36 : 36}
+              width={dimensions.width}
+              height={dimensions.height}
               className={`${sizeClasses[size]} relative z-10`}
             />
             <div className="absolute top-0 left-0 w-full h-full z-0 glitch-effect">
@@ -105,7 +122,7 @@ const Logo: React.FC<LogoProps> = ({
               left: 0;
               width: 100%;
               height: 100%;
-              background-image: url(${color === 'light' ? '/assets/images/logo/light-logo.webp' : '/assets/images/logo/logo-dark.webp'});
+              background-image: url(${logoSrc});
               background-repeat: no-repeat;
               background-size: contain;
               opacity: 0;
@@ -139,17 +156,17 @@ const Logo: React.FC<LogoProps> = ({
         <div className={`font-code ${className}`}>
           <div className="bg-dark-surface p-2 rounded border border-dark-border">
             <div className="flex items-center mb-1">
-              <div className="w-3 h-3 rounded-full bg-red-500 mr-1"></div>
-              <div className="w-3 h-3 rounded-full bg-yellow-500 mr-1"></div>
-              <div className="w-3 h-3 rounded-full bg-green-500"></div>
+              <div className="w-3 h-3 rounded-full bg-red-500 mr-1" aria-hidden="true"></div>
+              <div className="w-3 h-3 rounded-full bg-yellow-500 mr-1" aria-hidden="true"></div>
+              <div className="w-3 h-3 rounded-full bg-green-500" aria-hidden="true"></div>
             </div>
             <div className="text-haclab-red">
               <span className="text-green-400">$</span> <span className="text-white">echo</span> <span className="text-yellow-300">"</span>
               <Image
-                src={color === 'light' ? '/assets/images/logo/light-logo.webp' : '/assets/images/logo/logo-dark.webp'}
+                src={logoSrc}
                 alt="Haclab Logo"
-                width={color === 'light' ? 80 : 80}
-                height={color === 'light' ? 24 : 24}
+                width={dimensions.width}
+                height={dimensions.height}
                 className="inline-block mx-1"
               />
               <span className="text-yellow-300">"</span>
@@ -173,10 +190,10 @@ const Logo: React.FC<LogoProps> = ({
               <br />
               <div className="mt-1">
                 <Image
-                  src={color === 'light' ? '/assets/images/logo/light-logo.webp' : '/assets/images/logo/logo-dark.webp'}
+                  src={logoSrc}
                   alt="Haclab Logo"
-                  width={color === 'light' ? 100 : 100}
-                  height={color === 'light' ? 30 : 30}
+                  width={dimensions.width}
+                  height={dimensions.height}
                   className="inline-block"
                 />
               </div>
@@ -192,7 +209,7 @@ const Logo: React.FC<LogoProps> = ({
   // Wrap with Link if href is provided
   if (href) {
     return (
-      <Link href={href} onClick={onClick}>
+      <Link href={href} onClick={onClick} aria-label="Haclab Home">
         <LogoContent />
       </Link>
     );

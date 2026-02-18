@@ -38,11 +38,11 @@ module.exports = {
         'grid-pattern': "linear-gradient(to right, #333 1px, transparent 1px), linear-gradient(to bottom, #333 1px, transparent 1px)",
       },
       animation: {
-        'float': 'float 6s ease-in-out infinite',
-        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-        'spin-slow': 'spin 8s linear infinite',
-        'typewriter': 'typewriter 2s steps(40) forwards',
-        'blink': 'blink 1s step-end infinite',
+        'float': 'float 3s ease-in-out infinite',
+        'pulse-slow': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'spin-slow': 'spin 4s linear infinite',
+        'typewriter': 'typewriter 1s steps(40) forwards',
+        'blink': 'blink 0.5s step-end infinite',
       },
       keyframes: {
         float: {

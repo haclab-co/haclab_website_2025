@@ -83,7 +83,7 @@ const LoadingUI: React.FC<LoadingUIProps> = ({
           className={`mt-4 font-code ${textSizeClasses[size]} text-white`}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.3 }}
+          transition={{ delay: 0.15 }}
         >
           {text}
         </motion.p>
@@ -110,7 +110,7 @@ const DefaultLoader: React.FC<{ size: LoadingSize }> = ({ size }) => {
       <motion.div
         className={`absolute inset-0 rounded-full border-t-2 border-haclab-red`}
         animate={{ rotate: 360 }}
-        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+        transition={{ duration: 0.6, repeat: Infinity, ease: "linear" }}
       />
     </div>
   );
@@ -133,7 +133,7 @@ const CodeThemeLoader: React.FC<{ size: LoadingSize }> = ({ size }) => {
       <motion.div
         className="absolute inset-0 rounded-full bg-dark-surface border border-dark-border"
         animate={{ boxShadow: ['0 0 0px rgba(228, 30, 38, 0)', '0 0 15px rgba(228, 30, 38, 0.5)', '0 0 0px rgba(228, 30, 38, 0)'] }}
-        transition={{ duration: 2, repeat: Infinity }}
+        transition={{ duration: 1, repeat: Infinity }}
       />
       
       <div className="relative z-10 flex items-center justify-center">
@@ -148,9 +148,9 @@ const CodeThemeLoader: React.FC<{ size: LoadingSize }> = ({ size }) => {
               rotate: [0, 10, 0],
             }}
             transition={{ 
-              duration: 2,
+              duration: 1,
               repeat: Infinity,
-              delay: index * 0.5,
+              delay: index * 0.25,
               ease: "easeInOut"
             }}
           >
@@ -181,7 +181,7 @@ const TerminalThemeLoader: React.FC<{ size: LoadingSize }> = ({ size }) => {
           <motion.span
             className="text-white ml-1"
             animate={{ opacity: [0, 1] }}
-            transition={{ duration: 0.8, repeat: Infinity, repeatType: "reverse" }}
+            transition={{ duration: 0.4, repeat: Infinity, repeatType: "reverse" }}
           >
             _
           </motion.span>
@@ -198,27 +198,27 @@ const CircuitThemeLoader: React.FC<{ size: LoadingSize }> = ({ size }) => {
       <motion.div
         className="absolute inset-0 rounded-full bg-dark-bg grid-bg"
         animate={{ rotate: 360 }}
-        transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+        transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
       />
       
       <motion.div
         className="absolute inset-2 rounded-full bg-haclab-red/20"
         animate={{ scale: [1, 1.1, 1] }}
-        transition={{ duration: 2, repeat: Infinity }}
+        transition={{ duration: 1, repeat: Infinity }}
       />
       
       <motion.div
         className="absolute inset-0 rounded-full border-2 border-haclab-red/50"
         style={{ borderRadius: '50%', borderRightColor: 'transparent', borderBottomColor: 'transparent' }}
         animate={{ rotate: 360 }}
-        transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+        transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
       />
       
       <motion.div
         className="absolute inset-0 rounded-full border-2 border-haclab-red/30"
         style={{ borderRadius: '50%', borderLeftColor: 'transparent', borderTopColor: 'transparent' }}
         animate={{ rotate: -360 }}
-        transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
       />
     </div>
   );

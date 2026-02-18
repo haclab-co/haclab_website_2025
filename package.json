@@ -6,10 +6,10 @@
     "node": ">=20.0.0"
   },
   "scripts": {
-    "dev": "TURBOPACK=true next dev",
+    "dev": "next dev --turbopack",
     "dev:webpack": "next dev",
     "build": "next build",
-    "build:turbo": "TURBOPACK=true next build",
+    "build:turbo": "next build --turbopack",
     "start": "next start",
     "lint": "next lint",
     "generate-sitemap": "node scripts/generate-sitemap.js",

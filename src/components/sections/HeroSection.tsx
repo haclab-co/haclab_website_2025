@@ -66,8 +66,8 @@ const HeroSection: React.FC = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3
+        staggerChildren: 0.1,
+        delayChildren: 0.1
       }
     }
   };
@@ -77,7 +77,7 @@ const HeroSection: React.FC = () => {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.7, ease: "easeOut" }
+      transition: { duration: 0.3, ease: "easeOut" }
     }
   };
 
@@ -151,11 +151,11 @@ const HeroSection: React.FC = () => {
             variants={itemVariants}
             initial="hidden"
             animate="visible"
-            transition={{ delay: 0.6 }}
+            transition={{ delay: 0.2 }}
           >
             <AnimatedTerminal
               commands={terminalCommands}
-              typingSpeed={70}
+              typingSpeed={35}
               className="w-full max-w-xl mx-auto shadow-glow"
             />
           </motion.div>
@@ -166,18 +166,18 @@ const HeroSection: React.FC = () => {
           className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.5, duration: 0.5 }}
+          transition={{ delay: 0.5, duration: 0.3 }}
         >
           <p className="text-gray-400 text-sm mb-2 font-code">Scroll to explore</p>
           <motion.div
             className="w-6 h-10 border-2 border-gray-400 rounded-full flex justify-center"
             animate={{ y: [0, 10, 0] }}
-            transition={{ repeat: Infinity, duration: 1.5 }}
+            transition={{ repeat: Infinity, duration: 1 }}
           >
             <motion.div
               className="w-1.5 h-1.5 bg-haclab-red rounded-full mt-2"
               animate={{ y: [0, 15, 0] }}
-              transition={{ repeat: Infinity, duration: 1.5 }}
+              transition={{ repeat: Infinity, duration: 1 }}
             />
           </motion.div>
         </motion.div>

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -12,6 +12,9 @@ const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
+  const closeMenuButtonRef = useRef<HTMLButtonElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   // Handle scroll event
   useEffect(() => {
@@ -26,6 +29,60 @@ const Header: React.FC = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Handle Escape key to close menu
+  const handleKeyDown = useCallback((e: KeyboardEvent) => {
+    if (e.key === 'Escape' && isMobileMenuOpen) {
+      setIsMobileMenuOpen(false);
+      menuButtonRef.current?.focus();
+    }
+  }, [isMobileMenuOpen]);
+
+  // Focus trap for mobile menu
+  useEffect(() => {
+    if (isMobileMenuOpen && mobileMenuRef.current) {
+      // Focus the close button when menu opens
+      closeMenuButtonRef.current?.focus();
+      
+      // Prevent body scroll
+      document.body.style.overflow = 'hidden';
+      
+      // Add escape key listener
+      document.addEventListener('keydown', handleKeyDown);
+      
+      // Focus trap
+      const focusableElements = mobileMenuRef.current.querySelectorAll(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      );
+      const firstElement = focusableElements[0] as HTMLElement;
+      const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
+
+      const handleTabKey = (e: KeyboardEvent) => {
+        if (e.key === 'Tab') {
+          if (e.shiftKey && document.activeElement === firstElement) {
+            e.preventDefault();
+            lastElement?.focus();
+          } else if (!e.shiftKey && document.activeElement === lastElement) {
+            e.preventDefault();
+            firstElement?.focus();
+          }
+        }
+      };
+
+      document.addEventListener('keydown', handleTabKey);
+
+      return () => {
+        document.removeEventListener('keydown', handleTabKey);
+        document.removeEventListener('keydown', handleKeyDown);
+        document.body.style.overflow = '';
+      };
+    }
+  }, [isMobileMenuOpen, handleKeyDown]);
+
+  // Close menu on route change
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [pathname]);
 
   // Check if a link is active
   const isActive = (path: string) => pathname === path;
@@ -47,8 +104,8 @@ const Header: React.FC = () => {
       y: 0,
       transition: {
         type: 'spring',
-        stiffness: 100,
-        damping: 20
+        stiffness: 200,
+        damping: 25
       }
     }
   };
@@ -60,15 +117,15 @@ const Header: React.FC = () => {
       opacity: 1,
       transition: {
         type: 'spring',
-        stiffness: 100,
-        damping: 20
+        stiffness: 200,
+        damping: 25
       }
     },
     exit: {
       x: '100%',
       opacity: 0,
       transition: {
-        duration: 0.3,
+        duration: 0.2,
         ease: 'easeInOut'
       }
     }
@@ -80,14 +137,14 @@ const Header: React.FC = () => {
       opacity: 1,
       x: 0,
       transition: {
-        delay: i * 0.1,
-        duration: 0.5
+        delay: i * 0.05,
+        duration: 0.25
       }
     }),
     hover: {
       scale: 1.05,
       color: '#E41E26',
-      transition: { duration: 0.2 }
+      transition: { duration: 0.15 }
     }
   };
 
@@ -145,12 +202,16 @@ const Header: React.FC = () => {
 
           {/* Mobile Menu Button */}
           <motion.button
+            ref={menuButtonRef}
             className="md:hidden text-white text-2xl"
             onClick={() => setIsMobileMenuOpen(true)}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
+            aria-label="Open navigation menu"
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="mobile-menu"
           >
-            <FiMenu />
+            <FiMenu aria-hidden="true" />
           </motion.button>
         </div>
       </div>
@@ -159,11 +220,16 @@ const Header: React.FC = () => {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
+            ref={mobileMenuRef}
+            id="mobile-menu"
             className="fixed inset-0 bg-dark-bg/90 backdrop-blur-md z-50 md:hidden"
             variants={mobileMenuVariants}
             initial="hidden"
             animate="visible"
             exit="exit"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Navigation menu"
           >
             <div className="flex flex-col h-full p-6">
               <div className="flex justify-between items-center mb-8">
@@ -175,16 +241,18 @@ const Header: React.FC = () => {
                   onClick={() => setIsMobileMenuOpen(false)}
                 />
                 <motion.button
+                  ref={closeMenuButtonRef}
                   className="text-white text-2xl bg-dark-surface/50 backdrop-blur-sm p-2 rounded-full"
                   onClick={() => setIsMobileMenuOpen(false)}
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
+                  aria-label="Close navigation menu"
                 >
-                  <FiX />
+                  <FiX aria-hidden="true" />
                 </motion.button>
               </div>
 
-              <nav className="flex flex-col space-y-4 bg-dark-surface/30 backdrop-blur-sm p-4 rounded-lg border border-white/5">
+              <nav className="flex flex-col space-y-4 bg-dark-surface/30 backdrop-blur-sm p-4 rounded-lg border border-white/5" aria-label="Main navigation">
                 {navLinks.map((link, index) => (
                   <motion.div
                     key={link.path}
@@ -200,8 +268,9 @@ const Header: React.FC = () => {
                         isActive(link.path) ? 'text-haclab-red bg-dark-bg/30' : 'text-white'
                       }`}
                       onClick={() => setIsMobileMenuOpen(false)}
+                      aria-current={isActive(link.path) ? 'page' : undefined}
                     >
-                      <FiChevronRight className={`mr-2 ${isActive(link.path) ? 'text-haclab-red' : 'text-white'}`} />
+                      <FiChevronRight className={`mr-2 ${isActive(link.path) ? 'text-haclab-red' : 'text-white'}`} aria-hidden="true" />
                       {link.name}
                     </Link>
                   </motion.div>

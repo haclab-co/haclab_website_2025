@@ -103,9 +103,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className="scroll-smooth dark">
       <body
-        className={`${inter.variable} ${spaceGrotesk.variable} ${firaCode.variable} ${jetbrainsMono.variable} antialiased bg-dark-bg text-white`}
+        className={`${inter.variable} ${spaceGrotesk.variable} ${firaCode.variable} ${jetbrainsMono.variable} antialiased bg-background text-foreground`}
       >
         <LoadingProvider>
           {/* SEO Schema Components */}

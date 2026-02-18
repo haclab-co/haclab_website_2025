@@ -2,8 +2,35 @@
 
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import GlowingButton from '../ui/GlowingButton';
+import { FiGlobe, FiTool, FiHome, FiCode } from 'react-icons/fi';
 import GlowingCard from '../ui/GlowingCard';
+
+// Project-specific placeholder patterns
+const ProjectPlaceholder: React.FC<{ category: string; title: string }> = ({ category, title }) => {
+  const getIcon = () => {
+    if (category.toLowerCase().includes('website')) return <FiGlobe className="w-12 h-12" />;
+    if (category.toLowerCase().includes('garage')) return <FiTool className="w-12 h-12" />;
+    if (category.toLowerCase().includes('property')) return <FiHome className="w-12 h-12" />;
+    return <FiCode className="w-12 h-12" />;
+  };
+
+  return (
+    <div className="absolute inset-0 flex flex-col items-center justify-center">
+      {/* Animated gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-haclab-red/5 via-transparent to-haclab-red/10" />
+      
+      {/* Icon with glow effect */}
+      <div className="relative z-10 text-haclab-red/40 group-hover:text-haclab-red/60 transition-colors duration-300">
+        {getIcon()}
+      </div>
+      
+      {/* Project title overlay */}
+      <span className="relative z-10 mt-3 text-gray-500 font-code text-xs text-center px-4 group-hover:text-gray-400 transition-colors">
+        {title}
+      </span>
+    </div>
+  );
+};
 
 const ProjectsSection: React.FC = () => {
   const ref = useRef(null);
@@ -11,7 +38,7 @@ const ProjectsSection: React.FC = () => {
 
   const projects = [
     {
-      image: '/images/placeholder-project.jpg',
+      image: '/images/projects/wion-motors.jpg',
       category: 'Company Website',
       title: 'Wion Motors Limited',
       description: 'A professional website for a leading motor company in Uganda.',
@@ -19,7 +46,7 @@ const ProjectsSection: React.FC = () => {
       href: '/work/wion-motors'
     },
     {
-      image: '/images/placeholder-project.jpg',
+      image: '/images/projects/kanify.jpg',
       category: 'Garage Management System',
       title: 'Kanify',
       description: 'A comprehensive system for managing vehicles, jobs, inspections, and more.',
@@ -27,7 +54,7 @@ const ProjectsSection: React.FC = () => {
       href: '/work/kanify'
     },
     {
-      image: '/images/placeholder-project.jpg',
+      image: '/images/projects/realesta-pms.jpg',
       category: 'Property Management System',
       title: 'Realesta PMS',
       description: 'A solution designed for property managers to solve daily challenges.',
@@ -42,8 +69,8 @@ const ProjectsSection: React.FC = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.3
+        staggerChildren: 0.05,
+        delayChildren: 0.1
       }
     }
   };
@@ -53,7 +80,7 @@ const ProjectsSection: React.FC = () => {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.7, ease: "easeOut" }
+      transition: { duration: 0.3, ease: "easeOut" }
     }
   };
 
@@ -93,18 +120,16 @@ const ProjectsSection: React.FC = () => {
               delay={index}
             >
               <div className="flex flex-col h-full">
-                {/* Project Image Placeholder */}
+                {/* Project Image */}
                 <div className="h-48 rounded-md bg-dark-surface mb-6 overflow-hidden relative group">
-                  <div className="absolute inset-0 flex items-center justify-center text-gray-500 font-code">
-                    {/* Replace with actual image when available */}
-                    <span>Project Image</span>
-                  </div>
+                  {/* Placeholder or actual image */}
+                  <ProjectPlaceholder category={project.category} title={project.title} />
 
                   {/* Overlay with code pattern */}
                   <div className="absolute inset-0 bg-code-pattern bg-cover opacity-10 group-hover:opacity-20 transition-opacity"></div>
 
                   {/* Category badge */}
-                  <div className="absolute top-3 left-3 bg-haclab-red/90 text-white text-xs py-1 px-2 rounded font-code">
+                  <div className="absolute top-3 left-3 bg-haclab-red/90 text-white text-xs py-1 px-2 rounded font-code backdrop-blur-sm">
                     {project.category}
                   </div>
                 </div>
@@ -127,6 +152,7 @@ const ProjectsSection: React.FC = () => {
                 <div className="mt-auto">
                   <button
                     className="relative inline-flex items-center justify-center font-display font-medium rounded-md transition-all duration-300 px-3 py-1.5 text-sm bg-transparent border-2 border-haclab-red text-haclab-red hover:bg-haclab-red/10 before:opacity-30 before:blur-md before:content-[''] before:absolute before:inset-0 before:rounded-md before:bg-haclab-red before:-z-10 hover:before:scale-110 hover:-translate-y-1"
+                    aria-label={`View ${project.title} project`}
                   >
                     View Project
                   </button>

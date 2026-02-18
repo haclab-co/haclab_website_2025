@@ -22,8 +22,8 @@ const Footer: React.FC = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2
+        staggerChildren: 0.05,
+        delayChildren: 0.1
       }
     }
   };
@@ -33,7 +33,7 @@ const Footer: React.FC = () => {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5 }
+      transition: { duration: 0.25 }
     }
   };
 
@@ -92,24 +92,39 @@ const Footer: React.FC = () => {
               <div className="h-3 w-3 rounded-full bg-green-500"></div>
             </div>
 
-            <div className="flex border-b border-dark-border">
+            <div className="flex border-b border-dark-border" role="tablist" aria-label="Footer information tabs">
               <button
+                role="tab"
+                id="tab-explorer"
+                aria-selected={activeTab === 'explorer'}
+                aria-controls="panel-explorer"
+                tabIndex={activeTab === 'explorer' ? 0 : -1}
                 className={`px-4 py-2 font-code text-sm flex items-center ${activeTab === 'explorer' ? 'bg-dark-bg text-white border-r border-l border-dark-border' : 'text-gray-400 hover:text-white'}`}
                 onClick={() => setActiveTab('explorer')}
               >
-                <FiFolder className="mr-2" /> Explorer
+                <FiFolder className="mr-2" aria-hidden="true" /> Explorer
               </button>
               <button
+                role="tab"
+                id="tab-terminal"
+                aria-selected={activeTab === 'terminal'}
+                aria-controls="panel-terminal"
+                tabIndex={activeTab === 'terminal' ? 0 : -1}
                 className={`px-4 py-2 font-code text-sm flex items-center ${activeTab === 'terminal' ? 'bg-dark-bg text-white border-r border-l border-dark-border' : 'text-gray-400 hover:text-white'}`}
                 onClick={() => setActiveTab('terminal')}
               >
-                <FiTerminal className="mr-2" /> Terminal
+                <FiTerminal className="mr-2" aria-hidden="true" /> Terminal
               </button>
               <button
+                role="tab"
+                id="tab-output"
+                aria-selected={activeTab === 'output'}
+                aria-controls="panel-output"
+                tabIndex={activeTab === 'output' ? 0 : -1}
                 className={`px-4 py-2 font-code text-sm flex items-center ${activeTab === 'output' ? 'bg-dark-bg text-white border-r border-l border-dark-border' : 'text-gray-400 hover:text-white'}`}
                 onClick={() => setActiveTab('output')}
               >
-                <FiServer className="mr-2" /> Output
+                <FiServer className="mr-2" aria-hidden="true" /> Output
               </button>
             </div>
           </div>
@@ -118,7 +133,12 @@ const Footer: React.FC = () => {
           <div className="bg-dark-bg p-6">
             {/* Explorer Tab */}
             {activeTab === 'explorer' && (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              <div 
+                role="tabpanel"
+                id="panel-explorer"
+                aria-labelledby="tab-explorer"
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+              >
                 {/* Company Info */}
                 <motion.div variants={itemVariants} className="border-l-2 border-haclab-red pl-4">
                   <div className="flex items-center mb-4">
@@ -239,6 +259,9 @@ const Footer: React.FC = () => {
             {/* Terminal Tab */}
             {activeTab === 'terminal' && (
               <motion.div
+                role="tabpanel"
+                id="panel-terminal"
+                aria-labelledby="tab-terminal"
                 variants={itemVariants}
                 className="font-code text-sm bg-dark-surface p-4 rounded-md border border-dark-border"
               >
@@ -286,6 +309,9 @@ const Footer: React.FC = () => {
             {/* Output Tab */}
             {activeTab === 'output' && (
               <motion.div
+                role="tabpanel"
+                id="panel-output"
+                aria-labelledby="tab-output"
                 variants={itemVariants}
                 className="font-code text-sm bg-dark-surface p-4 rounded-md border border-dark-border"
               >

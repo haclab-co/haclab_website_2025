@@ -20,11 +20,14 @@ const GlowingCard: React.FC<GlowingCardProps> = ({
   className = '',
   href,
   onClick,
-  glowColor = 'rgba(228, 30, 38, 0.5)',
+  glowColor,
   glowIntensity = 'medium',
   hoverEffect = true,
   delay = 0,
 }) => {
+  // Use CSS variable as default, fallback to hardcoded value
+  const effectiveGlowColor = glowColor || 'var(--haclab-glow)';
+  
   // Glow intensity classes
   const glowClasses = {
     low: 'before:opacity-30 before:blur-md',
@@ -49,8 +52,8 @@ const GlowingCard: React.FC<GlowingCardProps> = ({
       opacity: 1, 
       y: 0,
       transition: { 
-        duration: 0.5,
-        delay: delay * 0.2,
+        duration: 0.25,
+        delay: delay * 0.1,
       }
     }
   };
@@ -59,11 +62,11 @@ const GlowingCard: React.FC<GlowingCardProps> = ({
   const hoverAnimation = hoverEffect ? {
     whileHover: { 
       scale: 1.03,
-      transition: { duration: 0.3 }
+      transition: { duration: 0.15 }
     },
     whileTap: { 
       scale: 0.98,
-      transition: { duration: 0.3 }
+      transition: { duration: 0.15 }
     }
   } : {};
   
@@ -72,7 +75,7 @@ const GlowingCard: React.FC<GlowingCardProps> = ({
     <motion.div
       className={`${baseClasses} ${className}`}
       style={{ 
-        '--card-glow-color': glowColor 
+        '--card-glow-color': effectiveGlowColor 
       } as React.CSSProperties}
       variants={cardVariants}
       initial="hidden"
@@ -85,7 +88,7 @@ const GlowingCard: React.FC<GlowingCardProps> = ({
       <div 
         className="absolute inset-0 -z-10 opacity-50"
         style={{ 
-          background: `radial-gradient(circle at center, ${glowColor}, transparent 70%)`,
+          background: `radial-gradient(circle at center, ${effectiveGlowColor}, transparent 70%)`,
         }}
       />
     </motion.div>
