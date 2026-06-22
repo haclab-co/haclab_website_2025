@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700&family=Fira+Code:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Fira Code", ui-monospace, SFMono-Regular, monospace;
+
+  --color-brand-red: #ff0000;
+  --color-brand-red-hover: #cc0000;
+  --color-brand-red-blur: rgba(255, 0, 0, 0.1);
+  --color-brand-red-solid: #ff0000;
+
+  --color-slate-950: var(--slate-950);
+  --color-slate-905: var(--slate-905);
+  --color-slate-900: var(--slate-900);
+  --color-slate-855: var(--slate-855);
+  --color-slate-850: var(--slate-850);
+  --color-slate-800: var(--slate-800);
+
+  --color-white: var(--text-white);
+  --color-slate-100: var(--text-slate-100);
+  --color-slate-200: var(--text-slate-200);
+  --color-slate-300: var(--text-slate-300);
+  --color-slate-400: var(--text-slate-400);
+  --color-slate-450: var(--text-slate-450);
+  --color-slate-500: var(--text-slate-500);
+  --color-slate-550: var(--text-slate-550);
+}
+
+:root, .theme-dark {
+  --slate-950: #020617;
+  --slate-905: #0e1626;
+  --slate-900: #090d16;
+  --slate-855: #151f38;
+  --slate-850: #131b2e;
+  --slate-800: #1e293b;
+  
+  --text-white: #ffffff;
+  --text-slate-100: #f1f5f9;
+  --text-slate-200: #e2e8f0;
+  --text-slate-300: #cbd5e1;
+  --text-slate-400: #94a3b8;
+  --text-slate-450: #64748b;
+  --text-slate-500: #64748b;
+  --text-slate-550: #475569;
+}
+
+.theme-light {
+  --slate-950: #f8fafc; /* Crisp clean white background */
+  --slate-905: #e2e8f0; /* Crisp clean border layer */
+  --slate-900: #f1f5f9; /* Slate 100 for panel backgrounds */
+  --slate-855: #cbd5e1; /* Subtle divider borders */
+  --slate-850: #cbd5e1; /* Subtle divider borders */
+  --slate-800: #cbd5e1; /* Soft list separators */
+  
+  --text-white: #0f172a; /* Deep slate-900 instead of white */
+  --text-slate-100: #1e293b;
+  --text-slate-200: #334155;
+  --text-slate-300: #475569;
+  --text-slate-400: #475569;
+  --text-slate-450: #64748b;
+  --text-slate-500: #64748b;
+  --text-slate-550: #94a3b8;
+}
+
+/* Custom scrollbars matching the website */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--slate-950);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--slate-800);
+  border-radius: 9999px;
+  border: 1px solid var(--slate-950);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ff0000; /* brand-red */
+}
+
+/* Custom classes for list styling scroll bars */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+.scrollbar-none::-webkit-scrollbar,
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--slate-800) var(--slate-950);
+}
+
+html {
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-weight: 400;
+  line-height: 1.6;
+}
