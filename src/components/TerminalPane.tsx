@@ -113,7 +113,7 @@ export default function TerminalPane({ onShowContactDetails, runTriggerCount }: 
       {/* Terminal Title Bar */}
       <div className="flex items-center justify-between px-4 py-2 border-b border-slate-900 bg-slate-1000/60 font-semibold select-none">
         <div className="flex items-center gap-2 text-slate-400">
-          <Terminal className="w-4 h-4 text-brand-red animate-pulse" />
+          <Terminal className="w-4 h-4 text-brand-red-bright animate-pulse" />
           <span>Interactive Shell Console</span>
         </div>
         <button
@@ -133,7 +133,7 @@ export default function TerminalPane({ onShowContactDetails, runTriggerCount }: 
           let logColor = 'text-slate-300';
           if (log.type === 'input') logColor = 'text-sky-400 font-medium';
           if (log.type === 'system') logColor = 'text-slate-500 italic';
-          if (log.type === 'success') logColor = 'text-brand-red font-semibold';
+          if (log.type === 'success') logColor = 'text-brand-red-bright font-semibold';
 
           return (
             <div key={idx} className={`${logColor} whitespace-pre-wrap leading-relaxed`}>
@@ -164,7 +164,7 @@ export default function TerminalPane({ onShowContactDetails, runTriggerCount }: 
           className="px-4 py-2 text-slate-400 hover:text-white flex items-center gap-1.5 transition border-l border-slate-900 cursor-pointer"
         >
           <span className="hidden sm:inline">Exec</span>
-          <Send className="w-3.5 h-3.5 text-brand-red" />
+          <Send className="w-3.5 h-3.5 text-brand-red-bright" />
         </button>
       </form>
 

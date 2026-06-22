@@ -4,10 +4,11 @@
   --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "Fira Code", ui-monospace, SFMono-Regular, monospace;
 
-  --color-brand-red: #ff0000;
-  --color-brand-red-hover: #cc0000;
-  --color-brand-red-blur: rgba(255, 0, 0, 0.1);
-  --color-brand-red-solid: #ff0000;
+  --color-brand-red: #dc2626;
+  --color-brand-red-hover: #b91c1c;
+  --color-brand-red-blur: rgba(220, 38, 38, 0.1);
+  --color-brand-red-solid: #dc2626;
+  --color-brand-red-bright: #f87171;
 
   --color-slate-950: var(--slate-950);
   --color-slate-905: var(--slate-905);
@@ -57,9 +58,9 @@
   --text-slate-200: #334155;
   --text-slate-300: #475569;
   --text-slate-400: #475569;
-  --text-slate-450: #64748b;
-  --text-slate-500: #64748b;
-  --text-slate-550: #94a3b8;
+  --text-slate-450: #475569;
+  --text-slate-500: #475569;
+  --text-slate-550: #64748b;
 }
 
 /* Custom scrollbars matching the website */
@@ -79,7 +80,7 @@
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #ff0000; /* brand-red */
+  background: #dc2626;
 }
 
 /* Custom classes for list styling scroll bars */

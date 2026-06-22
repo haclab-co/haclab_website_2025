@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 
 const toWebp = (src: string) => src.replace(/\.(png|jpg|jpeg)(\?.*)?$/i, '.webp');
@@ -46,7 +46,7 @@ import {
   MessageCircle
 } from 'lucide-react';
 import { companyProfile, servicesData, projectsData, teamData, blogPostsData } from '../data/haclabData';
-import { appCatalog, appCatalogBySlug, GeneratedAppDefinition } from '../data/appCatalog';
+import type { GeneratedAppDefinition } from '../data/appCatalog';
 import AppProductSchema from './seo/AppProductSchema';
 import { ModuleDefinition } from '../types';
 import { updateSEO } from '../utils/seo';
@@ -127,7 +127,7 @@ const ModuleCard: React.FC<{ module: ModuleDefinition }> = ({ module }) => (
   <div className="bg-slate-950/65 border border-slate-900 rounded-xl p-3.5 space-y-3 min-w-0">
     <div className="flex items-start justify-between gap-3">
       <div className="min-w-0">
-        <h4 className="text-sm font-bold text-white leading-tight truncate" title={module.name}>{module.name}</h4>
+        <h3 className="text-sm font-bold text-white leading-tight truncate" title={module.name}>{module.name}</h3>
         <p className="text-[12.5px] text-slate-450 font-mono truncate" title={module.collection || module.path || module.id}>
           {module.collection || module.path || module.id}
         </p>
@@ -187,7 +187,7 @@ const ModuleCard: React.FC<{ module: ModuleDefinition }> = ({ module }) => (
         <span className="text-[12px] font-mono uppercase text-slate-500 font-bold">More Actions</span>
         <div className="flex flex-wrap gap-1.5">
           {(module.actions || []).slice(0, 8).map((action) => (
-            <span key={action} className="text-[12px] font-mono rounded border border-brand-red/10 bg-brand-red/5 text-brand-red px-2 py-0.5">
+            <span key={action} className="text-[12px] font-mono rounded border border-brand-red/10 bg-brand-red/5 text-brand-red-bright px-2 py-0.5">
               {action}
             </span>
           ))}
@@ -197,7 +197,7 @@ const ModuleCard: React.FC<{ module: ModuleDefinition }> = ({ module }) => (
   </div>
 );
 
-const AppIndex = ({ onOpenApp }: { onOpenApp: (slug: string) => void }) => {
+const AppIndex = ({ onOpenApp, appCatalog }: { onOpenApp: (slug: string) => void; appCatalog: GeneratedAppDefinition[] }) => {
   const [query, setQuery] = useState('');
   const filteredApps = appCatalog.filter((app) => {
     const needle = query.trim().toLowerCase();
@@ -216,7 +216,7 @@ const AppIndex = ({ onOpenApp }: { onOpenApp: (slug: string) => void }) => {
     >
       <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-3 shrink-0">
         <div className="space-y-1.5 select-none">
-          <span className="text-[13.5px] font-mono uppercase tracking-widest text-brand-red font-bold">// PRODUCT INVENTORY</span>
+          <span className="text-[13.5px] font-mono uppercase tracking-widest text-brand-red-bright font-bold">// PRODUCT INVENTORY</span>
           <h2 className="text-2xl font-bold text-white font-sans tracking-tight leading-none">Haclab Apps</h2>
           <p className="text-sm text-slate-300 max-w-2xl">Dedicated product pages generated from live module definitions, module properties, actions, custom views, and universal platform integrations.</p>
         </div>
@@ -493,7 +493,7 @@ const AppDetail = ({ app, onBack, onRequestDemo }: { app?: GeneratedAppDefinitio
           <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-2">
             {app.universalFeatures.map((feature) => (
               <div key={feature.id} className="rounded-lg border border-slate-900 bg-slate-950/50 p-3">
-                <h4 className="text-sm font-bold text-white">{feature.name}</h4>
+                <h3 className="text-sm font-bold text-white">{feature.name}</h3>
                 <p className="text-[12.5px] text-slate-450 mt-1">
                   {[...(feature.capabilities || []), feature.fieldCount ? `${feature.fieldCount} configured fields` : 'Core platform module'].slice(0, 2).join(' / ')}
                 </p>
@@ -554,6 +554,18 @@ export default function PreviewWorkspace() {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const catalogRef = useRef<{ appCatalog: GeneratedAppDefinition[]; appCatalogBySlug: Record<string, GeneratedAppDefinition> }>({ appCatalog: [], appCatalogBySlug: {} });
+  const [catalogReady, setCatalogReady] = useState(false);
+
+  useEffect(() => {
+    if ((activeTab === 'apps' || route.section !== 'site') && !catalogReady) {
+      import('../data/appCatalog').then((mod) => {
+        catalogRef.current = { appCatalog: mod.appCatalog, appCatalogBySlug: mod.appCatalogBySlug };
+        setCatalogReady(true);
+      });
+    }
+  }, [activeTab, route, catalogReady]);
+
   useEffect(() => {
     const syncRoute = () => {
       const nextRoute = getAppRoute();
@@ -584,7 +596,7 @@ export default function PreviewWorkspace() {
     let schemaData: any = undefined;
 
     if (route.section === 'app-detail' && 'slug' in route && route.slug) {
-      const app = appCatalogBySlug[route.slug as keyof typeof appCatalogBySlug];
+      const app = catalogRef.current.appCatalogBySlug[route.slug];
       if (app) {
         title = `${app.name} - Haclab App Catalog`;
         description = app.summary || description;
@@ -791,14 +803,14 @@ export default function PreviewWorkspace() {
               <button
                 key={tab.id}
                 onClick={() => handleSelectTab(tab.id as typeof activeTab)}
-                className={`relative px-4 py-2 text-[12.5px] font-mono tracking-wider font-semibold whitespace-nowrap shrink-0 cursor-pointer transition-all duration-200 rounded-md flex items-center gap-1.5 ${
+                className={`relative px-4 py-2 min-h-[48px] text-[12.5px] font-mono tracking-wider font-semibold whitespace-nowrap shrink-0 cursor-pointer transition-all duration-200 rounded-md flex items-center gap-1.5 ${
                   isSelected
-                    ? 'text-brand-red'
-                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900/30'
+                      ? 'text-brand-red-bright'
+                      : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900/30'
                 }`}
               >
                 {/* Visual prefix code */}
-                <span className={`text-[12px] ${isSelected ? 'text-brand-red/60 font-bold' : 'text-slate-600 font-normal'}`}>
+                <span className={`text-[12px] ${isSelected ? 'text-brand-red-bright/60 font-bold' : 'text-slate-600 font-normal'}`}>
                   {tab.num}.
                 </span>
                 
@@ -849,7 +861,7 @@ export default function PreviewWorkspace() {
                   
                   {/* Hero Information Block */}
                   <div className="space-y-4">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-brand-red/10 border border-brand-red/15 text-brand-red text-[12.5px] font-mono rounded-full tracking-wider uppercase">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-brand-red/10 border border-brand-red/15 text-brand-red-bright text-[12.5px] font-mono rounded-full tracking-wider uppercase">
                       <Sparkles className="w-3 h-3 animate-pulse" />
                       <span>Software Synthesis & Design Core</span>
                     </div>
@@ -902,7 +914,7 @@ export default function PreviewWorkspace() {
                           onClick={() => setSelectedRegion(reg)}
                           className={`px-2.5 py-1 text-[13.5px] font-mono rounded tracking-tight border transition cursor-pointer ${
                             selectedRegion === reg
-                              ? 'bg-brand-red/10 border-brand-red text-brand-red font-bold shadow-md shadow-brand-red/5'
+                              ? 'bg-brand-red/10 border-brand-red text-brand-red-bright font-bold shadow-md shadow-brand-red/5'
                               : 'bg-slate-905 border-slate-850 hover:border-slate-700 text-slate-400'
                           }`}
                         >
@@ -928,7 +940,7 @@ export default function PreviewWorkspace() {
                       </div>
                       <div>
                         <span className="text-[13px] text-slate-500 block">GATE ROLE:</span>
-                        <span className="text-brand-red/80 font-bold truncate block" title={telemetry.status}>
+                        <span className="text-brand-red-bright/80 font-bold truncate block" title={telemetry.status}>
                           {telemetry.status.split(' ')[0]} {telemetry.status.split(' ')[1] || ''}
                         </span>
                       </div>
@@ -952,8 +964,8 @@ export default function PreviewWorkspace() {
                         onClick={() => setHomeRightTab('workflow')}
                         className={`px-3 py-1 text-[13.5px] font-mono tracking-tight font-semibold rounded cursor-pointer transition ${
                           homeRightTab === 'workflow'
-                            ? 'bg-slate-900 text-brand-red'
-                            : 'text-slate-500 hover:text-slate-300'
+                          ? 'bg-slate-900 text-brand-red-bright'
+                          : 'text-slate-500 hover:text-slate-300'
                         }`}
                       >
                         WORKFLOW LOOP
@@ -962,7 +974,7 @@ export default function PreviewWorkspace() {
                         onClick={() => setHomeRightTab('awards')}
                         className={`px-3 py-1 text-[13.5px] font-mono tracking-tight font-semibold rounded cursor-pointer transition ${
                           homeRightTab === 'awards'
-                            ? 'bg-slate-900 text-brand-red'
+                            ? 'bg-slate-900 text-brand-red-bright'
                             : 'text-slate-500 hover:text-slate-300'
                         }`}
                       >
@@ -997,10 +1009,10 @@ export default function PreviewWorkspace() {
                             >
                               <div className="absolute top-0 right-0 w-10 h-10 bg-brand-red/1 opacity-0 group-hover:opacity-100 rounded-full blur-lg pointer-events-none transition" />
                               <div className="flex items-center justify-between select-none">
-                                <span className="text-[12.5px] font-mono text-brand-red font-bold bg-brand-red/5 border border-brand-red/10 px-1.5 py-0.5 rounded">{item.step}. {item.scope}</span>
+                                <span className="text-[12.5px] font-mono text-brand-red-bright font-bold bg-brand-red/5 border border-brand-red/10 px-1.5 py-0.5 rounded">{item.step}. {item.scope}</span>
                                 <span className="text-[13.5px] font-mono text-slate-600 group-hover:text-slate-400">ok_status</span>
                               </div>
-                              <h4 className="text-white text-sm font-semibold tracking-tight font-sans">{item.name}</h4>
+                              <h3 className="text-white text-sm font-semibold tracking-tight font-sans">{item.name}</h3>
                               <p className="text-[13px] text-slate-400 leading-relaxed font-normal">{item.desc}</p>
                             </div>
                           ))}
@@ -1037,9 +1049,9 @@ export default function PreviewWorkspace() {
                                   />
                                 </div>
                                 <div className="min-w-0">
-                                  <h4 className="text-white text-sm font-bold leading-tight truncate font-sans">{award.name}</h4>
+                                  <h3 className="text-white text-sm font-bold leading-tight truncate font-sans">{award.name}</h3>
                                   <span className="text-[12.5px] font-mono text-slate-450 block truncate">{award.provider}</span>
-                                  <span className="text-[13.5px] font-mono text-brand-red font-medium block truncate mt-0.5">{award.rating}</span>
+                                  <span className="text-[13.5px] font-mono text-brand-red-bright font-medium block truncate mt-0.5">{award.rating}</span>
                                 </div>
                               </div>
                             ))}
@@ -1053,7 +1065,7 @@ export default function PreviewWorkspace() {
                   {/* Subtle live node banner */}
                   <div className="bg-slate-950 px-4 py-2 text-[13.5px] font-mono text-slate-500 border-t border-slate-900/80 flex items-center justify-between select-none">
                     <span>HOST CLUSTER: ACCREDITED_COMPUTATION</span>
-                    <span className="text-brand-red select-none">v3.0.1 ALPHA</span>
+                    <span className="text-brand-red-bright select-none">v3.0.1 ALPHA</span>
                   </div>
 
                 </div>
@@ -1075,7 +1087,7 @@ export default function PreviewWorkspace() {
                 {/* LEFT CONSOLE LIST: Slim selectors */}
                 <div className="w-full md:w-[35%] flex flex-col gap-3 shrink-0 md:overflow-hidden pr-1">
                   <div className="space-y-1.5 select-none shrink-0">
-                    <span className="text-[13.5px] font-mono uppercase tracking-widest text-brand-red font-bold">// SYSTEM PILLARS</span>
+                    <span className="text-[13.5px] font-mono uppercase tracking-widest text-brand-red-bright font-bold">// SYSTEM PILLARS</span>
                     <h2 className="text-2xl font-bold text-white font-sans tracking-tight leading-none">Engineering Capabilities</h2>
                     <p className="text-[13px] text-slate-300 font-normal leading-snug">Click a specific service sphere to view its custom structural blueprint flowchart.</p>
                   </div>
@@ -1094,12 +1106,12 @@ export default function PreviewWorkspace() {
                           }`}
                         >
                           <div className={`p-2 rounded-lg shrink-0 border transition ${
-                            isSelected ? 'bg-brand-red/10 border-brand-red/20 text-brand-red' : 'bg-slate-950 border-slate-900 text-slate-400'
+                            isSelected ? 'bg-brand-red/10 border-brand-red/20 text-brand-red-bright' : 'bg-slate-950 border-slate-900 text-slate-400'
                           }`}>
                             {renderServiceIcon(s.iconName, "w-4 h-4")}
                           </div>
                           <div className="min-w-0 pr-1 select-none">
-                            <h4 className={`text-sm font-bold leading-tight ${isSelected ? 'text-white' : 'text-slate-200'}`}>{s.title}</h4>
+                            <h3 className={`text-sm font-bold leading-tight ${isSelected ? 'text-white' : 'text-slate-200'}`}>{s.title}</h3>
                             <p className="text-[12px] text-slate-400 truncate leading-snug mt-1 font-normal">{s.shortDescription}</p>
                           </div>
                         </button>
@@ -1117,7 +1129,7 @@ export default function PreviewWorkspace() {
                   {/* Info Header */}
                   <div className="relative z-10 space-y-3 shrink-0">
                     <div className="flex items-center justify-between select-none">
-                      <div className="flex items-center gap-1.5 px-2 py-0.5 bg-brand-red/5 border border-brand-red/15 rounded text-[13.5px] font-mono text-brand-red">
+                      <div className="flex items-center gap-1.5 px-2 py-0.5 bg-brand-red/5 border border-brand-red/15 rounded text-[13.5px] font-mono text-brand-red-bright">
                         <Cpu className="w-3 h-3 animate-ping" />
                         <span>BLUEPRINT MATRIX</span>
                       </div>
@@ -1176,7 +1188,7 @@ export default function PreviewWorkspace() {
                   {/* Action Deployment Target footer */}
                   <div className="relative z-10 p-3 bg-brand-red/5 border border-brand-red/15 rounded-lg text-[12.5px] font-mono flex flex-col sm:flex-row items-center justify-between gap-2 shrink-0 select-none">
                     <div className="flex items-center gap-1.5 text-slate-350">
-                      <span className="font-bold text-brand-red uppercase">DEPLOY ENVIRONMENT:</span>
+                      <span className="font-bold text-brand-red-bright uppercase">DEPLOY ENVIRONMENT:</span>
                       <span className="text-slate-300 font-bold">{selectedService.useCase}</span>
                     </div>
                     <span className="text-slate-500 text-[13.5px]">Uptime guarantee: 99.999%</span>
@@ -1201,7 +1213,7 @@ export default function PreviewWorkspace() {
                 {/* LEFT LIST LEDGER */}
                 <div className="w-full md:w-[35%] flex flex-col gap-3 shrink-0 md:overflow-hidden pr-1">
                   <div className="space-y-1.5 select-none shrink-0">
-                    <span className="text-[13.5px] font-mono uppercase tracking-widest text-brand-red font-bold">// STABLE CODE DEPLOYMENTS</span>
+                    <span className="text-[13.5px] font-mono uppercase tracking-widest text-brand-red-bright font-bold">// STABLE CODE DEPLOYMENTS</span>
                     <h2 className="text-2xl font-bold text-white font-sans tracking-tight leading-none">Engineering Ledger</h2>
                     <p className="text-[13px] text-slate-300 font-normal leading-snug">Review active client architectures currently serving operations across Uganda.</p>
                   </div>
@@ -1220,14 +1232,14 @@ export default function PreviewWorkspace() {
                           }`}
                         >
                           <div className="flex items-center justify-between select-none w-full gap-2">
-                             <span className="text-[13.5px] font-mono text-brand-red font-semibold bg-brand-red/5 border border-brand-red/10 px-2 py-0.5 rounded">
+                             <span className="text-[13.5px] font-mono text-brand-red-bright font-semibold bg-brand-red/5 border border-brand-red/10 px-2 py-0.5 rounded">
                               {project.category}
                             </span>
                             <span className="text-[12.5px] font-mono text-slate-400">{project.year}</span>
                           </div>
                           
                           <div className="min-w-0 pr-1 select-none">
-                            <h4 className={`text-sm font-bold leading-tight ${isSelected ? 'text-white' : 'text-slate-200'}`}>{project.title}</h4>
+                            <h3 className={`text-sm font-bold leading-tight ${isSelected ? 'text-white' : 'text-slate-200'}`}>{project.title}</h3>
                             <p className="text-[12px] text-slate-450 truncate leading-snug mt-1 font-normal">{project.description}</p>
                           </div>
                         </button>
@@ -1246,7 +1258,7 @@ export default function PreviewWorkspace() {
                         <span className="w-1.5 h-1.5 rounded-full bg-[#ff0000] animate-pulse" />
                         <span className="text-[12.5px] font-mono tracking-widest text-slate-350 font-bold uppercase">CASE ARCHITECTURE</span>
                       </div>
-                      <span className="text-[12.5px] font-mono text-[#ff0000] px-2 py-0.5 bg-brand-red/5 border border-brand-red/10 rounded">
+                      <span className="text-[12.5px] font-mono text-brand-red-bright px-2 py-0.5 bg-brand-red/5 border border-brand-red/10 rounded">
                         DEPLOYED: {selectedProject.year}
                       </span>
                     </div>
@@ -1325,10 +1337,14 @@ export default function PreviewWorkspace() {
 
             {/* ====== 4. GENERATED APPS INDEX AND DETAIL PAGES ====== */}
             {activeTab === 'apps' && (
-              route.section === 'app-detail' ? (
-                <AppDetail app={appCatalogBySlug[route.slug]} onBack={() => pushRoute('/apps')} onRequestDemo={() => handleSelectTab('contact')} />
+              !catalogReady ? (
+                <div className="flex items-center justify-center h-64 text-slate-400 font-mono text-sm">
+                  Loading app catalog...
+                </div>
+              ) : route.section === 'app-detail' ? (
+                <AppDetail app={catalogRef.current.appCatalogBySlug[route.slug]} onBack={() => pushRoute('/apps')} onRequestDemo={() => handleSelectTab('contact')} />
               ) : (
-                <AppIndex onOpenApp={handleOpenApp} />
+                <AppIndex onOpenApp={handleOpenApp} appCatalog={catalogRef.current.appCatalog} />
               )
             )}
 
@@ -1345,7 +1361,7 @@ export default function PreviewWorkspace() {
                 
                 {/* Intro Title */}
                 <div className="space-y-1 select-none shrink-0 text-center md:text-left">
-                  <span className="text-[13.5px] font-mono uppercase tracking-widest text-brand-red font-bold">// CORE ENGINEERS</span>
+                  <span className="text-[13.5px] font-mono uppercase tracking-widest text-brand-red-bright font-bold">// CORE ENGINEERS</span>
                   <h1 className="text-2xl font-bold text-white tracking-tight leading-none font-sans">Kampala Systems Squad</h1>
                   <p className="text-sm text-slate-300 font-normal max-w-xl">Our multidisciplinary developers operate locally to construct fast secure systems.</p>
                 </div>
@@ -1373,13 +1389,13 @@ export default function PreviewWorkspace() {
                       <div className="space-y-3 flex-1 flex flex-col justify-between">
                         <div className="space-y-1">
                           <div className="flex items-center justify-between gap-2">
-                            <h3 className="text-sm font-bold text-white tracking-tight">{member.name}</h3>
+                            <h2 className="text-sm font-bold text-white tracking-tight">{member.name}</h2>
                             <span className="text-[13px] font-mono text-emerald-450 bg-emerald-950/10 border border-emerald-900/20 px-1.5 py-0.5 rounded leading-none select-none">
                               ACTIVE
                             </span>
                           </div>
                           
-                          <p className="text-[13px] font-mono text-[#ff0000] font-bold leading-none">{member.role.toUpperCase()}</p>
+                          <p className="text-[13px] font-mono text-brand-red-bright font-bold leading-none">{member.role.toUpperCase()}</p>
                           <p className="text-[13.5px] text-slate-300 leading-relaxed font-normal pt-1">
                             {member.bio}
                           </p>
@@ -1454,7 +1470,7 @@ export default function PreviewWorkspace() {
                 {/* LEFT LIST LEDGER OF POSTS */}
                 <div className="w-full md:w-[35%] flex flex-col gap-3 shrink-0 md:overflow-hidden pr-1">
                   <div className="space-y-1.5 select-none shrink-0">
-                    <span className="text-[13.5px] font-mono uppercase tracking-widest text-[#ff0000] font-bold">// INTELLECTUAL OUTPUTS</span>
+                    <span className="text-[13.5px] font-mono uppercase tracking-widest text-brand-red-bright font-bold">// INTELLECTUAL OUTPUTS</span>
                     <h2 className="text-2xl font-bold text-white font-sans tracking-tight leading-none">The Technical Log</h2>
                     <p className="text-[13px] text-slate-300 font-normal leading-snug">Read papers, architectural formulas, and notes straight from production.</p>
                   </div>
@@ -1478,7 +1494,7 @@ export default function PreviewWorkspace() {
                           </div>
                           
                           <div className="min-w-0 pr-1 select-none">
-                            <h4 className={`text-sm font-bold leading-tight ${isSelected ? 'text-white' : 'text-slate-200'}`}>{post.title}</h4>
+                            <h3 className={`text-sm font-bold leading-tight ${isSelected ? 'text-white' : 'text-slate-200'}`}>{post.title}</h3>
                             <p className="text-[12px] text-slate-455 truncate leading-snug mt-1 font-normal">{post.summary}</p>
                           </div>
                         </button>
@@ -1504,7 +1520,7 @@ export default function PreviewWorkspace() {
                         {selectedPost.title}
                       </h2>
                       
-                      <span className="text-sm font-mono text-[#ff0000] block">Author: Senior systems engineer {selectedPost.author}</span>
+                      <span className="text-sm font-mono text-brand-red-bright block">Author: Senior systems engineer {selectedPost.author}</span>
                     </div>
 
                     {/* Paper text */}
@@ -1554,7 +1570,7 @@ export default function PreviewWorkspace() {
                   
                   <div className="space-y-4">
                     <div className="space-y-1.5 select-none text-center md:text-left">
-                      <span className="text-[13.5px] font-mono uppercase tracking-widest text-[#ff0000] font-bold">// SECURE REGISTRATION</span>
+                      <span className="text-[13.5px] font-mono uppercase tracking-widest text-brand-red-bright font-bold">// SECURE REGISTRATION</span>
                       <h2 className="text-2xl font-bold text-white tracking-tight leading-none font-sans">Contact Console</h2>
                       <p className="text-sm text-slate-300 font-normal">Connect with our principal advisors in Kampala. Expect responses within 24 hours.</p>
                     </div>
@@ -1624,7 +1640,7 @@ export default function PreviewWorkspace() {
 
                   {/* Developers tip */}
                   <div className="p-3 bg-red-950/5 border border-red-900/10 rounded-xl select-none text-center hidden md:block">
-                    <span className="text-[13.5px] font-mono text-brand-red block mb-1 font-bold">DEVELOPER CHEATSHEET</span>
+                    <span className="text-[13.5px] font-mono text-brand-red-bright block mb-1 font-bold">DEVELOPER CHEATSHEET</span>
                     <p className="text-[12.5px] text-slate-450 leading-relaxed font-mono">
                       Execute <span className="text-white hover:underline cursor-pointer">run Contact_Config.sh</span> under the IDE Workspace mode to stream client parameters directly.
                     </p>
@@ -1744,7 +1760,7 @@ export default function PreviewWorkspace() {
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-[13.5px] font-mono text-slate-550">
           <div className="flex items-center gap-1.5">
             <span>© {new Date().getFullYear()} {companyProfile.fullName}.</span>
-            <span className="text-brand-red font-bold">Kampala, Uganda.</span>
+            <span className="text-brand-red-bright font-bold">Kampala, Uganda.</span>
           </div>
           <div>
             <span>Synthesized in Cloud Container</span>
