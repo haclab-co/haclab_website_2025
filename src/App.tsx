@@ -6,6 +6,12 @@ import TerminalPane from './components/TerminalPane';
 import PreviewWorkspace from './components/PreviewWorkspace';
 import { ViewMode, FileItem } from './types';
 import { filesList } from './data/haclabData';
+import LocalBusinessSchema from './components/seo/LocalBusinessSchema';
+import OrganizationSchema from './components/seo/OrganizationSchema';
+import WebsiteSchema from './components/seo/WebsiteSchema';
+import SitelinksSearchBoxSchema from './components/seo/SitelinksSearchBoxSchema';
+import GoogleAnalytics from './components/seo/GoogleAnalytics';
+import { ANALYTICS_CONFIG } from './config/analytics';
 
 export default function App() {
   const [viewMode, setViewMode] = useState<ViewMode>('preview');
@@ -89,6 +95,17 @@ export default function App() {
   return (
     <div className="flex flex-col h-screen w-screen overflow-hidden bg-slate-950 font-sans text-slate-100">
       
+      {/* SEO Structured Data */}
+      <LocalBusinessSchema />
+      <OrganizationSchema />
+      <WebsiteSchema />
+      <SitelinksSearchBoxSchema />
+
+      {/* Google Analytics (production only) */}
+      {import.meta.env.PROD && ANALYTICS_CONFIG.enabled && (
+        <GoogleAnalytics id={ANALYTICS_CONFIG.trackingId} />
+      )}
+
       {/* Universal branding and command header */}
       <Header 
         viewMode={viewMode} 

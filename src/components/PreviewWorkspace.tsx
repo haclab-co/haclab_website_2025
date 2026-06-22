@@ -39,6 +39,7 @@ import {
 } from 'lucide-react';
 import { companyProfile, servicesData, projectsData, teamData, blogPostsData } from '../data/haclabData';
 import { appCatalog, appCatalogBySlug, GeneratedAppDefinition } from '../data/appCatalog';
+import AppProductSchema from './seo/AppProductSchema';
 import { ModuleDefinition } from '../types';
 import { updateSEO } from '../utils/seo';
 
@@ -323,6 +324,7 @@ const AppDetail = ({ app, onBack, onRequestDemo }: { app?: GeneratedAppDefinitio
       transition={{ duration: 0.2 }}
       className="w-full h-auto md:h-full flex flex-col gap-4 md:overflow-hidden min-h-0"
     >
+      <AppProductSchema app={app} slug={app.slug || app.id} />
       <div className="shrink-0 rounded-2xl border border-slate-900 bg-slate-900/15 p-4 space-y-4">
         <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
           <div className="space-y-3 min-w-0">
