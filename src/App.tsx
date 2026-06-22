@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import Header from './components/Header';
 import FileTree from './components/FileTree';
 import CodeWorkspace from './components/CodeWorkspace';
 import TerminalPane from './components/TerminalPane';
-import PreviewWorkspace from './components/PreviewWorkspace';
+import LoadingFallback from './components/LoadingFallback';
+
+const PreviewWorkspace = lazy(() => import('./components/PreviewWorkspace'));
 import { ViewMode, FileItem } from './types';
 import { filesList } from './data/haclabData';
 import LocalBusinessSchema from './components/seo/LocalBusinessSchema';
@@ -121,8 +123,9 @@ export default function App() {
       />
 
       {viewMode === 'preview' ? (
-        /* COMMERCIAL SUBSET VIEW - Clean minimal web landing */
-        <PreviewWorkspace />
+        <Suspense fallback={<LoadingFallback />}>
+          <PreviewWorkspace />
+        </Suspense>
       ) : (
         /* SOFTWARE DEVELOPMENT WORKSPACE VIEW - Clean IDE representation */
         <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
