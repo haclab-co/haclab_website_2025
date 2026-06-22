@@ -1,0 +1,13 @@
+# Haclab — Software Development Studio, Kampala Uganda
+
+## Overview
+Haclab Company Limited builds enterprise software, mobile apps, and web systems for businesses across East Africa.
+
+## Pages
+- Overview: https://haclab.net/
+- Services: https://haclab.net/services
+- Portfolio: https://haclab.net/portfolio
+- App Catalog: https://haclab.net/apps
+- Team: https://haclab.net/team
+- Blog: https://haclab.net/blog
+- Contact: https://haclab.net/contact
