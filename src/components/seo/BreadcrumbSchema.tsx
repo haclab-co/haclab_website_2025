@@ -24,7 +24,7 @@ export default function BreadcrumbSchema({ pageName }: BreadcrumbSchemaProps) {
         '@type': 'ListItem',
         position: 1,
         name: 'Home',
-        item: 'https://haclab.co',
+        item: 'https://haclab.net',
       },
     ];
 
@@ -42,7 +42,7 @@ export default function BreadcrumbSchema({ pageName }: BreadcrumbSchemaProps) {
         '@type': 'ListItem',
         position: index + 2,
         name,
-        item: `https://haclab.co${currentPath}`,
+        item: `https://haclab.net${currentPath}`,
       });
     });
 

@@ -8,8 +8,8 @@ export default function WebsiteSchema() {
     const structuredData = {
       '@context': 'https://schema.org',
       '@type': 'WebSite',
-      '@id': 'https://haclab.co/#website',
-      url: 'https://haclab.co',
+      '@id': 'https://haclab.net/#website',
+      url: 'https://haclab.net',
       name: 'Haclab Company Limited',
       description: 'Custom software development company in Kampala, Uganda',
       publisher: {
@@ -17,14 +17,14 @@ export default function WebsiteSchema() {
         name: 'Haclab Company Limited',
         logo: {
           '@type': 'ImageObject',
-          url: 'https://haclab.co/assets/images/logo.png',
+          url: 'https://haclab.net/assets/images/logo.png',
         },
       },
       inLanguage: 'en-UG',
       potentialAction: [
         {
           '@type': 'SearchAction',
-          target: 'https://haclab.co/search?q={search_term_string}',
+          target: 'https://haclab.net/search?q={search_term_string}',
           'query-input': 'required name=search_term_string',
         },
       ],

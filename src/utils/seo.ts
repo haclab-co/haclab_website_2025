@@ -71,7 +71,7 @@ export function updateSEO({
       "@context": "https://schema.org",
       "@type": "Organization",
       "name": "Haclab Company Limited",
-      "url": "https://haclab.com/",
+      "url": "https://haclab.net/",
       "logo": "https://haclab.net/assets/images/logo/light-logo.webp",
       "description": "Premium software development studio building robust enterprise solutions, web apps, and data systems.",
       "address": {

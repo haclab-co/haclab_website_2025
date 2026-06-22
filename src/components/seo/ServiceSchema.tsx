@@ -38,7 +38,7 @@ export default function ServiceSchema({
       provider: {
         '@type': 'Organization',
         name: provider,
-        url: 'https://haclab.co',
+        url: 'https://haclab.net',
       },
       areaServed,
       serviceType: serviceType || name,
