@@ -1,7 +1,6 @@
 [build]
 command = "npm run build"
 output_dir = "dist"
-node_version = "20.10.0"
 
 [compatibility_flags]
 flags = ["nodejs_compat"]
