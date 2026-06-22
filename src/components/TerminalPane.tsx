@@ -118,6 +118,7 @@ export default function TerminalPane({ onShowContactDetails, runTriggerCount }: 
         </div>
         <button
           onClick={() => executeCommand('clear')}
+          aria-label="Clear terminal logs"
           className="text-slate-605 text-[12.5px] hover:text-white transition flex items-center gap-1 cursor-pointer"
           title="Reset shell session logs"
         >
@@ -159,6 +160,7 @@ export default function TerminalPane({ onShowContactDetails, runTriggerCount }: 
         />
         <button
           type="submit"
+          aria-label="Execute command"
           className="px-4 py-2 text-slate-400 hover:text-white flex items-center gap-1.5 transition border-l border-slate-900 cursor-pointer"
         >
           <span className="hidden sm:inline">Exec</span>

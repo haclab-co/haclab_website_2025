@@ -97,6 +97,7 @@ export default function FileTree({ activeFile, setActiveFile, onRunTerminalScrip
           <div className="space-y-1 Pl-1">
             <button
               onClick={onRunTerminalScript}
+              aria-label="Run contact config script"
               className="w-full flex items-center gap-2 py-1.5 px-2 text-left text-slate-400 hover:bg-slate-900/30 hover:text-rose-400 rounded-md cursor-pointer transition-all"
             >
               <Terminal className="w-3.5 h-3.5 text-rose-500" />

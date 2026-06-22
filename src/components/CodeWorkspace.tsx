@@ -127,6 +127,7 @@ export default function CodeWorkspace({ activeFile, viewMode, setViewMode }: Cod
           {/* View Render Option inside Editor */}
           <button
             onClick={() => setViewMode('preview')}
+            aria-label="Compile and preview"
             className="flex items-center gap-1 px-2.5 py-1 text-sm text-slate-400 hover:text-brand-red hover:bg-slate-900/50 rounded transition-all cursor-pointer"
             title="Compile and View Preview"
           >
@@ -137,6 +138,7 @@ export default function CodeWorkspace({ activeFile, viewMode, setViewMode }: Cod
           {/* Copy Script Button */}
           <button
             onClick={handleCopy}
+            aria-label="Copy source code"
             className="p-1 text-slate-500 hover:text-white hover:bg-slate-900/30 rounded transition cursor-pointer"
             title="Copy Source Code of active file"
           >
@@ -181,6 +183,7 @@ export default function CodeWorkspace({ activeFile, viewMode, setViewMode }: Cod
                 terminalElement.focus();
               }
             }}
+            aria-label="Open terminal"
             className="px-2 py-0.5 bg-rose-500/10 border border-rose-500/30 hover:bg-rose-500/20 text-rose-400 rounded transition cursor-pointer"
           >
             Open Terminal

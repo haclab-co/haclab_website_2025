@@ -772,7 +772,7 @@ export default function PreviewWorkspace() {
   const telemetry = REGIONS_TELEMETRY[selectedRegion];
 
   return (
-    <div className="w-full h-full flex-1 bg-slate-950 text-slate-100 flex flex-col overflow-hidden select-text font-sans relative">
+    <main className="w-full h-full flex-1 bg-slate-950 text-slate-100 flex flex-col overflow-hidden select-text font-sans relative">
       
       {/* Sub Navigation Bar - Restructured to fit exact grid with sliding neon pill */}
       <div className="bg-slate-950/90 border-b border-slate-900/80 sticky top-0 z-30 shrink-0 select-none backdrop-blur-md">
@@ -1555,7 +1555,7 @@ export default function PreviewWorkspace() {
                   <div className="space-y-4">
                     <div className="space-y-1.5 select-none text-center md:text-left">
                       <span className="text-[13.5px] font-mono uppercase tracking-widest text-[#ff0000] font-bold">// SECURE REGISTRATION</span>
-                      <h1 className="text-2xl font-bold text-white tracking-tight leading-none font-sans">Contact Console</h1>
+                      <h2 className="text-2xl font-bold text-white tracking-tight leading-none font-sans">Contact Console</h2>
                       <p className="text-sm text-slate-300 font-normal">Connect with our principal advisors in Kampala. Expect responses within 24 hours.</p>
                     </div>
 
@@ -1766,6 +1766,6 @@ export default function PreviewWorkspace() {
           <span className="absolute top-1/2 -right-1.5 -translate-y-1/2 border-[6px] border-transparent border-l-slate-900 border-t-transparent border-b-transparent border-r-0"></span>
         </span>
       </a>
-    </div>
+    </main>
   );
 }

@@ -128,7 +128,7 @@ export default function App() {
         </Suspense>
       ) : (
         /* SOFTWARE DEVELOPMENT WORKSPACE VIEW - Clean IDE representation */
-        <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
+        <main className="flex-1 flex flex-col md:flex-row overflow-hidden">
           
           {/* Filetree layout - 1/4 width on desktop, top stacked on mobile */}
           <div className="w-full md:w-64 shrink-0 h-auto md:h-full border-b border-slate-900 md:border-b-0">
@@ -159,7 +159,7 @@ export default function App() {
 
           </div>
 
-        </div>
+        </main>
       )}
 
     </div>

@@ -80,9 +80,10 @@ export default function Header({ viewMode, setViewMode, serverOk, activeTime, th
         <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
           
           {/* Theme switcher */}
-          <div className="flex items-center gap-0.5 sm:gap-1 bg-slate-900/80 border border-slate-800 p-0.5 sm:p-1 rounded-lg select-none">
+          <div className="flex items-center gap-0.5 sm:gap-1 bg-slate-900/80 border border-slate-800 p-0.5 sm:p-1 rounded-lg select-none min-h-[44px]">
             <button
               onClick={() => setTheme('light')}
+              aria-label="Light mode"
               className={`p-1 sm:p-1.5 rounded-md transition cursor-pointer ${
                 theme === 'light'
                   ? 'bg-brand-red/10 text-brand-red border border-brand-red/20'
@@ -94,6 +95,7 @@ export default function Header({ viewMode, setViewMode, serverOk, activeTime, th
             </button>
             <button
               onClick={() => setTheme('dark')}
+              aria-label="Dark mode"
               className={`p-1 sm:p-1.5 rounded-md transition cursor-pointer ${
                 theme === 'dark'
                   ? 'bg-brand-red/10 text-brand-red border border-brand-red/20'
@@ -105,6 +107,7 @@ export default function Header({ viewMode, setViewMode, serverOk, activeTime, th
             </button>
             <button
               onClick={() => setTheme('adaptive')}
+              aria-label="Adaptive theme"
               className={`p-1 sm:p-1.5 rounded-md transition cursor-pointer ${
                 theme === 'adaptive'
                   ? 'bg-brand-red/10 text-brand-red border border-brand-red/20'
@@ -117,10 +120,11 @@ export default function Header({ viewMode, setViewMode, serverOk, activeTime, th
           </div>
 
           {/* View switcher */}
-          <div className="flex items-center gap-0.5 sm:gap-1 bg-slate-900/80 border border-slate-800 p-0.5 sm:p-1 rounded-lg">
+          <div className="flex items-center gap-0.5 sm:gap-1 bg-slate-900/80 border border-slate-800 p-0.5 sm:p-1 rounded-lg min-h-[44px]">
             <button
               id="toggle-ide-mode"
               onClick={() => setViewMode('ide')}
+              aria-label="Developer IDE view"
               className={`flex items-center gap-1 px-1.5 py-1 sm:px-3 sm:py-1.5 text-sm font-mono rounded-md transition-all duration-205 cursor-pointer ${
                 viewMode === 'ide'
                   ? 'bg-brand-red/10 border border-brand-red/20 text-brand-red font-medium shadow-sm'
@@ -135,6 +139,7 @@ export default function Header({ viewMode, setViewMode, serverOk, activeTime, th
             <button
               id="toggle-preview-mode"
               onClick={() => setViewMode('preview')}
+              aria-label="Web preview view"
               className={`flex items-center gap-1 px-1.5 py-1 sm:px-3 sm:py-1.5 text-sm font-mono rounded-md transition-all duration-205 cursor-pointer ${
                 viewMode === 'preview'
                   ? 'bg-brand-red/10 border border-brand-red/20 text-brand-red font-medium shadow-sm'
