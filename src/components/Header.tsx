@@ -27,6 +27,7 @@ export default function Header({ viewMode, setViewMode, serverOk, activeTime, th
             <img 
               src="/assets/images/logo/light-logo.webp" 
               alt="Haclab Logo" 
+              width="20" height="20" loading="eager"
               className="w-4.5 h-4.5 sm:w-5 sm:h-5 object-contain"
               referrerPolicy="no-referrer"
               onError={(e) => {

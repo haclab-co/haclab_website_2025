@@ -97,7 +97,7 @@ const AppLogo = ({ app, className = 'w-9 h-9' }: { app: Pick<GeneratedAppDefinit
     style={{ boxShadow: `inset 0 0 0 1px ${app.color}22` }}
   >
     {app.logoPath ? (
-      <img src={app.logoPath} alt={`${app.name} logo`} className="w-full h-full object-contain p-1" />
+      <img src={app.logoPath.replace(/\.png$/i, '.webp')} alt={`${app.name} logo`} width="36" height="36" loading="lazy" className="w-full h-full object-contain p-1" />
     ) : (
       <span className="w-3 h-3 rounded-full" style={{ backgroundColor: app.color }} />
     )}
@@ -1021,8 +1021,9 @@ export default function PreviewWorkspace() {
                               >
                                 <div className="w-12 h-12 rounded bg-slate-950 border border-slate-850 flex items-center justify-center p-1.5 shrink-0 select-none group-hover:border-brand-red/30 transition overflow-hidden">
                                   <img 
-                                    src={award.image} 
+                                    src={award.image.replace(/\.(png|jpg|jpeg)$/i, '.webp')} 
                                     alt={award.name} 
+                                    width="48" height="48" loading="lazy"
                                     className="max-h-full max-w-full object-contain grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
                                     referrerPolicy="no-referrer"
                                   />
@@ -1267,8 +1268,9 @@ export default function PreviewWorkspace() {
                   {selectedProject.imageUrl && (
                     <div className="my-4 relative z-10 flex-1 overflow-hidden rounded-xl border border-slate-800 shadow-xl group">
                       <img 
-                        src={selectedProject.imageUrl} 
+                        src={selectedProject.imageUrl.replace(/\.(png|jpg|jpeg)$/i, '.webp')} 
                         alt={`${selectedProject.title} Interface Snapshot`} 
+                        width="800" height="450" loading="lazy"
                         className="w-full h-full object-cover object-top opacity-90 group-hover:opacity-100 transition-opacity duration-300"
                       />
                       <div className="absolute inset-0 ring-1 ring-inset ring-white/10 pointer-events-none rounded-xl"></div>
@@ -1350,8 +1352,9 @@ export default function PreviewWorkspace() {
                       {/* Avatar container */}
                       <div className="w-20 h-20 rounded-xl overflow-hidden border border-slate-800 bg-slate-950 shrink-0 select-none relative group sm:mx-0 mx-auto">
                         <img 
-                          src={member.avatar} 
+                          src={member.avatar.replace(/\.(png|jpg|jpeg)$/i, '.webp')} 
                           alt={member.name} 
+                          width="80" height="80" loading="lazy"
                           className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-300"
                           referrerPolicy="no-referrer"
                         />
