@@ -8,6 +8,15 @@ export default defineConfig(() => {
     plugins: [react(), tailwindcss()],
     build: {
       sourcemap: true,
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            vendor: ['react', 'react-dom'],
+            motion: ['motion'],
+            lucide: ['lucide-react'],
+          },
+        },
+      },
     },
     resolve: {
       alias: {

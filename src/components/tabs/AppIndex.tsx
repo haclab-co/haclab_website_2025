@@ -29,7 +29,7 @@ export default function AppIndex({ onOpenApp, appCatalog }: AppIndexProps) {
       <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-3 shrink-0">
         <div className="space-y-1.5 select-none">
           <span className="text-[13.5px] font-mono uppercase tracking-widest text-brand-red-bright font-bold">// PRODUCT INVENTORY</span>
-          <h2 className="text-2xl font-bold text-white font-sans tracking-tight leading-none">Haclab Apps</h2>
+          <h1 className="text-2xl font-bold text-white font-sans tracking-tight leading-none">Haclab Apps</h1>
           <p className="text-sm text-slate-300 max-w-2xl">Dedicated product pages generated from live module definitions, module properties, actions, custom views, and universal platform integrations.</p>
         </div>
         <div className="relative w-full md:w-80">

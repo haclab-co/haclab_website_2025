@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { Globe, Github, ExternalLink } from 'lucide-react';
 import type { Project } from '../../types';
 import { toWebp, imgOnError } from './helpers';
+import ProjectSchema from '../seo/ProjectSchema';
 
 interface PortfolioTabProps {
   projectsData: Project[];
@@ -13,6 +14,16 @@ interface PortfolioTabProps {
 
 export default function PortfolioTab({ projectsData, selectedProjectId, setSelectedProjectId, selectedProject }: PortfolioTabProps) {
   return (
+    <>
+    <ProjectSchema
+      title={selectedProject.title}
+      description={selectedProject.fullDetails}
+      url={selectedProject.liveUrl || `https://haclab.net/portfolio#${selectedProject.id}`}
+      image={selectedProject.imageUrl ? `https://haclab.net${selectedProject.imageUrl}` : undefined}
+      datePublished={selectedProject.year}
+      technologies={selectedProject.techStack}
+      category={selectedProject.category}
+    />
     <motion.div
       key="portfolio"
       initial={{ opacity: 0, y: 10 }}
@@ -24,7 +35,7 @@ export default function PortfolioTab({ projectsData, selectedProjectId, setSelec
       <div className="w-full md:w-[35%] flex flex-col gap-3 shrink-0 md:overflow-hidden pr-1">
         <div className="space-y-1.5 select-none shrink-0">
           <span className="text-[13.5px] font-mono uppercase tracking-widest text-brand-red-bright font-bold">// STABLE CODE DEPLOYMENTS</span>
-          <h2 className="text-2xl font-bold text-white font-sans tracking-tight leading-none">Engineering Ledger</h2>
+          <h1 className="text-2xl font-bold text-white font-sans tracking-tight leading-none">Engineering Ledger</h1>
           <p className="text-[13px] text-slate-300 font-normal leading-snug">Review active client architectures currently serving operations across Uganda.</p>
         </div>
 
@@ -71,7 +82,7 @@ export default function PortfolioTab({ projectsData, selectedProjectId, setSelec
           </div>
 
           <div className="space-y-2">
-            <h3 className="text-2xl font-bold text-white tracking-tight leading-none">{selectedProject.title}</h3>
+            <h2 className="text-2xl font-bold text-white tracking-tight leading-none">{selectedProject.title}</h2>
             <p className="text-sm text-slate-250 leading-relaxed font-normal">{selectedProject.fullDetails}</p>
           </div>
 
@@ -135,5 +146,6 @@ export default function PortfolioTab({ projectsData, selectedProjectId, setSelec
         </div>
       </div>
     </motion.div>
+    </>
   );
 }

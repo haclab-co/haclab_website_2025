@@ -26,7 +26,7 @@ export default function ContactTab({ companyProfile, contactForm, setContactForm
         <div className="space-y-4">
           <div className="space-y-1.5 select-none text-center md:text-left">
             <span className="text-[13.5px] font-mono uppercase tracking-widest text-brand-red-bright font-bold">// SECURE REGISTRATION</span>
-            <h2 className="text-2xl font-bold text-white tracking-tight leading-none font-sans">Contact Console</h2>
+            <h1 className="text-2xl font-bold text-white tracking-tight leading-none font-sans">Contact Console</h1>
             <p className="text-sm text-slate-300 font-normal">Connect with our principal advisors in Kampala. Expect responses within 24 hours.</p>
           </div>
 

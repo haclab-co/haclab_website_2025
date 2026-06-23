@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { CodeXml, Activity, LayoutGrid, ShieldCheck, Cpu, Workflow } from 'lucide-react';
 import type { Service } from '../../types';
+import ServiceSchema from '../seo/ServiceSchema';
 
 interface ServicesTabProps {
   servicesData: Service[];
@@ -72,6 +73,13 @@ const renderServiceSchematic = (serviceId: string) => {
 
 export default function ServicesTab({ servicesData, selectedServiceId, setSelectedServiceId, selectedService }: ServicesTabProps) {
   return (
+    <>
+    <ServiceSchema
+      name={selectedService.title}
+      description={selectedService.longDescription}
+      url={`https://haclab.net/services#${selectedService.id}`}
+      serviceType={selectedService.title}
+    />
     <motion.div
       key="services"
       initial={{ opacity: 0, y: 10 }}
@@ -83,7 +91,7 @@ export default function ServicesTab({ servicesData, selectedServiceId, setSelect
       <div className="w-full md:w-[35%] flex flex-col gap-3 shrink-0 md:overflow-hidden pr-1">
         <div className="space-y-1.5 select-none shrink-0">
           <span className="text-[13.5px] font-mono uppercase tracking-widest text-brand-red-bright font-bold">// SYSTEM PILLARS</span>
-          <h2 className="text-2xl font-bold text-white font-sans tracking-tight leading-none">Engineering Capabilities</h2>
+          <h1 className="text-2xl font-bold text-white font-sans tracking-tight leading-none">Engineering Capabilities</h1>
           <p className="text-[13px] text-slate-300 font-normal leading-snug">Click a specific service sphere to view its custom structural blueprint flowchart.</p>
         </div>
 
@@ -128,7 +136,7 @@ export default function ServicesTab({ servicesData, selectedServiceId, setSelect
           </div>
 
           <div className="space-y-1.5">
-            <h3 className="text-lg font-bold text-white tracking-tight">{selectedService.title}</h3>
+            <h2 className="text-lg font-bold text-white tracking-tight">{selectedService.title}</h2>
             <p className="text-sm text-slate-200 font-normal leading-relaxed max-w-2xl">{selectedService.longDescription}</p>
           </div>
 
@@ -179,5 +187,6 @@ export default function ServicesTab({ servicesData, selectedServiceId, setSelect
         </div>
       </div>
     </motion.div>
+    </>
   );
 }

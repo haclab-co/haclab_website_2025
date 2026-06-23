@@ -127,8 +127,10 @@ export default function HomeTab({ companyProfile, selectedRegion, setSelectedReg
             <span className="text-[12.5px] font-mono uppercase tracking-widest text-slate-400 font-bold">WORKSPACE MATRIX</span>
           </div>
 
-          <div className="flex border border-slate-800 bg-slate-950 p-1.5 rounded-lg">
-            <button
+          <div className="flex border border-slate-800 bg-slate-950 p-1.5 rounded-lg" role="tablist" aria-label="Workspace sections">
+            <h2
+              role="tab"
+              aria-selected={homeRightTab === 'workflow'}
               onClick={() => setHomeRightTab('workflow')}
               className={`px-3 py-1 text-[13.5px] font-mono tracking-tight font-semibold rounded cursor-pointer transition ${
                 homeRightTab === 'workflow'
@@ -137,8 +139,10 @@ export default function HomeTab({ companyProfile, selectedRegion, setSelectedReg
               }`}
             >
               WORKFLOW LOOP
-            </button>
-            <button
+            </h2>
+            <h2
+              role="tab"
+              aria-selected={homeRightTab === 'awards'}
               onClick={() => setHomeRightTab('awards')}
               className={`px-3 py-1 text-[13.5px] font-mono tracking-tight font-semibold rounded cursor-pointer transition ${
                 homeRightTab === 'awards'
@@ -147,7 +151,7 @@ export default function HomeTab({ companyProfile, selectedRegion, setSelectedReg
               }`}
             >
               PARTNER BADGES
-            </button>
+            </h2>
           </div>
         </div>
 

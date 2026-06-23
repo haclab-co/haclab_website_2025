@@ -47,9 +47,11 @@ import {
   Phone,
   MapPin
 } from 'lucide-react';
+import ShareButton from './ShareButton';
 import { companyProfile, servicesData, projectsData, teamData, blogPostsData } from '../data/haclabData';
 import type { GeneratedAppDefinition } from '../data/appCatalog';
 import { updateSEO } from '../utils/seo';
+import BreadcrumbSchema from '../components/seo/BreadcrumbSchema';
 
 interface Telemetry {
   status: string;
@@ -74,6 +76,14 @@ const getAppRoute = () => {
   const match = path.match(/^\/apps\/([^/]+)$/);
   if (match) return { section: 'app-detail' as const, slug: decodeURIComponent(match[1]) };
   return { section: 'site' as const };
+};
+
+const TAB_PATHS: Record<string, 'home' | 'services' | 'portfolio' | 'apps' | 'team' | 'blog' | 'contact'> = {
+  '/services': 'services',
+  '/portfolio': 'portfolio',
+  '/team': 'team',
+  '/blog': 'blog',
+  '/contact': 'contact',
 };
 
 const TabLoading = () => (
@@ -138,7 +148,17 @@ export default function PreviewWorkspace() {
     const syncRoute = () => {
       const nextRoute = getAppRoute();
       setRoute(nextRoute);
-      if (nextRoute.section !== 'site') setActiveTab('apps');
+      if (nextRoute.section !== 'site') {
+        setActiveTab('apps');
+      } else {
+        const path = window.location.pathname.replace(/\/+$/, '') || '/';
+        const tabFromPath = TAB_PATHS[path];
+        if (tabFromPath) {
+          setActiveTab(tabFromPath);
+        } else if (path === '/') {
+          setActiveTab('home');
+        }
+      }
     };
 
     const handleNavHome = () => {
@@ -186,12 +206,12 @@ export default function PreviewWorkspace() {
     } else {
       switch (activeTab) {
         case 'home':
-          title = 'Overview - Haclab Portal';
-          description = 'Discover Haclab: Software Synthesis & Design Core building enterprise-grade applications and web solutions.';
+          title = 'Overview - Haclab | Software Development Kampala, Uganda';
+          description = 'Discover Haclab: Software Synthesis & Design Core building enterprise-grade applications and web solutions in Kampala, Uganda.';
           break;
         case 'services':
-          title = 'Services & Solutions - Haclab Portal';
-          description = 'Explore our engineering services including Software Dev, Web Dev, Mobile Apps, Database Design, and SEO optimizations.';
+          title = 'Services - Haclab | Custom Software, Web & Mobile Development Uganda';
+          description = 'Explore our engineering services: custom software development, web apps, mobile apps, database design, and SEO in Kampala, Uganda.';
           schemaData = {
             "@context": "https://schema.org",
             "@type": "Service",
@@ -204,24 +224,24 @@ export default function PreviewWorkspace() {
           };
           break;
         case 'portfolio':
-          title = 'Deployments & Portfolio - Haclab Portal';
-          description = 'View our successful deployments and projects, demonstrating our expertise across various domains and scales.';
+          title = 'Portfolio - Haclab | Client Deployments & Software Projects Uganda';
+          description = 'View our successful deployments and projects across Uganda. See how we deliver enterprise-grade software solutions.';
           break;
         case 'apps':
-          title = 'App Catalog - Haclab Portal';
+          title = 'App Catalog - Haclab | Enterprise Software Products';
           description = 'Browse the Haclab product inventory of ready-to-deploy enterprise modules and unified workspace tools.';
           break;
         case 'team':
-          title = 'The Squad - Haclab Portal';
-          description = 'Meet the elite team of engineers and designers at Haclab committed to building high-performance systems.';
+          title = 'Team - Haclab | Software Engineers & Designers in Kampala';
+          description = 'Meet the elite team of engineers and designers at Haclab committed to building high-performance systems in Kampala, Uganda.';
           break;
         case 'blog':
-          title = 'Tech Log - Haclab Portal';
-          description = 'Read our technical articles, insights, and engineering logs about modern software architecture and development.';
+          title = 'Tech Log - Haclab | Software Engineering Insights & Articles';
+          description = 'Read our technical articles, insights, and engineering logs about modern software architecture and development in Uganda.';
           break;
         case 'contact':
-          title = 'Contact Us - Haclab Portal';
-          description = 'Get in touch with Haclab for consultations, project inquiries, and enterprise solutions.';
+          title = 'Contact - Haclab | Software Development Inquiries Kampala';
+          description = 'Get in touch with Haclab for custom software consultations, project inquiries, and enterprise solutions in Kampala, Uganda.';
           break;
       }
     }
@@ -238,14 +258,9 @@ export default function PreviewWorkspace() {
 
   const handleSelectTab = (tabId: typeof activeTab) => {
     setActiveTab(tabId);
-    if (tabId === 'apps') {
-      pushRoute('/apps');
-      return;
-    }
-    if (route.section !== 'site') {
-      window.history.pushState({}, '', '/');
-      setRoute({ section: 'site' });
-    }
+    const path = tabId === 'home' ? '/' : `/${tabId}`;
+    window.history.pushState({}, '', path);
+    setRoute({ section: 'site' });
   };
 
   const handleOpenApp = (slug: string) => {
@@ -283,6 +298,16 @@ export default function PreviewWorkspace() {
   return (
     <main className="w-full h-full flex-1 bg-slate-950 text-slate-100 flex flex-col overflow-hidden select-text font-sans relative">
       
+      <BreadcrumbSchema pageName={
+        activeTab === 'home' ? 'Home' :
+        activeTab === 'services' ? 'Services & Solutions' :
+        activeTab === 'portfolio' ? 'Deployments & Portfolio' :
+        activeTab === 'apps' ? 'App Catalog' :
+        activeTab === 'team' ? 'The Squad' :
+        activeTab === 'blog' ? 'Tech Log' :
+        activeTab === 'contact' ? 'Contact Us' : ''
+      } />
+
       <div className="bg-slate-950/90 border-b border-slate-900/80 sticky top-0 z-30 shrink-0 select-none backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-4 flex items-center overflow-x-auto gap-2 sm:gap-3 h-14 scrollbar-none scrollbar-hide">
           {[
@@ -296,9 +321,13 @@ export default function PreviewWorkspace() {
           ].map((tab) => {
             const isSelected = activeTab === tab.id;
             return (
-              <button
+              <a
                 key={tab.id}
-                onClick={() => handleSelectTab(tab.id as typeof activeTab)}
+                href={tab.id === 'home' ? '/' : `/${tab.id}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleSelectTab(tab.id as typeof activeTab);
+                }}
                 className={`relative px-4 py-2 min-h-[48px] text-[12.5px] font-mono tracking-wider font-semibold whitespace-nowrap shrink-0 cursor-pointer transition-all duration-200 rounded-md flex items-center gap-1.5 ${
                   isSelected
                       ? 'text-brand-red-bright'
@@ -326,9 +355,23 @@ export default function PreviewWorkspace() {
                     className="w-1.5 h-1.5 rounded-full bg-brand-red absolute bottom-1 left-1/2 -translate-x-1/2 shadow-lg"
                   />
                 )}
-              </button>
+              </a>
             );
           })}
+          <div className="ml-auto shrink-0 hidden sm:block">
+            <ShareButton
+              title={
+                activeTab === 'home' ? 'Overview - Haclab Portal' :
+                activeTab === 'services' ? 'Services & Solutions - Haclab Portal' :
+                activeTab === 'portfolio' ? 'Deployments & Portfolio - Haclab Portal' :
+                activeTab === 'team' ? 'The Squad - Haclab Portal' :
+                activeTab === 'blog' ? 'Tech Log - Haclab Portal' :
+                activeTab === 'contact' ? 'Contact Us - Haclab Portal' :
+                'Haclab Portal'
+              }
+              text="Check out Haclab — software development & enterprise solutions in Kampala, Uganda."
+            />
+          </div>
         </div>
       </div>
 

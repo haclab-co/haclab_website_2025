@@ -22,7 +22,7 @@ export default function BlogTab({ blogPostsData, selectedPostId, setSelectedPost
       <div className="w-full md:w-[35%] flex flex-col gap-3 shrink-0 md:overflow-hidden pr-1">
         <div className="space-y-1.5 select-none shrink-0">
           <span className="text-[13.5px] font-mono uppercase tracking-widest text-brand-red-bright font-bold">// INTELLECTUAL OUTPUTS</span>
-          <h2 className="text-2xl font-bold text-white font-sans tracking-tight leading-none">The Technical Log</h2>
+          <h1 className="text-2xl font-bold text-white font-sans tracking-tight leading-none">The Technical Log</h1>
           <p className="text-[13px] text-slate-300 font-normal leading-snug">Read papers, architectural formulas, and notes straight from production.</p>
         </div>
 
@@ -62,9 +62,9 @@ export default function BlogTab({ blogPostsData, selectedPostId, setSelectedPost
               <span>READ INTERVAL: {selectedPost.readTime}</span>
             </div>
 
-            <h2 className="text-base sm:text-lg font-bold text-white leading-tight font-sans tracking-tight">
+            <h1 className="text-base sm:text-lg font-bold text-white leading-tight font-sans tracking-tight">
               {selectedPost.title}
-            </h2>
+            </h1>
 
             <span className="text-sm font-mono text-brand-red-bright block">Author: Senior systems engineer {selectedPost.author}</span>
           </div>
