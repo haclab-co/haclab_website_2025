@@ -1,5 +1,5 @@
 export const ANALYTICS_CONFIG = {
-  trackingId: 'G-XXXXXXXXXX', // TODO: Replace with actual GA4 measurement ID
+  trackingId: 'G-0RZSLJ4SL8', // TODO: Replace with actual GA4 measurement ID
   enabled: true,
   options: {
     anonymizeIp: true,
