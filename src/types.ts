@@ -34,13 +34,17 @@ export interface TeamMember {
 
 export interface BlogPost {
   id: string;
+  slug: string;
   title: string;
   date: string;
   author: string;
   readTime: string;
   summary: string;
-  content: string;
+  content: string;      // HTML string with <h2>, <p>, <ul>, <li>, <strong>
   tags: string[];
+  imageUrl: string;     // path like "/assets/images/blog/custom-software-vs-off-the-shelf-hero.webp"
+  seoTitle: string;     // 50-60 char meta title
+  seoDescription: string; // 120-160 char meta description
 }
 
 export type ViewMode = 'ide' | 'preview';

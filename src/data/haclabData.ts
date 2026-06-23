@@ -133,17 +133,25 @@ export const teamData: TeamMember[] = [
 export const blogPostsData: BlogPost[] = [
   {
     id: 'clean-codebase',
+    slug: 'competitive-edge-high-precision-software-east-africa',
     title: 'The Competitive Edge of High-Precision Software Development in East Africa',
     date: 'June 18, 2026',
     author: 'Douglas Were',
     readTime: '5 min read',
     summary: 'How focusing on low dependency footprint, precise database schemas, and clean architectures elevates software lifetime value.',
-    content: `When we talk about high-quality software, the metric isn't how many trendy frameworks are loaded into package.json. High-precision engineering is about creating software that does exactly what it was built for—efficiently, securely, and and with zero waste.
+    content: `<p>When we talk about high-quality software, the metric isn't how many trendy frameworks are loaded into package.json. High-precision engineering is about creating software that does exactly what it was built for—efficiently, securely, and with zero waste.</p>
 
-At Haclab, our process follows these clear rules:
-1. **Never mock what can be engineered elegantly**: Robust system behaviors require actual relational integrity, deterministic code flow, and responsive error handling.
-2. **Design mobile money links with strict idempotency**: Mobile Money carriage over unstable USSD or REST endpoints is notoriously prone to connection timeouts. By utilizing redis-based session locking and unique payload keys, we eliminate all duplicate transactions.
-3. **Optimistic client states on slow connections**: Rather than freezing screens with infinite loadings under high mobile packet loss, we load structural frames instantenously and commit optimistic database state updates locally.`,
-    tags: ['Architecture', 'Performance', 'Clean Code']
+<h2>Our Core Engineering Principles</h2>
+<p>At Haclab, our process follows these clear rules:</p>
+<ul>
+  <li><strong>Never mock what can be engineered elegantly:</strong> Robust system behaviors require actual relational integrity, deterministic code flow, and responsive error handling.</li>
+  <li><strong>Design mobile money links with strict idempotency:</strong> Mobile Money carriage over unstable USSD or REST endpoints is notoriously prone to connection timeouts. By utilizing redis-based session locking and unique payload keys, we eliminate all duplicate transactions.</li>
+  <li><strong>Optimistic client states on slow connections:</strong> Rather than freezing screens with infinite loadings under high mobile packet loss, we load structural frames instantaneously and commit optimistic database state updates locally.</li>
+</ul>
+<p>The result is software that your team can rely on, your customers can trust, and your business can scale without accumulating technical debt that erodes value over time.</p>`,
+    tags: ['Architecture', 'Performance', 'Clean Code'],
+    imageUrl: '/assets/images/blog/competitive-edge-high-precision-software-east-africa-hero.webp',
+    seoTitle: 'High-Precision Software Development in East Africa | Haclab',
+    seoDescription: 'Discover how East African businesses benefit from high-precision engineering — clean architectures, idempotent mobile money integrations, and optimistic UI states.'
   }
 ];
