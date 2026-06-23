@@ -48,7 +48,6 @@ export function updateSEO({
 
   if (imageUrl) {
     setMetaTag('meta[property="og:image"]', 'content', imageUrl);
-    setMetaTag('meta[twitter:image"]', 'content', imageUrl); // Fallback standard
     setMetaTag('meta[name="twitter:image"]', 'content', imageUrl);
   }
 

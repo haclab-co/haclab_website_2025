@@ -3,7 +3,7 @@ import { motion } from 'motion/react';
 import { ArrowLeft } from 'lucide-react';
 import type { BlogPost } from '../../types';
 import { updateSEO } from '../../utils/seo';
-import ArticleSchema from '../seo/ArticleSchema';
+
 
 interface BlogPostPageProps {
   post: BlogPost;
@@ -36,6 +36,13 @@ export default function BlogPostPage({ post, onBack }: BlogPostPageProps) {
         "url": postUrl
       }
     });
+    return () => {
+      updateSEO({
+        title: 'Tech Log - Haclab | Software Engineering Insights & Articles',
+        description: 'Read our technical articles, insights, and engineering logs about modern software architecture and development in Uganda.',
+        url: 'https://haclab.net/blog'
+      });
+    };
   }, [post]);
 
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
@@ -79,7 +86,7 @@ export default function BlogPostPage({ post, onBack }: BlogPostPageProps) {
             </h1>
 
             <span className="text-sm font-mono text-brand-red-bright block">
-              Author: Senior systems engineer {post.author}
+              Author: {post.author}
             </span>
           </div>
 
@@ -99,7 +106,7 @@ export default function BlogPostPage({ post, onBack }: BlogPostPageProps) {
             {post.tags.map((tag, tIdx) => (
               <span
                 key={tIdx}
-                className="text-[13.5px] font-mono text-slate-400 bg-slate-950 px-2.5 py-1 rounded border border-slate-850"
+                className="text-[13.5px] font-mono text-slate-400 bg-slate-950 px-2.5 py-1 rounded border border-slate-800"
               >
                 #{tag.toUpperCase()}
               </span>
