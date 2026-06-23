@@ -115,6 +115,18 @@ export const projectsData: Project[] = [
     year: '2026',
     liveUrl: 'https://dukecartechnology.com/',
     imageUrl: '/assets/images/projects/dukecar.png'
+  },
+  {
+    id: 'mmpll',
+    title: 'MM Partners Logistics Limited',
+    category: 'Logistics Platform',
+    description: 'Digital platform for a leading logistics and transportation company in East Africa.',
+    fullDetails: 'MM Partners Logistics Limited (MMPLL) is a prominent logistics company providing transportation, cargo handling, and supply chain solutions across East Africa. The platform showcases their fleet management, routing optimization, and customer service capabilities.',
+    techStack: ['React', 'Next.js', 'Tailwind CSS', 'Mapbox Integration'],
+    role: 'Full-Stack Development',
+    year: '2026',
+    liveUrl: 'https://www.mmpll.com/',
+    imageUrl: '/assets/images/projects/mmpll.webp'
   }
 ];
 
