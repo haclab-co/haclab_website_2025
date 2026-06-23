@@ -8,6 +8,7 @@ const AppIndex = lazy(() => import('./tabs/AppIndex'));
 const AppDetail = lazy(() => import('./tabs/AppDetail'));
 const TeamTab = lazy(() => import('./tabs/TeamTab'));
 const BlogTab = lazy(() => import('./tabs/BlogTab'));
+const BlogPostPage = lazy(() => import('./tabs/BlogPostPage'));
 const ContactTab = lazy(() => import('./tabs/ContactTab'));
 
 import { 
@@ -86,6 +87,11 @@ const TAB_PATHS: Record<string, 'home' | 'services' | 'portfolio' | 'apps' | 'te
   '/contact': 'contact',
 };
 
+const getBlogSlugFromPath = (path: string): string | null => {
+  const match = path.match(/^\/blog\/([^/]+)$/);
+  return match ? decodeURIComponent(match[1]) : null;
+};
+
 const TabLoading = () => (
   <div className="w-full h-full flex items-center justify-center">
     <div className="flex flex-col items-center gap-3 text-slate-500 font-mono text-sm">
@@ -152,11 +158,20 @@ export default function PreviewWorkspace() {
         setActiveTab('apps');
       } else {
         const path = window.location.pathname.replace(/\/+$/, '') || '/';
-        const tabFromPath = TAB_PATHS[path];
-        if (tabFromPath) {
-          setActiveTab(tabFromPath);
-        } else if (path === '/') {
-          setActiveTab('home');
+        const blogSlug = getBlogSlugFromPath(path);
+        if (blogSlug) {
+          setActiveTab('blog');
+          const post = blogPostsData.find(p => p.slug === blogSlug);
+          if (post) {
+            setSelectedPostId(post.id);
+          }
+        } else {
+          const tabFromPath = TAB_PATHS[path];
+          if (tabFromPath) {
+            setActiveTab(tabFromPath);
+          } else if (path === '/') {
+            setActiveTab('home');
+          }
         }
       }
     };
@@ -420,14 +435,38 @@ export default function PreviewWorkspace() {
                 )
               )}
               {activeTab === 'team' && <TeamTab teamData={teamData} />}
-              {activeTab === 'blog' && (
-                <BlogTab
-                  blogPostsData={blogPostsData}
-                  selectedPostId={selectedPostId}
-                  setSelectedPostId={setSelectedPostId}
-                  selectedPost={selectedPost}
-                />
-              )}
+              {activeTab === 'blog' && (() => {
+                const currentPath = window.location.pathname.replace(/\/+$/, '') || '/';
+                const slug = getBlogSlugFromPath(currentPath);
+                const post = slug ? blogPostsData.find(p => p.slug === slug) : null;
+                
+                if (slug && post) {
+                  return (
+                    <BlogPostPage
+                      post={post}
+                      onBack={() => {
+                        handleSelectTab('blog');
+                        window.history.pushState({}, '', '/blog');
+                      }}
+                    />
+                  );
+                }
+                
+                return (
+                  <BlogTab
+                    blogPostsData={blogPostsData}
+                    selectedPostId={selectedPostId}
+                    setSelectedPostId={(id) => {
+                      setSelectedPostId(id);
+                      const post = blogPostsData.find(p => p.id === id);
+                      if (post) {
+                        window.history.pushState({}, '', `/blog/${post.slug}`);
+                      }
+                    }}
+                    selectedPost={selectedPost}
+                  />
+                );
+              })()}
               {activeTab === 'contact' && (
                 <ContactTab
                   companyProfile={companyProfile}
