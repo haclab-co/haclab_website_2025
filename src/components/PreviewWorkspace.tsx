@@ -437,13 +437,12 @@ export default function PreviewWorkspace() {
               {activeTab === 'team' && <TeamTab teamData={teamData} />}
               {activeTab === 'blog' && (() => {
                 const currentPath = window.location.pathname.replace(/\/+$/, '') || '/';
-                const slug = getBlogSlugFromPath(currentPath);
-                const post = slug ? blogPostsData.find(p => p.slug === slug) : null;
+                const isIndividualPost = currentPath !== '/blog';
                 
-                if (slug && post) {
+                if (isIndividualPost && selectedPost) {
                   return (
                     <BlogPostPage
-                      post={post}
+                      post={selectedPost}
                       onBack={() => {
                         handleSelectTab('blog');
                         window.history.pushState({}, '', '/blog');
