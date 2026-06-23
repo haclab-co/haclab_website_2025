@@ -81,6 +81,18 @@ export const servicesData: Service[] = [
 
 export const projectsData: Project[] = [
   {
+    id: 'nagoa',
+    title: 'NAGOA - National Auto Garage Owners Association',
+    category: 'Association Platform',
+    description: "A professional platform for Uganda's leading auto garage owners association.",
+    fullDetails: 'NAGOA is an independent, nonprofit organization dedicated to elevating the vehicle repair trade into a more respectable and professional business. The platform features a garage locator, membership management, training resources, advocacy information, and a showcase of Uganda\'s automotive community.',
+    techStack: ['React', 'Node.js', 'TypeScript', 'Tailwind CSS'],
+    role: 'Full-Stack Development & Design',
+    year: '2025',
+    liveUrl: 'https://nagoa.org/',
+    imageUrl: '/assets/images/projects/nagoa.png'
+  },
+  {
     id: 'shamwa-engineering',
     title: 'Shamwa Engineering & Investments Ltd',
     category: 'Corporate Website',
